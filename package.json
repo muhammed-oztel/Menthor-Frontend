@@ -10,19 +10,18 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "attractions": "^3.7.0",
-    "postcss": "^8.4.14",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
-    "sass": "^1.54.0",
     "svelte": "^3.49.0",
     "svelte-preprocess": "^4.10.7"
   },
   "dependencies": {
     "sirv-cli": "^2.0.0",
+    "svelte-carousel": "^1.0.19",
+    "svelte-materialify": "^0.3.11",
     "sveltestrap": "^5.9.0"
   }
 }

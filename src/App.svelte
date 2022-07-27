@@ -1,8 +1,5 @@
 <script>
-	import { Button } from 'attractions'; 
-
+  import LandingPage from "./components/LandingPage.svelte";
 </script>
 
-<Button filled>button</Button>
-<Button outline>button</Button>
-<Button>button</Button>
+<LandingPage />
