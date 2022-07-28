@@ -1,35 +1,15 @@
-<script lang="ts">
-  import Button, { Label } from "@smui/button";
+<script>
+  // your script goes here
 
-  let clicked = 0;
+  import Footer from "./components/Footer.svelte";
+  import RegisterPage from "./pages/RegisterPage.svelte";
+  import Button from "@smui/button";
 </script>
 
-<div>
-  <Button on:click={() => clicked++}>
-    <Label>Default</Label>
-  </Button>
-  <Button on:click={() => clicked++} disabled>
-    <Label>Disabled</Label>
-  </Button>
-  <Button on:click={() => clicked++} ripple={false}>
-    <Label>No Ripple</Label>
-  </Button>
-  <!--
-	  Note: to target this class, you need to use
-	  a :global() selector. See the styles below.
-	-->
-  <Button on:click={() => clicked++} class="myClass">
-    <Label>With a Class</Label>
-  </Button>
-</div>
+<!-- markup (zero or more items) goes here -->
+<RegisterPage />
 
-<pre class="status">Clicked: {clicked}</pre>
-
+<!-- <Footer /> -->
 <style>
-  /* Accessing the class with "*" in front limits
-	  the scope to anything under this component's
-	  elements. */
-  * :global(.myClass) {
-    font-style: italic;
-  }
+  /* your styles go here */
 </style>
