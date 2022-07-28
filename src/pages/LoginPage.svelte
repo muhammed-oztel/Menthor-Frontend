@@ -6,7 +6,7 @@
   let userPassword = "";
 </script>
 
-<div class="container-fluid">
+<div class="container-fluid right-bg-login">
   <div class="row justify-content-center ">
     <div class="col-6">
       <img
@@ -17,12 +17,10 @@
     </div>
     <div class="col-6">
       <div class="col mt-5 text-center">
-        <h1 class="pt-5">
-          Menthor'a <br />Hoşgeldiniz!
-        </h1>
+        <h1 class="pt-5">Menthor'a Hoşgeldiniz!</h1>
         <h2 class="pt-5">Giriş Yap</h2>
       </div>
-      <div class="row text-center">
+      <div class="row text-center pt-5">
         <div class="col">
           <div class="mb-2">
             <Textfield
@@ -30,6 +28,8 @@
               variant="outlined"
               bind:value={userEmail}
               label="Mail"
+              input$autocomplete="email"
+              style="min-width: 400px;"
             >
               <Icon class="material-icons" slot="leadingIcon">mail</Icon>
             </Textfield>
@@ -40,6 +40,8 @@
               variant="outlined"
               bind:value={userPassword}
               label="Şifre"
+              type="pass"
+              style="min-width: 400px;"
             >
               <Icon class="material-icons" slot="leadingIcon">password</Icon>
             </Textfield>
@@ -48,18 +50,24 @@
       </div>
 
       <div class="text-center mt-3 ms-6">
-        <Button color="primary" variant="raised">Giriş Yap</Button>
+        <Button
+          color="primary"
+          variant="raised"
+          style="min-width: 100px;">Giriş Yap</Button
+        >
       </div>
     </div>
   </div>
 </div>
 
+<!-- <Footer /> -->
 <style>
+  .ms-6 {
+    margin-left: 300px;
+  }
 
-.ms-6 {
-
-  margin-left: 140px;
-
-}
+  .right-bg-login {
+    background-color: #f7ecde;
+  }
 
 </style>
