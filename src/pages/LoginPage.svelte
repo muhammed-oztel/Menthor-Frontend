@@ -1,9 +1,30 @@
 <script>
+  import { createForm } from "svelte-forms-lib";
+  import * as yup from "yup";
   import Button from "@smui/button";
-  import Textfield from "@smui/textfield";
   import Icon from "@smui/textfield/icon";
-  let userEmail = "";
-  let userPassword = "";
+  import HelperText from "@smui/textfield/helper-text";
+
+  
+  const { form, errors, state, handleChange, handleSubmit } = createForm({
+      initialValues: {
+        UserEmail: "",
+        UserPassword: ""
+      },
+      validationSchema: yup.object().shape({
+       
+        UserEmail: yup.string().email("Lütfen geçerli bir mail giriniz").required("Bu alan boş bırakılamaz"),
+        UserPassword: yup
+          .string()
+          .required("Hatalı veya eksik şifre")
+      }),
+      onSubmit: values => {
+        alert(JSON.stringify(values));
+      }
+    });
+
+
+
 </script>
 
 <div class="container-fluid right-bg-login">
@@ -23,38 +44,63 @@
       <div class="row text-center pt-5">
         <div class="col">
           <div class="mb-2">
-            <Textfield
-              class=""
-              variant="outlined"
-              bind:value={userEmail}
-              label="Mail"
-              input$autocomplete="email"
-              style="min-width: 400px;"
-            >
-              <Icon class="material-icons" slot="leadingIcon">mail</Icon>
-            </Textfield>
-          </div>
-          <div>
-            <Textfield
-              class=""
-              variant="outlined"
-              bind:value={userPassword}
-              label="Şifre"
-              type="pass"
-              style="min-width: 400px;"
-            >
-              <Icon class="material-icons" slot="leadingIcon">password</Icon>
-            </Textfield>
+
+            <form on:submit={handleSubmit}>
+
+              <div>
+
+                <Icon class="material-icons" slot="leadingIcon">mail</Icon>
+              <label for="UserEmail">Email</label>
+              <input
+                id="UserEmail"
+                name="UserEmail"
+                on:change={handleChange}
+                on:blur={handleChange}
+                bind:value={$form.UserEmail}
+              />
+
+              <HelperText persistent slot="helper" style="color:red;">
+
+              {#if $errors.UserEmail}
+                <small>{$errors.UserEmail}</small>
+              {/if}
+              </HelperText>
+
+              </div>
+              
+              <div>
+                <Icon class="material-icons" slot="leadingIcon">password</Icon>
+                <label for="UserPassword">Şifre</label>
+              <input
+                type="password"
+                id="UserPassword"
+                name="UserPassword"
+                on:change={handleChange}
+                on:blur={handleChange}
+                bind:value={$form.UserPassword}
+              />
+
+              <HelperText persistent slot="helper" style="color:red;">
+              {#if $errors.UserPassword}
+                <small>{$errors.UserPassword}</small>
+              {/if}
+            </HelperText>
+              </div>
+              
+
+             <Button
+          color="primary"
+          variant="raised"
+          style="min-width: 100px;">Giriş Yap</Button
+        >
+            </form>
+          
           </div>
         </div>
       </div>
 
       <div class="text-center mt-3 ms-6">
-        <Button
-          color="primary"
-          variant="raised"
-          style="min-width: 100px;">Giriş Yap</Button
-        >
+        
       </div>
     </div>
   </div>

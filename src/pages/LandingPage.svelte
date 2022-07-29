@@ -1,33 +1,33 @@
 <script>
+  
      import Fab, { Label, Icon } from '@smui/fab';
      import Paper, { Title, Content } from '@smui/paper';
      import Carousel from 'svelte-carousel'
      import { Input } from '@smui/textfield';
-     
-    
 
- 
   let value = '';
  
   function doSearch() {
     alert('Search for ' + value);
   }
  
-  
-    
-     let clicked =0;
+   let clicked =0;
+   
 </script>
 
 
-<div class="header fixed-top">
 
+
+<div class="header fixed-top">
+  <a href="#/Profile">profil</a>
   
 <img id="logo" src="https://st3.depositphotos.com/2927609/18123/v/600/depositphotos_181237302-stock-illustration-thor-hammer-icon-vector-illustration.jpg" alt="">
         MENTHOR
+        
         <div class="margins ">
             <Fab color="primary"
               on:click={() => clicked++}
-              href="http://example.com"
+              href="#/RegisterPage"
               target="_blank"
               extended
             >
@@ -36,7 +36,7 @@
 
             <Fab color="primary"
              on:click={() => clicked++}
-            href="http://example.com"
+            href="#/LoginPage"
              target="_blank"
               extended
              >
@@ -47,6 +47,8 @@
 
 </div>
 
+
+   
 
 
 <Carousel
