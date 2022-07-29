@@ -28,19 +28,12 @@
       color="primary"
       on:click={() => clicked++}
       href="#/RegisterPage"
-      target="_blank"
       extended
     >
       <Label>Üye Ol</Label>
     </Fab>
 
-    <Fab
-      color="primary"
-      on:click={() => clicked++}
-      href="#/LoginPage"
-      target="_blank"
-      extended
-    >
+    <Fab color="primary" on:click={() => clicked++} href="#/LoginPage" extended>
       <Label>Giriş Yap</Label>
     </Fab>
   </div>
