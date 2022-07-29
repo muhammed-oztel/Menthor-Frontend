@@ -8,13 +8,18 @@
   import * as yup from "yup";
 
   let schema = yup.object().shape({
-    email: yup.string().required("Lütfen e-mail adresinizi girin").email(),
-    password: yup.string().required("Lütfen şifrenizi girin").min(8),
+    email: yup
+      .string()
+      .required("Lütfen e-mail adresinizi girin")
+      .email("Lütfen geçerli bir e-mail adresi girin"),
+    password: yup
+      .string()
+      .required("Lütfen şifrenizi girin")
+      .min(8, "Geçersiz şifre. Şifreniz en az 8 karakter olmalıdır"),
   });
-  let userEmail = "";
-  let userPassword = "";
   let values = { email: "", password: "" };
-  let errors = {};
+  let errors = { email: "", password: "" };
+
 
   async function submitHandler() {
     try {
@@ -28,6 +33,7 @@
   }
   function extractErrors(err) {
     return err.inner.reduce((acc, err) => {
+      console.log(err.path)
       return { ...acc, [err.path]: err.message };
     }, {});
   }
@@ -56,10 +62,12 @@
                 style="min-width: 400px;"
               >
                 <Icon class="material-icons" slot="leadingIcon">mail</Icon>
-                {#if errors.email}{errors.email}{/if}
+                <HelperText persistent slot="helper">
+                  {#if errors.email}{errors.email}{/if}</HelperText
+                >
               </Textfield>
             </div>
-            <div>
+            <div class="text-center">
               <Textfield
                 class=""
                 variant="outlined"
@@ -71,9 +79,9 @@
                 <Icon class="material-icons" slot="leadingIcon" style=""
                   >password</Icon
                 >
-                <HelperText slot="helper">
-                  hello</HelperText
-                >
+                <HelperText persistent slot="helper">
+                  {#if errors.password}{errors.password}{/if}
+                </HelperText>
               </Textfield>
             </div>
           </div>
