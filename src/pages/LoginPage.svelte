@@ -20,7 +20,6 @@
   let values = { email: "", password: "" };
   let errors = { email: "", password: "" };
 
-
   async function submitHandler() {
     try {
       // `abortEarly: false` to get all the errors
@@ -33,7 +32,7 @@
   }
   function extractErrors(err) {
     return err.inner.reduce((acc, err) => {
-      console.log(err.path)
+      console.log(err.path);
       return { ...acc, [err.path]: err.message };
     }, {});
   }
@@ -49,53 +48,55 @@
         <h1 class="pt-5">Menthor'a Hoşgeldiniz!</h1>
         <h2 class="pt-5">Giriş Yap</h2>
       </div>
-      <form on:submit|preventDefault={submitHandler}>
-        <div class="row text-center pt-5">
-          <div class="col">
-            <div class="mb-2">
-              <Textfield
-                class=""
-                variant="outlined"
-                bind:value={values.email}
-                label="Mail"
-                input$autocomplete="email"
-                style="min-width: 400px;"
-              >
-                <Icon class="material-icons" slot="leadingIcon">mail</Icon>
-                <HelperText persistent slot="helper">
-                  {#if errors.email}{errors.email}{/if}</HelperText
+      <div class="col">
+        <form on:submit|preventDefault={submitHandler}>
+          <div class="row text-center pt-5">
+            <div class="col">
+              <div class="mb-2">
+                <Textfield
+                  class=""
+                  variant="outlined"
+                  bind:value={values.email}
+                  label="E-posta"
+                  input$autocomplete="email"
+                  style="min-width: 400px;"
                 >
-              </Textfield>
-            </div>
-            <div class="text-center">
-              <Textfield
-                class=""
-                variant="outlined"
-                bind:value={values.password}
-                label="Şifre"
-                type="pass"
-                style="min-width: 400px;"
-              >
-                <Icon class="material-icons" slot="leadingIcon" style=""
-                  >password</Icon
+                  <Icon class="material-icons" slot="leadingIcon">mail</Icon>
+                </Textfield>
+                <small class="invalid-feedback d-block"
+                  >{#if errors.email}{errors.email}{/if}</small
                 >
-                <HelperText persistent slot="helper">
-                  {#if errors.password}{errors.password}{/if}
-                </HelperText>
-              </Textfield>
+              </div>
+              <div class="text-center mt-2">
+                <Textfield
+                  class=""
+                  variant="outlined"
+                  bind:value={values.password}
+                  label="Şifre"
+                  type="password"
+                  style="min-width: 400px;"
+                >
+                  <Icon class="material-icons" slot="leadingIcon" style=""
+                    >password</Icon
+                  >
+                </Textfield>
+                <small class="invalid-feedback d-block"
+                  >{#if errors.password}{errors.password}{/if}</small
+                >
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="text-center mt-3 ms-6">
-          <Button
-            color="primary"
-            variant="raised"
-            style="min-width: 100px; text-transform: none;"
-            type="submit">Giriş Yap</Button
-          >
-        </div>
-      </form>
+          <div class="text-center mt-3 ms-6">
+            <Button
+              color="primary"
+              variant="raised"
+              style="min-width: 100px; text-transform: none;"
+              type="submit">Giriş Yap</Button
+            >
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -104,5 +105,8 @@
 <style>
   .ms-6 {
     margin-left: 300px;
+  }
+  .test {
+    background-color: red;
   }
 </style>
