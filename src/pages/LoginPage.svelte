@@ -4,6 +4,7 @@
   import Icon from "@smui/textfield/icon";
   import SideImage from "../components/SideImage.svelte";
   import HelperText from "@smui/textfield/helper-text";
+  import toast, { Toaster } from "svelte-french-toast";
 
   import * as yup from "yup";
 
@@ -24,10 +25,12 @@
     try {
       // `abortEarly: false` to get all the errors
       await schema.validate(values, { abortEarly: false });
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+      toast.success("Giriş Başarılı!");
       errors = {};
     } catch (err) {
       errors = extractErrors(err);
+      toast.error("Giriş Başarısız!");
     }
   }
   function extractErrors(err) {
@@ -38,6 +41,7 @@
   }
 </script>
 
+<Toaster />
 <div class="container-fluid">
   <div class="row justify-content-center ">
     <div class="col-6">
