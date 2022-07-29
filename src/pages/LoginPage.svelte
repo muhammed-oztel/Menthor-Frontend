@@ -2,18 +2,15 @@
   import Button from "@smui/button";
   import Textfield from "@smui/textfield";
   import Icon from "@smui/textfield/icon";
+  import SideImage from "../components/SideImage.svelte";
   let userEmail = "";
   let userPassword = "";
 </script>
 
-<div class="container-fluid right-bg-login">
+<div class="container-fluid">
   <div class="row justify-content-center ">
     <div class="col-6">
-      <img
-        src="https://images.unsplash.com/photo-1534196511436-921a4e99f297"
-        class="vh-100 img-fluid"
-        alt="login-image"
-      />
+      <SideImage />
     </div>
     <div class="col-6">
       <div class="col mt-5 text-center">
@@ -43,7 +40,7 @@
               type="pass"
               style="min-width: 400px;"
             >
-              <Icon class="material-icons" slot="leadingIcon">password</Icon>
+              <Icon class="material-icons" slot="leadingIcon" style="">password</Icon>
             </Textfield>
           </div>
         </div>
@@ -53,7 +50,7 @@
         <Button
           color="primary"
           variant="raised"
-          style="min-width: 100px;">Giriş Yap</Button
+          style="min-width: 100px; text-transform: none;">Giriş Yap</Button
         >
       </div>
     </div>
@@ -65,9 +62,4 @@
   .ms-6 {
     margin-left: 300px;
   }
-
-  .right-bg-login {
-    background-color: #f7ecde;
-  }
-
 </style>
