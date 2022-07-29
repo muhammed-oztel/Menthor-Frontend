@@ -3,8 +3,34 @@
   import Textfield from "@smui/textfield";
   import Icon from "@smui/textfield/icon";
   import SideImage from "../components/SideImage.svelte";
+  import HelperText from "@smui/textfield/helper-text";
+
+  import * as yup from "yup";
+
+  let schema = yup.object().shape({
+    email: yup.string().required("Lütfen e-mail adresinizi girin").email(),
+    password: yup.string().required("Lütfen şifrenizi girin").min(8),
+  });
   let userEmail = "";
   let userPassword = "";
+  let values = { email: "", password: "" };
+  let errors = {};
+
+  async function submitHandler() {
+    try {
+      // `abortEarly: false` to get all the errors
+      await schema.validate(values, { abortEarly: false });
+      alert(JSON.stringify(values, null, 2));
+      errors = {};
+    } catch (err) {
+      errors = extractErrors(err);
+    }
+  }
+  function extractErrors(err) {
+    return err.inner.reduce((acc, err) => {
+      return { ...acc, [err.path]: err.message };
+    }, {});
+  }
 </script>
 
 <div class="container-fluid">
@@ -17,42 +43,51 @@
         <h1 class="pt-5">Menthor'a Hoşgeldiniz!</h1>
         <h2 class="pt-5">Giriş Yap</h2>
       </div>
-      <div class="row text-center pt-5">
-        <div class="col">
-          <div class="mb-2">
-            <Textfield
-              class=""
-              variant="outlined"
-              bind:value={userEmail}
-              label="Mail"
-              input$autocomplete="email"
-              style="min-width: 400px;"
-            >
-              <Icon class="material-icons" slot="leadingIcon">mail</Icon>
-            </Textfield>
-          </div>
-          <div>
-            <Textfield
-              class=""
-              variant="outlined"
-              bind:value={userPassword}
-              label="Şifre"
-              type="pass"
-              style="min-width: 400px;"
-            >
-              <Icon class="material-icons" slot="leadingIcon" style="">password</Icon>
-            </Textfield>
+      <form on:submit|preventDefault={submitHandler}>
+        <div class="row text-center pt-5">
+          <div class="col">
+            <div class="mb-2">
+              <Textfield
+                class=""
+                variant="outlined"
+                bind:value={values.email}
+                label="Mail"
+                input$autocomplete="email"
+                style="min-width: 400px;"
+              >
+                <Icon class="material-icons" slot="leadingIcon">mail</Icon>
+                {#if errors.email}{errors.email}{/if}
+              </Textfield>
+            </div>
+            <div>
+              <Textfield
+                class=""
+                variant="outlined"
+                bind:value={values.password}
+                label="Şifre"
+                type="pass"
+                style="min-width: 400px;"
+              >
+                <Icon class="material-icons" slot="leadingIcon" style=""
+                  >password</Icon
+                >
+                <HelperText slot="helper">
+                  hello</HelperText
+                >
+              </Textfield>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="text-center mt-3 ms-6">
-        <Button
-          color="primary"
-          variant="raised"
-          style="min-width: 100px; text-transform: none;">Giriş Yap</Button
-        >
-      </div>
+        <div class="text-center mt-3 ms-6">
+          <Button
+            color="primary"
+            variant="raised"
+            style="min-width: 100px; text-transform: none;"
+            type="submit">Giriş Yap</Button
+          >
+        </div>
+      </form>
     </div>
   </div>
 </div>
