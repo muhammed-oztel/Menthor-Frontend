@@ -1,14 +1,21 @@
 <script>
-  import Fab, { Icon } from "@smui/fab";
+  import { Icon } from "@smui/fab";
   import Textfield from "@smui/textfield";
   import Tags from "../components/Tags.svelte";
   let user = {
-    name: "",
-    surname: "",
-    phone: "",
-    birthdate: "",
-    email: "",
-    password: "",
+    name: "Cemal",
+    surname: "Sayer",
+    phone: "555555555",
+    birthdate: "01/01/1978",
+    email: "cemalsayer@tregitim.com.tr",
+    password: "tregitim",
+    interests: ["HTML", "CSS", "Svelte"],
+  };
+  const update = () => {
+    console.log(user);
+  };
+  const deleteAccount = () => {
+    console.log("Account deleted");
   };
 </script>
 
@@ -17,93 +24,104 @@
     <div class="col-6 mx-auto">
       <div class="card card-rounded shadow border-0">
         <div class="card-body d-flex flex-column align-items-center">
-          <h1 class="card-title mb-2">Ayarlar</h1>
-          <div class="row">
-            <div class="col-12">
-              <img
-                class="user-img"
-                src="https://grain.org/system/attachments/sources/000/005/237/med_large/Henk.png"
-                alt="user-profile"
-              />
-              <div class="change-img">
-                <Fab class="bg-dark" on:click={() => {}} mini>
-                  <Icon class="material-icons">edit</Icon>
-                </Fab>
+          <form on:submit|preventDefault={update}>
+            <h1 class="card-title mb-2">Ayarlar</h1>
+            <div class="cnt mb-4">
+              <div class="outer">
+                <div class="inner">
+                  <input
+                    class="inputfile"
+                    type="file"
+                    name="pic"
+                    accept="image/*"
+                  />
+                  <label for="">
+                    <Icon class="material-icons">edit</Icon>
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-12">
-              <div class="form-group d-flex">
-                <Textfield
-                  style="min-width:240px;"
-                  class="me-4"
-                  bind:value={user.name}
-                  variant="outlined"
-                  label="İsim"
-                />
-                <Textfield
-                  style="min-width:240px;"
-                  bind:value={user.surname}
-                  variant="outlined"
-                  label="Soyisim"
-                />
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="form-group d-flex">
+                  <Textfield
+                    style="min-width:240px;"
+                    class="me-4"
+                    bind:value={user.name}
+                    variant="outlined"
+                    label="İsim"
+                  />
+                  <Textfield
+                    style="min-width:240px;"
+                    bind:value={user.surname}
+                    variant="outlined"
+                    label="Soyisim"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-12">
-              <div class="form-group d-flex">
-                <Textfield
-                  style="min-width:240px;"
-                  class="me-4"
-                  bind:value={user.phone}
-                  variant="outlined"
-                  label="Telefon"
-                />
-                <Textfield
-                  style="min-width:240px;"
-                  bind:value={user.birthdate}
-                  variant="outlined"
-                  label="Doğum Tarihi"
-                />
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="form-group d-flex">
+                  <Textfield
+                    type="phone"
+                    prefix="0"
+                    style="min-width:240px;"
+                    class="me-4"
+                    bind:value={user.phone}
+                    variant="outlined"
+                    label="Telefon"
+                  />
+                  <Textfield
+                    style="min-width:240px;"
+                    bind:value={user.birthdate}
+                    variant="outlined"
+                    label="Doğum Tarihi"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-12">
-              <div class="form-group d-flex">
-                <Textfield
-                  style="min-width:240px;"
-                  class="me-4"
-                  bind:value={user.email}
-                  variant="outlined"
-                  label="E-posta"
-                />
-                <Textfield
-                  style="min-width:240px;"
-                  bind:value={user.password}
-                  variant="outlined"
-                  label="Şifre"
-                />
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="form-group d-flex">
+                  <Textfield
+                    type="email"
+                    style="min-width:240px;"
+                    class="me-4"
+                    bind:value={user.email}
+                    variant="outlined"
+                    label="E-posta"
+                  />
+                  <Textfield
+                    type="password"
+                    style="min-width:240px;"
+                    bind:value={user.password}
+                    variant="outlined"
+                    label="Şifre"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="form-group tag-size">
-                <Tags />
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group tag-size">
+                  <Tags tags={user.interests} />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row mb-2">
+            <div class="card-buttons">
+              <div class="form-group form-button mb-2">
+                <button type="submit" class="btn btn-success"
+                  >Değişiklikleri Kaydet</button
+                >
+              </div>
+            </div>
+          </form>
+          <div class="card-buttons">
             <div class="form-group form-button">
-              <button class="btn btn-success">Değişiklikleri Kaydet</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group form-button">
-              <button class="btn btn-danger btn-block">Hesabı Sil</button>
+              <button on:click={deleteAccount} class="btn btn-danger"
+                >Hesabı Sil</button
+              >
             </div>
           </div>
         </div>
@@ -113,18 +131,64 @@
 </div>
 
 <style>
-  .user-img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    margin-bottom: 20px;
+  .cnt {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
   }
+
+  .outer {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    margin: auto;
+    background-image: url("https://grain.org/system/attachments/sources/000/005/237/med_large/Henk.png");
+    background-size: cover;
+    border-radius: 100%;
+    position: relative;
+  }
+
+  .inner {
+    background-color: black;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .inputfile {
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+  }
+
+  .inputfile + label {
+    font-size: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    cursor: pointer;
+    line-height: 44px;
+    text-align: center;
+    color: white;
+  }
+
   .card-rounded {
     border-radius: 20px;
   }
-  .change-img {
-    position: absolute;
-    left: 380px;
-    top: 200px;
+
+  .card-buttons {
+    margin-left: 335px;
   }
 </style>
