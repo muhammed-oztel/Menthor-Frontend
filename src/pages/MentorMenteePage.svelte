@@ -1,12 +1,40 @@
 <script>
-    import Button from "@smui/button";
+    import Dialog, { Title, Content, Actions } from "@smui/dialog";
+    import Button, { Label } from "@smui/button";
+
+    let open = false;
+    let clicked = "Nothing yet.";
 </script>
+
+<Dialog
+    bind:open
+    aria-labelledby="simple-title"
+    aria-describedby="simple-content"
+>
+    <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+    <Title id="simple-title">Hizmet Sonlandırma</Title>
+    <Content id="simple-content"
+        >Mentorluk hizmetini sonlandırmak istediğinize emin misiniz?</Content
+    >
+    <Actions>
+        <Button
+            on:click={() => (clicked = "No")}
+            color="primary"
+            variant="raised"
+        >
+            <Label>Hayır</Label>
+        </Button>
+        <Button on:click={() => (clicked = "Yes")}>
+            <Label>Evet</Label>
+        </Button>
+    </Actions>
+</Dialog>
 
 <div class="cotainer">
     <div class="row align-items-center vh-100">
         <div class="col-6 mx-auto">
-            <div class="card card-rounded shadow border-2">
-                <div class="card-body flex-column-center" >
+            <div class="card card-rounded shadow border-0">
+                <div class="card-body flex-column-center">
                     <div class="row">
                         <div class="col mb-3 text-muted">
                             <h1 class="card-title mb-2">Bağlantım</h1>
@@ -67,7 +95,7 @@
                             />
                         </div>
                     </div>
-                    <div class="row" > 
+                    <div class="row">
                         <div class="col mt-5 mb-3 text-muted">
                             <h2>Menteenin Yönetimi</h2>
                         </div>
@@ -89,10 +117,14 @@
                             </div>
                             <div class="col-4">
                                 <Button
+                                    on:click={() => (open = true)}
                                     color="primary"
                                     variant="raised"
                                     style=" text-transform: none;"
-                                    >Mentorluk Hizmetini Sonlandır</Button
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#RemoveMenteeModalLabel"
+                                    ><Label>Mentorluk Hizmetini Sonlandır</Label
+                                    ></Button
                                 >
                             </div>
                         </div>
