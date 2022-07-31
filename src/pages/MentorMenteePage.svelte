@@ -79,7 +79,7 @@
                                     alt="user-profile"
                                 />
                             </div>
-                            <div class="col-3 ">
+                            <div class="col-4 ">
                                 <Button
                                     color="primary"
                                     variant="raised"
