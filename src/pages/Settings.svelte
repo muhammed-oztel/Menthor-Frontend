@@ -2,6 +2,7 @@
   import { Icon } from "@smui/fab";
   import Textfield from "@smui/textfield";
   import Tags from "../components/Tags.svelte";
+  import toast, { Toaster } from "svelte-french-toast";
   let user = {
     name: "Cemal",
     surname: "Sayer",
@@ -12,13 +13,19 @@
     interests: ["HTML", "CSS", "Svelte"],
   };
   const update = () => {
+    toast.success("Kullanıcı Bilgileriniz Başarıyla Güncellendi!", {
+        position: "top-right",
+      });
     console.log(user);
   };
   const deleteAccount = () => {
+    toast.error("Kullanıcı Profiliniz Başarıyla Silindi!", {
+        position: "top-right",
+      });
     console.log("Account deleted");
   };
 </script>
-
+<Toaster />
 <div class="container">
   <div class="row align-items-center vh-100">
     <div class="col-6 mx-auto">
@@ -159,6 +166,9 @@
     bottom: 0;
     right: 0;
   }
+  .inner:hover {
+  background-color: gray;
+}
 
   .inputfile {
     opacity: 0;
