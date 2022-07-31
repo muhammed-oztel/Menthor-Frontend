@@ -1,6 +1,6 @@
 <script>
   import Tags from "svelte-tags-input";
-  let tags = [];
+  export let tags;
   $: console.log(tags);
 
   let interest_list = [
@@ -23,7 +23,7 @@
   <div class="col">
     <h6>İlgi Alanları</h6>
     <div class="tags-size">
-      <Tags on:tags={handleTags} autoComplete={interest_list} />
+      <Tags {tags} on:tags={handleTags} autoComplete={interest_list} />
     </div>
   </div>
 </div>

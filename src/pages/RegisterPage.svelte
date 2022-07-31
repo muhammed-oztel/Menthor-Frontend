@@ -3,9 +3,9 @@
   import Icon from "@smui/textfield/icon";
   import Button, { Label } from "@smui/button";
   import SideImage from "../components/SideImage.svelte";
-  import SveltyPicker from "svelty-picker";
   import * as yup from "yup";
   import toast, { Toaster } from "svelte-french-toast";
+import DatePicker from "../components/DatePicker.svelte";
 
   let user = {
     name: "",
@@ -24,54 +24,7 @@
     password: "",
   };
 
-  const tr = {
-    days: [
-      "Pazar",
-      "Pazartesi",
-      "Salı",
-      "Çarşamba",
-      "Perşembe",
-      "Cuma",
-      "Cumartesi",
-    ],
-    months: [
-      "Ocak",
-      "Şubat",
-      "Mart",
-      "Nisan",
-      "Mayıs",
-      "Haziran",
-      "Temmuz",
-      "Ağustos",
-      "Eylül",
-      "Ekim",
-      "Kasım",
-      "Aralık",
-    ],
 
-    daysShort: ["Paz", "Pzt", "Sal", "Çarş", "Perş", "Cum", "Cmt", "Paz"],
-    daysMin: ["Paz", "Pzt", "Sal", "Çarş", "Perş", "Cum", "Cmt", "Paz"],
-    monthsShort: [
-      "Ocak",
-      "Şubat",
-      "Mart",
-      "Nisan",
-      "Mayıs",
-      "Haziran",
-      "Temmuz",
-      "Ağustos",
-      "Eylül",
-      "Ekim",
-      "Kasım",
-      "Aralık",
-    ],
-    meridiem: ["am", "pm"],
-    suffix: ["st", "nd", "rd", "th"],
-    todayBtn: "Bugün",
-    clearBtn: "Temizle",
-    timeView: "Show time view",
-    backToDate: "Back to calendar view",
-  };
   let schema = yup.object().shape({
     name: yup.string().required("Lütfen adınızı giriniz"),
     surname: yup.string().required("Lütfen soyadınızı giriniz"),
@@ -191,13 +144,7 @@
             >
           </div>
           <div class="input-group date-picker mb-2">
-            <SveltyPicker
-              i18n={tr}
-              placeholder={"Doğum Tarihi"}
-              inputClasses="form-control"
-              format="dd/mm/yyyy"
-              bind:value={user.birthdate}
-            />
+            <DatePicker date={user.birthdate}/>
 
             <small class="invalid-feedback d-block">
               {#if errors.birthdate}{errors.birthdate}{/if}</small
