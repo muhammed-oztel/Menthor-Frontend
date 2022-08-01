@@ -3,11 +3,13 @@
     import List, { Item, Graphic, Separator, Text } from '@smui/list';
     import Paper, { Title, Content } from '@smui/paper';
     import Card, {
+      
     
     PrimaryAction,
     Media,
     MediaContent,
   } from '@smui/card';
+  import Fab, { Label, Icon } from '@smui/fab';
   
     let clicked = 'nothing yet';
   </script>
@@ -23,42 +25,45 @@
     <h6>Yazılım Birim Müdürü</h6>
   <div>
     <List class="demo-list" dense>
-      <Item on:SMUI:action={() => (clicked = 'Edit')}>
+      <Item >
         <span class="material-symbols-outlined">
             account_circle
             </span>
-        <Text>  Profil</Text>
+            <Text><a href="#" style="text-decoration: none; color :black;">Profil</a></Text>
       </Item>
-      <Item on:SMUI:action={() => (clicked = 'Send')}>
+      <Item >
         <span class="material-symbols-outlined">
             web
             </span>
-        <Text>Panel</Text>
+            <Text><a href="#/MentorMenteePage" style="text-decoration: none; color :black;">Panel</a></Text>
       </Item>
-      <Item on:SMUI:action={() => (clicked = 'Archive')}>
+      <Item >
         <span class="material-symbols-outlined">
             calendar_month
             </span>
-        <Text>Takvim</Text>
+            <Text><a href="#" style="text-decoration: none; color :black;">Takvim</a></Text>
       </Item>
-      <Item on:SMUI:action={() => (clicked = 'Delete')}>
+      <Item >
         <span class="material-symbols-outlined">
             inventory_2
             </span>
-        <Text>Dosyalar</Text>
+            <Text><a href="#/Files" style="text-decoration: none; color :black;">Dosyalar</a></Text>
       </Item>
       <Separator />
-      <Item on:SMUI:action={() => (clicked = 'Delete')}>
+      
+      <Item  >
         <span class="material-symbols-outlined">
             settings
             </span>
-        <Text>Ayarlar</Text>
+            <Text><a href="#/Settings" style="text-decoration: none; color :black;">Ayarlar</a></Text>
+     
         </Item>
-    <Item on:SMUI:action={() => (clicked = 'Delete')}>
+      
+    <Item >
         <span class="material-symbols-outlined">
             logout
             </span>
-            <Text>Çıkış</Text>
+            <Text><a href="#" style="text-decoration: none; color :black;">Çıkış</a></Text>
          </Item>
     </List>
   </div>
@@ -95,14 +100,14 @@
     <h2>Menteelerim</h2>
     <hr>
     <div class="card-container d-flex flex-row flex-wrap">
-        <Card style="width:200px; height: 200px;">
+        <Card style="width:200px; height: 200px; margin: 10px;">
           <Media class="card-media-square" aspectRatio="square">
             <div style="color: #fff; position: absolute; bottom: 16px; left: 16px;">
               <p class="mdc-typography--headline6" style="margin: 0;">
-                A card with square media.
+                Ayşe Yılmaz
               </p>
               <p class="mdc-typography--subtitle2" style="margin: 0;">
-                And a subtitle.
+                
               </p>
             </div>
           </Media>
@@ -110,14 +115,14 @@
         </Card>
     
         <div class="card-container ">
-        <Card style="width:200px; height: 200px;">
+        <Card style="width:200px; height: 200px; margin:10px;">
           <Media class="card-media-square" aspectRatio="square">
             <div style="color: #fff; position: absolute; bottom: 16px; left: 16px;">
               <p class="mdc-typography--headline6" style="margin: 0;">
-                A card with square media.
+                Kadir Ercan
               </p>
               <p class="mdc-typography--subtitle2" style="margin: 0;">
-                And a subtitle.
+                
               </p>
             </div>
           </Media>
@@ -152,6 +157,7 @@
         margin-bottom: 80%;
         width: 200px;
         height: 200px;
+        
     }
 
     nav{
