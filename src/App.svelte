@@ -5,12 +5,16 @@
   import LoginPage from "./pages/LoginPage.svelte";
   import Profile from "./pages/Profile.svelte";
   import Settings from "./pages/Settings.svelte";
+import Files from "./pages/Files.svelte";
+import MentorMenteePage from "./pages/MentorMenteePage.svelte";
   let routes = {
     "/": LandingPage,
     "/RegisterPage": RegisterPage,
     "/LoginPage": LoginPage,
     "/Profile": Profile,
     "/Settings": Settings,
+    "/Files" : Files,
+    "/MentorMenteePage" : MentorMenteePage,
   };
 </script>
 
