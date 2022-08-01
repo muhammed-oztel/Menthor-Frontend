@@ -9,6 +9,9 @@
     "prepare": "smui-theme compile public/smui.css -i src/theme"
   },
   "devDependencies": {
+    "@fullcalendar/common": "^5.11.2",
+    "@fullcalendar/core": "^5.11.2",
+    "@fullcalendar/daygrid": "^5.11.2",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "rollup": "^2.3.4",
@@ -19,9 +22,12 @@
     "rollup-plugin-terser": "^7.0.0",
     "smui-theme": "^6.0.0",
     "svelte": "^3.49.0",
+    "svelte-fullcalendar": "^2.0.0-beta.0",
     "svelte-preprocess": "^4.10.7"
   },
   "dependencies": {
+    "@fullcalendar/interaction": "^5.11.2",
+    "@fullcalendar/timegrid": "^5.11.2",
     "bootstrap": "^5.2.0",
     "sirv-cli": "^2.0.0",
     "svelte-carousel": "^1.0.19",
