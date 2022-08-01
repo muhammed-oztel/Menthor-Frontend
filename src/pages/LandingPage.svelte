@@ -1,44 +1,19 @@
 <script>
-  import Fab, { Label, Icon } from "@smui/fab";
-  import Paper, { Title, Content } from "@smui/paper";
+  import Fab, { Icon } from "@smui/fab";
+  import Paper from "@smui/paper";
   import Carousel from "svelte-carousel";
   import { Input } from "@smui/textfield";
+  import Footer from "../components/Footer.svelte";
+  import Navbar from "../components/Navbar.svelte";
 
   let value = "";
 
   function doSearch() {
     alert("Search for " + value);
   }
-
-  let clicked = 0;
 </script>
 
-<div class="header fixed-top">
-  <a href="#/Profile">profil</a>
-
-  <img
-    id="logo"
-    src="https://st3.depositphotos.com/2927609/18123/v/600/depositphotos_181237302-stock-illustration-thor-hammer-icon-vector-illustration.jpg"
-    alt=""
-  />
-  MENTHOR
-
-  <div class="margins ">
-    <Fab
-      color="primary"
-      on:click={() => clicked++}
-      href="#/RegisterPage"
-      extended
-    >
-      <Label>Üye Ol</Label>
-    </Fab>
-
-    <Fab color="primary" on:click={() => clicked++} href="#/LoginPage" extended>
-      <Label>Giriş Yap</Label>
-    </Fab>
-  </div>
-</div>
-
+<Navbar />
 <Carousel
   autoplay
   autoplayDuration={5000}
@@ -271,49 +246,9 @@
   </div>
 </Carousel>
 
-<div class="footer">
-  <footer class="py-3 my-4 sticky-bottom">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item">
-        <a href="/" class="nav-link px-2 text-muted">Home</a>
-      </li>
-      <li class="nav-item">
-        <a href="/" class="nav-link px-2 text-muted">Features</a>
-      </li>
-      <li class="nav-item">
-        <a href="/" class="nav-link px-2 text-muted">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a href="/" class="nav-link px-2 text-muted">FAQs</a>
-      </li>
-      <li class="nav-item">
-        <a href="/" class="nav-link px-2 text-muted">About</a>
-      </li>
-    </ul>
-    <p class="text-center text-muted">© 2022 Company, Inc</p>
-  </footer>
-</div>
+<Footer />
 
 <style>
-  .margins {
-    position: fixed;
-    left: 80%;
-    top: 2%;
-  }
-
-  .header {
-    padding: 20px;
-
-    background: black;
-    color: white;
-    font-size: 30px;
-  }
-
-  .footer {
-    background-color: black;
-    color: white;
-  }
-
   .solo-demo-container {
     padding: 70px 70px;
     background-color: var(--mdc-theme-background, #f8f8f8);
@@ -352,10 +287,5 @@
   }
   * :global(.solo-fab) {
     flex-shrink: 0;
-  }
-
-  #logo {
-    width: 50px;
-    height: 50px;
   }
 </style>
