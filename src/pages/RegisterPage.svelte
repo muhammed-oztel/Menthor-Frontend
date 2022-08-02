@@ -5,10 +5,10 @@
   import SideImage from "../components/SideImage.svelte";
   import * as yup from "yup";
   import toast, { Toaster } from "svelte-french-toast";
-  import DatePicker from "../components/DatePicker.svelte";
   import { navigate } from "svelte-routing";
   import { postRegister } from "../services/register.js";
-
+  import CircularProgress from "@smui/circular-progress";
+  let submitting = false;
   let user = {
     name: "",
     surname: "",
@@ -57,17 +57,16 @@
         birth: "",
         pass: "",
       };
+      submitting = true;
       toast.success("Kaydınız Başarıyla Oluşturuldu!", {
         position: "top-right",
       });
 
       user.birth = user.birth.split(".").reverse().join("-");
 
-
       postRegister(user).then(() => {
         navigate("/giris");
       });
-
 
       user = {
         name: "",
@@ -154,7 +153,6 @@
             >
           </div>
           <div class="input-group mb-2">
-            <!-- <DatePicker date={user.birth} /> -->
             <Textfield
               style="width: 505px;"
               variant="outlined"
@@ -182,14 +180,21 @@
           </div>
           <div class="row">
             <div class="col d-flex justify-content-center ms-button ">
-              <Button
-                style="text-transform: none;"
-                class="bg-dark"
-                type="submit"
-                variant="raised"
-              >
-                <Label>Kayıt ol</Label>
-              </Button>
+              {#if submitting}
+                <CircularProgress
+                  style="height: 32px; width: 32px;"
+                  indeterminate
+                />
+              {:else}
+                <Button
+                  style="text-transform: none;"
+                  class="bg-dark"
+                  type="submit"
+                  variant="raised"
+                >
+                  <Label>Kayıt ol</Label>
+                </Button>
+              {/if}
             </div>
           </div>
         </div>
