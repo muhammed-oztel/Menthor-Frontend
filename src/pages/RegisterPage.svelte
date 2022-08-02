@@ -7,21 +7,23 @@
   import toast, { Toaster } from "svelte-french-toast";
   import DatePicker from "../components/DatePicker.svelte";
   import { navigate } from "svelte-routing";
+  import { postRegister } from "../services/register.js";
+
   let user = {
     name: "",
     surname: "",
     email: "",
     phone: "",
-    birthdate: "",
-    password: "",
+    birth: "",
+    pass: "",
   };
   let errors = {
     name: "",
     surname: "",
     email: "",
     phone: "",
-    birthdate: "",
-    password: "",
+    birth: "",
+    pass: "",
   };
 
   let schema = yup.object().shape({
@@ -37,8 +39,8 @@
         /^\d{10}$/,
         "Lütfen başında 0 olmadan 10 haneli bir telefon numarası girin"
       ),
-    birthdate: yup.string().required("Lütfen doğum tarihinizi girin"),
-    password: yup
+    birth: yup.string().required("Lütfen doğum tarihinizi girin"),
+    pass: yup
       .string()
       .required("Lütfen şifrenizi girin")
       .min(8, "Geçersiz şifre. Şifreniz en az 8 karakter olmalıdır"),
@@ -52,23 +54,28 @@
         surname: "",
         email: "",
         phone: "",
-        birthdate: "",
-        password: "",
+        birth: "",
+        pass: "",
       };
       toast.success("Kaydınız Başarıyla Oluşturuldu!", {
         position: "top-right",
       });
-      setTimeout(function () {
-        navigate("/giris", { replace: true });
-      }, 5000);
+
+      user.birth = user.birth.split(".").reverse().join("-");
+
+
+      postRegister(user).then(() => {
+        navigate("/giris");
+      });
+
 
       user = {
         name: "",
         surname: "",
         email: "",
         phone: "",
-        birthdate: "",
-        password: "",
+        birth: "",
+        pass: "",
       };
     } catch (err) {
       errors = err.inner.reduce((acc, err) => {
@@ -147,16 +154,16 @@
             >
           </div>
           <div class="input-group mb-2">
-            <!-- <DatePicker date={user.birthdate} /> -->
+            <!-- <DatePicker date={user.birth} /> -->
             <Textfield
               style="width: 505px;"
               variant="outlined"
               type="date"
-              bind:value={user.birthdate}
+              bind:value={user.birth}
             />
 
             <small class="invalid-feedback d-block">
-              {#if errors.birthdate}{errors.birthdate}{/if}</small
+              {#if errors.birth}{errors.birth}{/if}</small
             >
           </div>
           <div class="input-group mb-3">
@@ -164,13 +171,13 @@
               style="width: 505px;"
               type="password"
               variant="outlined"
-              bind:value={user.password}
+              bind:value={user.pass}
               label="Şifre"
             >
               <Icon class="material-icons" slot="leadingIcon">password</Icon>
             </Textfield>
             <small class="invalid-feedback d-block"
-              >{#if errors.password}{errors.password}{/if}</small
+              >{#if errors.pass}{errors.pass}{/if}</small
             >
           </div>
           <div class="row">
