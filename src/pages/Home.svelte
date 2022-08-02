@@ -59,6 +59,43 @@
             image: "https://i.pravatar.cc/150?img=11",
         },
     ];
+    let favoriteMentors = [
+        {
+            id: 1,
+            name: "John Doe",
+            title: "Web Developer",
+            image: "https://i.pravatar.cc/150?img=3",
+            likeCount: 300,
+        },
+        {
+            id: 2,
+            name: "Jane Doe",
+            title: "Web Designer",
+            image: "https://i.pravatar.cc/150?img=4",
+            likeCount: 200,
+        },
+        {
+            id: 3,
+            name: "Jack Doe",
+            title: "Web Designer",
+            image: "https://i.pravatar.cc/150?img=5",
+            likeCount: 100,
+        },
+        {
+            id: 4,
+            name: "Jill Doe",
+            title: "Web Developer",
+            image: "https://i.pravatar.cc/150?img=6",
+            likeCount: 50,
+        },
+        {
+            id: 5,
+            name: "John Doe",
+            title: "Web Developer",
+            image: "https://i.pravatar.cc/150?img=7",
+            likeCount: 40,
+        },
+    ];
 </script>
 
 <Navbar />
@@ -94,11 +131,71 @@
                 <Splide {mentors} interval={5000} />
             </div>
         </div>
+        <hr />
+        <div class="row">
+            <h1>En favori mentorlar</h1>
+            <div class="d-flex">
+                {#each favoriteMentors as mentor}
+                    <div class="card me-3 rounded-5">
+                        <img
+                            src={mentor.image}
+                            class="card-img-top rounded-circle mx-auto my-2"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                <h1 class="display-6">
+                                    <strong>{mentor.name}</strong>
+                                </h1>
+                                <h5 class="text-muted">{mentor.title}</h5>
+                                <div class="d-flex justify-content-center">
+                                    <i class="bi bi-heart-fill me-2" />
+                                    <h5>{mentor.likeCount}</h5>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+        <div class="row">
+            <h1>En favori mentorlar</h1>
+            <div class="d-flex">
+                {#each favoriteMentors as mentor}
+                    <div class="card me-3 rounded-5">
+                        <img
+                            src={mentor.image}
+                            class="card-img-top rounded-circle mx-auto my-2"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                <h1 class="display-6">
+                                    <strong>{mentor.name}</strong>
+                                </h1>
+                                <h5 class="text-muted">{mentor.title}</h5>
+                                <div class="d-flex justify-content-center">
+                                    <i class="bi bi-heart-fill me-2" />
+                                    <h5>{mentor.likeCount}</h5>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
     </div>
 </main>
+
 <Footer />
 
 <style>
+    .card {
+        width: 18rem;
+    }
+    .card-img-top {
+        width: 50%;
+    }
     main {
         width: 100%;
         height: 100%;
