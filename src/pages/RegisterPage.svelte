@@ -5,8 +5,8 @@
   import SideImage from "../components/SideImage.svelte";
   import * as yup from "yup";
   import toast, { Toaster } from "svelte-french-toast";
-import DatePicker from "../components/DatePicker.svelte";
-
+  import DatePicker from "../components/DatePicker.svelte";
+  import { navigate } from "svelte-routing";
   let user = {
     name: "",
     surname: "",
@@ -23,7 +23,6 @@ import DatePicker from "../components/DatePicker.svelte";
     birthdate: "",
     password: "",
   };
-
 
   let schema = yup.object().shape({
     name: yup.string().required("Lütfen adınızı giriniz"),
@@ -48,14 +47,6 @@ import DatePicker from "../components/DatePicker.svelte";
     try {
       await schema.validate(user, { abortEarly: false });
       console.log(user);
-      user = {
-        name: "",
-        surname: "",
-        email: "",
-        phone: "",
-        birthdate: "",
-        password: "",
-      };
       errors = {
         name: "",
         surname: "",
@@ -67,6 +58,18 @@ import DatePicker from "../components/DatePicker.svelte";
       toast.success("Kaydınız Başarıyla Oluşturuldu!", {
         position: "top-right",
       });
+      setTimeout(function () {
+        navigate("/giris", { replace: true });
+      }, 5000);
+
+      user = {
+        name: "",
+        surname: "",
+        email: "",
+        phone: "",
+        birthdate: "",
+        password: "",
+      };
     } catch (err) {
       errors = err.inner.reduce((acc, err) => {
         return { ...acc, [err.path]: err.message };
@@ -143,8 +146,14 @@ import DatePicker from "../components/DatePicker.svelte";
               >{#if errors.phone}{errors.phone}{/if}</small
             >
           </div>
-          <div class="input-group date-picker mb-2">
-            <DatePicker date={user.birthdate}/>
+          <div class="input-group mb-2">
+            <!-- <DatePicker date={user.birthdate} /> -->
+            <Textfield
+              style="width: 505px;"
+              variant="outlined"
+              type="date"
+              bind:value={user.birthdate}
+            />
 
             <small class="invalid-feedback d-block">
               {#if errors.birthdate}{errors.birthdate}{/if}</small
@@ -193,11 +202,11 @@ import DatePicker from "../components/DatePicker.svelte";
   .ml-page {
     margin-left: 18vh;
   }
-  .date-picker {
-    width: 505px;
-    height: 56px;
-  }
+
   .invalid-feedback {
     color: red;
+  }
+  :global(.mdc-text-field__input::-webkit-calendar-picker-indicator) {
+    display: initial !important;
   }
 </style>
