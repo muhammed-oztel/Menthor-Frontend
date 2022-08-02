@@ -70,10 +70,9 @@ myFiles.addEventListener("change", logFilenames);
                           bind:value="{dosyaAdi}"
                       /> 
                       </div> 
-                    
-                      <label for="description">Description</label>
+                      <h4>Açıklama</h4>
 		                <textarea rows="3" id="description" bind:value={dosyaAcıklama}/>
-
+                        <br>
                          <Fab color="primary" on:click={addFile} extended>
                           <Label>Seçilen Dosyayı Yükle</Label>
                         </Fab>  

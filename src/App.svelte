@@ -8,6 +8,7 @@
   import Files from "./pages/Files.svelte";
   import MentorMenteePage from "./pages/MentorMenteePage.svelte";
   import Faq from "./pages/FAQ.svelte";
+  import Calendar from "./pages/Calendar.svelte";
   let routes = {
     "/": LandingPage,
     "/RegisterPage": RegisterPage,
@@ -17,6 +18,7 @@
     "/Files": Files,
     "/MentorMenteePage": MentorMenteePage,
     "/FAQ": Faq,
+    "/Calender" : Calendar,
   };
 </script>
 

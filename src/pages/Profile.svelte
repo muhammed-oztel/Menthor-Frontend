@@ -41,7 +41,7 @@
         <span class="material-symbols-outlined">
             calendar_month
             </span>
-            <Text><a href="#" style="text-decoration: none; color :black;">Takvim</a></Text>
+            <Text><a href="#/Calender" style="text-decoration: none; color :black;">Takvim</a></Text>
       </Item>
       <Item >
         <span class="material-symbols-outlined">

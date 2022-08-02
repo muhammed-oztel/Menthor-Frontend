@@ -14,6 +14,7 @@
     <div class="fixed-bottom"><Footer /></div>
 </main>
 
+    
 <style>
     main {
         margin: 0;
@@ -21,6 +22,7 @@
         overflow: hidden;
     }
     .mt-6 {
-        margin-top: 200px;
+        margin-top: 100px;
+        
     }
 </style>
