@@ -26,11 +26,11 @@
       // `abortEarly: false` to get all the errors
       await schema.validate(values, { abortEarly: false });
       // alert(JSON.stringify(values, null, 2));
-      toast.success("Giriş Başarılı!", {position:'top-right'});
+      toast.success("Giriş Başarılı!", { position: "top-right" });
       errors = {};
     } catch (err) {
       errors = extractErrors(err);
-      toast.error("Giriş Başarısız!", {position:'top-right'});
+      toast.error("Giriş Başarısız!", { position: "top-right" });
     }
   }
   function extractErrors(err) {
@@ -109,8 +109,5 @@
 <style>
   .ms-6 {
     margin-left: 300px;
-  }
-  .test {
-    background-color: red;
   }
 </style>

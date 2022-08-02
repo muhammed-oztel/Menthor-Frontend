@@ -1,5 +1,6 @@
 <script>
     import Fab, { Label } from "@smui/fab";
+    import { link } from "svelte-routing";
 </script>
 
 <div class="header fixed-top">
@@ -11,17 +12,25 @@
     MENTHOR
 
     <div class="margins ">
-        <Fab color="primary" on:click={() => {}} href="#/RegisterPage" extended>
-            <Label>Üye Ol</Label>
+        <Fab color="primary" on:click={() => {}} extended>
+            <a class="remove" href="/kayit" use:link>
+                <Label>Üye Ol</Label>
+            </a>
         </Fab>
 
-        <Fab color="primary" on:click={() => {}} href="#/LoginPage" extended>
-            <Label>Giriş Yap</Label>
+        <Fab color="primary" on:click={() => {}} extended>
+            <a class="remove" href="/giris" use:link>
+                <Label>Giriş Yap</Label>
+            </a>
         </Fab>
     </div>
 </div>
 
 <style>
+    .remove {
+        text-decoration: none;
+        color: inherit;
+    }
     .margins {
         position: fixed;
         left: 80%;
