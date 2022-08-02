@@ -1,6 +1,14 @@
 <script>
-    import Fab, { Label } from "@smui/fab";
-    import { link } from "svelte-routing";
+     import { Input } from '@smui/textfield';
+   import Paper from '@smui/paper';
+   import { Icon } from '@smui/common';
+   import Fab, { Label } from "@smui/fab";
+   import { link } from "svelte-routing";
+    let value = "";
+
+  function doSearch() {
+    alert("Search for " + value);
+  }
 </script>
 
 <div class="header fixed-top">
@@ -10,6 +18,27 @@
         alt=""
     />
     MENTHOR
+
+    <div class="solo-demo-container solo-container">
+        <Paper class="solo-paper" elevation={6}>
+          <Icon class="material-icons">search</Icon>
+          <Input
+            bind:value
+            
+            placeholder="Mentorlarımızı Keşfedin..."
+            class="solo-input"
+          />
+        </Paper>
+        <Fab
+          on:click={doSearch}
+          disabled={value === ''}
+          color="primary"
+          mini
+          class="solo-fab"
+        >
+          <Icon class="material-icons">arrow_forward</Icon>
+        </Fab>
+      </div>
 
     <div class="margins ">
         <Fab color="primary" on:click={() => {}} extended>
@@ -27,6 +56,42 @@
 </div>
 
 <style>
+    .solo-demo-container {
+   
+    background-color: var(--mdc-theme-background, #000000);
+    border: 1px solid
+      var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
+  }
+ 
+  .solo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  * :global(.solo-paper) {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 600px;
+    margin: 0 12px;
+    padding: 0 12px;
+    height: 48px;
+  }
+  * :global(.solo-paper > *) {
+    display: inline-block;
+    margin: 0 12px;
+  }
+  * :global(.solo-input) {
+    flex-grow: 1;
+    color: var(--mdc-theme-on-surface, #000);
+  }
+  * :global(.solo-input::placeholder) {
+    color: var(--mdc-theme-on-surface, #000);
+    opacity: 0.6;
+  }
+  * :global(.solo-fab) {
+    flex-shrink: 0;
+  }
     .remove {
         text-decoration: none;
         color: inherit;
@@ -37,6 +102,7 @@
         top: 2%;
     }
 
+    
     .header {
         padding: 20px;
 

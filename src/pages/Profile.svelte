@@ -29,25 +29,25 @@
         <span class="material-symbols-outlined">
             account_circle
             </span>
-            <Text><a href="#" style="text-decoration: none; color :black;">Profil</a></Text>
+            <Text><a href="/profil" style="text-decoration: none; color :black;">Profil</a></Text>
       </Item>
       <Item >
         <span class="material-symbols-outlined">
             web
             </span>
-            <Text><a href="#/MentorMenteePage" style="text-decoration: none; color :black;">Panel</a></Text>
+            <Text><a href="/panel" style="text-decoration: none; color :black;">Panel</a></Text>
       </Item>
       <Item >
         <span class="material-symbols-outlined">
             calendar_month
             </span>
-            <Text><a href="#" style="text-decoration: none; color :black;">Takvim</a></Text>
+            <Text><a href="/takvim" style="text-decoration: none; color :black;">Takvim</a></Text>
       </Item>
       <Item >
         <span class="material-symbols-outlined">
             inventory_2
             </span>
-            <Text><a href="#/Files" style="text-decoration: none; color :black;">Dosyalar</a></Text>
+            <Text><a href="/dosyalar" style="text-decoration: none; color :black;">Dosyalar</a></Text>
       </Item>
       <Separator />
       
@@ -55,7 +55,7 @@
         <span class="material-symbols-outlined">
             settings
             </span>
-            <Text><a href="#/Settings" style="text-decoration: none; color :black;">Ayarlar</a></Text>
+            <Text><a href="/ayarlar" style="text-decoration: none; color :black;">Ayarlar</a></Text>
      
         </Item>
       

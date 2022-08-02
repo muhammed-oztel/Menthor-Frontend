@@ -1,16 +1,11 @@
 <script>
-  import Fab, { Icon } from "@smui/fab";
-  import Paper from "@smui/paper";
+
   import Carousel from "svelte-carousel";
-  import { Input } from "@smui/textfield";
+  
   import Footer from "../components/Footer.svelte";
   import Navbar from "../components/Navbar.svelte";
 
-  let value = "";
-
-  function doSearch() {
-    alert("Search for " + value);
-  }
+  
 </script>
 
 <Navbar />
@@ -24,26 +19,7 @@
   swiping={false}
   pauseOnFocus
 >
-  <div class="solo-demo-container solo-container">
-    <h2>Alanında En İyi Mentorları Keşfedin</h2>
-    <Paper class="solo-paper" elevation={6}>
-      <Icon class="material-icons">search</Icon>
-      <Input
-        bind:value
-        placeholder="Mentorlarımızı keşfetmek için arayın"
-        class="solo-input"
-      />
-    </Paper>
-    <Fab
-      on:click={doSearch}
-      disabled={value === ""}
-      color="primary"
-      mini
-      class="solo-fab"
-    >
-      <Icon class="material-icons">arrow_forward</Icon>
-    </Fab>
-  </div>
+ 
   <div class="solo-demo-container solo-container">
     <h1>Aylık 1000'e yakın aktif kullanıcı sayısı</h1>
     <img
