@@ -1,11 +1,12 @@
 <script>
-  import FullCalendar, { Draggable } from "svelte-fullcalendar";
+  import FullCalendar from "svelte-fullcalendar";
   import daygridPlugin from "@fullcalendar/daygrid";
   import timegridPlugin from "@fullcalendar/timegrid";
   import interactionPlugin from "@fullcalendar/interaction";
-  import Textfield from '@smui/textfield';
+  import Textfield from "@smui/textfield";
   import SveltyPicker from "svelty-picker";
   import Button, { Label } from "@smui/button";
+  import trLocale from '@fullcalendar/core/locales/tr';
 
   let date;
   export let value = { title: "Haftalık Toplantı", duration: "02:00" };
@@ -60,6 +61,7 @@
   let eventId = 1;
   let options = {
     // dateClick: handleDateClick,
+    locale: trLocale,
     droppable: true,
     editable: false,
     events: [
@@ -89,7 +91,6 @@
   };
   let calendarComponentRef;
   let eventData;
-  let isCreateEvent;
 
   let events = {};
   function handleDateClick() {
@@ -113,8 +114,7 @@
         id: eventId++,
       };
       console.log(eventData);
-      handleDateClick()
-      isCreateEvent = true;
+      handleDateClick();
     } catch (err) {
       errors = extractErrors(err);
     }
@@ -128,67 +128,74 @@
 </script>
 
 <div class="container">
-  <div class="row">Görüşme Başlığı</div>
-  <form on:submit|preventDefault={submitHandler}>
-    <div class="row">
-      <div class="col">
-        <div class="mb-2">
-          <Textfield
-            class=""
-            variant="outlined"
-            bind:value={value.title}
-            style="min-width: 400px;"
-          />
-          <small class="invalid-feedback d-block"
-            >{#if errors.event}{errors.event}{/if}</small
-          >
+  <div class="row align-items-center vh-100">
+    <div class="card card-rounded shadow border-0">
+      <div class="card-body flex-column-center">
+        <div class="col-3" >
+          <div class="row">
+            <div class="col mb-3 text-muted">
+              <h1 class="card-title mb-2">Takvim</h1>
+            </div>
+          </div>
+          <form on:submit|preventDefault={submitHandler}>
+            <div class="row">
+              <div class="col">
+                <div class="mb-2">
+                  <h2>Görüşme Başlığı</h2>
+                  <Textfield
+                    class=""
+                    variant="outlined"
+                    bind:value={value.title}
+                    style="min-width: 300px;"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row" >
+              <h2>Görüşme Tarihi</h2>
+              <div class="col" style="max-width: 300px;">
+                <SveltyPicker
+                  i18n={tr}
+                  placeholder={"YYYY-AA-GG HH:MM"}
+                  inputClasses="form-control"
+                  format="yyyy-mm-dd hh:ii"
+                  bind:value={date}
+                />
+              </div>
+
+              <div class="mt-3">
+                <Button
+                  color="primary"
+                  variant="raised"
+                  style="min-width: 100px; text-transform: none;"
+                  type="submit">Görüşmeyi oluştur</Button
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-9" >
+          <div class="demo-app">
+            <div class="demo-app-calendar">
+              <FullCalendar bind:this={calendarComponentRef} {options} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row ml-6">
-      <div class="row">Görüşme Tarihi</div>
-      <div class="row" style="max-width: 200px;">
-        <SveltyPicker
-          i18n={tr}
-          placeholder={"YYYY-AA-GG HH:MM"}
-          inputClasses="form-control"
-          format="yyyy-mm-dd hh:ii"
-          bind:value={date}
-        />
-      </div>
-
-      <div class="mt-3">
-        <Button
-          color="primary"
-          variant="raised"
-          style="min-width: 100px; text-transform: none;"
-          type="submit">Görüşmeyi oluştur</Button
-        >
-      </div>
-    </div>
-  </form>
-</div>
-<div class="demo-app">
-  <div class="demo-app-calendar">
-    <FullCalendar bind:this={calendarComponentRef} {options} />
   </div>
 </div>
 
 <style>
-  :global(* > *) {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
 
   .demo-app {
-    width: 100vw;
-    height: 50vh;
+    width: 60vw;
+    height: 70vh;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica Neue, Helvetica, sans-serif; */
     font-size: 14px;
   }
 
@@ -196,14 +203,6 @@
     width: 100%;
     flex-grow: 1;
     margin: 0 auto;
-    max-width: 900px;
-  }
-  :global(.draggable) {
-    color: white;
-    background: #3788d8;
-    width: fit-content;
-    padding: 1rem;
-    margin: 1rem;
-    cursor: pointer;
+    max-width: 800px;
   }
 </style>
