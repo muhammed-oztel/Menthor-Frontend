@@ -12,6 +12,7 @@
   import Calendar from "./pages/Calendar.svelte";
   import About from "./pages/About.svelte";
   import Specs from "./pages/Specs.svelte";
+  import Home from "./pages/Home.svelte";
 </script>
 
 <Router>
@@ -25,6 +26,7 @@
   <Route path="ozellikler" component={Specs} />
   <Route path="giris" component={LoginPage} />
   <Route path="kayit" component={RegisterPage} />
+  <Route path="home" component={Home} />
   <Route path="/" component={LandingPage} />
   <Route path="*" component={NotFound} />
 </Router>

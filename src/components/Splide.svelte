@@ -2,6 +2,7 @@
     import { Splide, SplideSlide } from "@splidejs/svelte-splide";
     import "@splidejs/svelte-splide/css";
     export let mentors;
+    export let interval;
 </script>
 
 <Splide
@@ -11,14 +12,12 @@
         autoplay: true,
         focus: "center",
         direction: "ttb",
-        height: "50rem",
+        height: "52rem",
         width: "10rem",
         arrows: false,
         pagination: false,
         autoStart: true,
-        autoScroll: {
-            speed: 2,
-        },
+        interval: interval,
         direction: "ttb",
     }}
 >
@@ -43,7 +42,7 @@
     .card {
         background-color: white;
         border-radius: 50px;
-        border: 1px solid #e6e6e6;
+        border: 1px solid black;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     }
     .mentor {
@@ -53,7 +52,7 @@
         justify-content: center;
     }
     .mentor-image {
-        padding-top: 10px;
+        padding: 10px;
     }
     .rounded {
         border-radius: 50% !important;
