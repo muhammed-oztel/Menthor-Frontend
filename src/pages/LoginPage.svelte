@@ -43,7 +43,7 @@
 
 <Toaster />
 <div class="container-fluid">
-  <div class="row justify-content-center ">
+  <div class="row d-flex justify-content-center align-items-center">
     <div class="col-6">
       <SideImage />
     </div>
