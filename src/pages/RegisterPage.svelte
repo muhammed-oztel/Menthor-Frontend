@@ -43,7 +43,10 @@
     pass: yup
       .string()
       .required("Lütfen şifrenizi girin")
-      .min(8, "Geçersiz şifre. Şifreniz en az 8 karakter olmalıdır"),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Şifreniz bir büyük ve küçük harf,bir sayı ve özel karakter içermeli ve en az 8 karakterden oluşmalıdır."
+      ),
   });
   async function validate() {
     try {
