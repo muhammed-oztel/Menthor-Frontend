@@ -2,7 +2,7 @@
 import Button, { Label, Icon } from '@smui/button';
 import Fab from '@smui/fab';
 import File from '../components/File.svelte';
-
+import Drawer from "../components/Drawer.svelte";
 
 let dosyaAdi= ''; 
 let dosyaTarihi = '';
@@ -36,6 +36,8 @@ let addFile = () => {
     }
 
 </script>
+
+<Drawer/>
 
 <div class="container">
     <div class="row align-items-center vh-100">

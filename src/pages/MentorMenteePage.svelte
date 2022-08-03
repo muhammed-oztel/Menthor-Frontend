@@ -1,10 +1,15 @@
 <script>
     import Dialog, { Title, Content, Actions } from "@smui/dialog";
     import Button, { Label } from "@smui/button";
+    import Drawer from "../components/Drawer.svelte";
 
     let open = false;
     let clicked = "Nothing yet.";
 </script>
+
+
+       <Drawer/> 
+   
 
 <Dialog
     bind:open

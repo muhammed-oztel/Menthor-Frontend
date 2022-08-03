@@ -7,6 +7,7 @@
   import SveltyPicker from "svelty-picker";
   import Button, { Label } from "@smui/button";
   import trLocale from "@fullcalendar/core/locales/tr";
+  import Drawer from "../components/Drawer.svelte";
 
   let date;
   export let value = { title: "Haftalık Toplantı", duration: "02:00" };
@@ -128,6 +129,8 @@
     }, {});
   }
 </script>
+
+<Drawer/>
 
 <div class="container">
   <div class="row align-items-center vh-100">

@@ -3,6 +3,7 @@
   import Textfield from "@smui/textfield";
   import Tags from "../components/Tags.svelte";
   import toast, { Toaster } from "svelte-french-toast";
+  import Drawer from "../components/Drawer.svelte";
   let user = {
     name: "Cemal",
     surname: "Sayer",
@@ -25,6 +26,9 @@
     console.log("Account deleted");
   };
 </script>
+
+
+<Drawer/>
 <Toaster />
 <div class="container">
   <div class="row align-items-center vh-100">
