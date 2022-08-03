@@ -102,8 +102,7 @@
 </script>
 
 <Navbar />
-<div class="mb-6" />
-<main>
+<main class="mt-5">
     <div class="container">
         <div
             class="d-flex flex-row mb-3 justify-content-between align-items-center"
@@ -163,9 +162,22 @@
         </div>
         <hr />
         <div class="row mb-5">
-            <h1>Özellikler</h1>
             <div class="d-flex">
                 <Carousel />
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-5">
+            <h1>İstatistikler</h1>
+            <div class="d-flex justify-content-evenly align-items-center">
+                <div class="me-3">
+                    <h1>1000+</h1>
+                    <h5>Aktif Kullanıcı</h5>
+                </div>
+                <div>
+                    <h1>20,000+</h1>
+                    <h5>Görüşme Yapıldı</h5>
+                </div>
             </div>
         </div>
         <hr />
@@ -207,8 +219,5 @@
     main {
         display: flex;
         flex-direction: column;
-    }
-    .mb-6 {
-        margin-bottom: 10rem;
     }
 </style>

@@ -1,7 +1,6 @@
 <script>
   import { Router, Route } from "svelte-routing";
   import Files from "./pages/Files.svelte";
-  import LandingPage from "./pages/LandingPage.svelte";
   import LoginPage from "./pages/LoginPage.svelte";
   import NotFound from "./pages/NotFound.svelte";
   import Profile from "./pages/Profile.svelte";
@@ -20,8 +19,7 @@
   <Route path="ayarlar" component={Settings} />
   <Route path="giris" component={LoginPage} />
   <Route path="kayit" component={RegisterPage} />
-  <Route path="home" component={Home} />
-  <Route path="/" component={LandingPage} />
+  <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
 </Router>
 

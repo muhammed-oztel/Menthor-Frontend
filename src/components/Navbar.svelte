@@ -7,7 +7,7 @@
   }
 </script>
 
-<nav class="navbar bg-dark p-3">
+<nav class="navbar bg-dark px-3 py-4">
   <div class="container-fluid">
     <a class="navbar-brand d-flex align-items-center" href="/">
       <img
