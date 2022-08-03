@@ -9,7 +9,7 @@
   import Settings from "./pages/Settings.svelte";
   import Calendar from "./pages/Calendar.svelte";
   import Home from "./pages/Home.svelte";
-  import Dosyalar from "./pages/Dosyalar.svelte";
+  import Folder from "./pages/Folder.svelte";
 </script>
 
 <Router>
@@ -20,9 +20,10 @@
   <Route path="ayarlar" component={Settings} />
   <Route path="giris" component={LoginPage} />
   <Route path="kayit" component={RegisterPage} />
+  <Route path="folder" component={Folder} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
-  <Route path = "dosya" component={Dosyalar}/>
+ 
 </Router>
 
 <style>
