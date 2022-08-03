@@ -1,6 +1,13 @@
 <script>
     import SvelteTypedJs from "svelte-typed-js";
-    let sectors = ["Yazılım Geliştirme", "Kariyer Planlama"];
+    let sectors = [
+        "Yazılım Geliştirme",
+        "Kariyer Planlama",
+        "Tasarım ve Dizayn",
+        "E-Ticaret Yönetimi",
+        "Satış ve Pazarlama",
+        "İş Yönetimi",
+    ];
 </script>
 
 <div>
