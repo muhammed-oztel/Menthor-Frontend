@@ -13,6 +13,7 @@
   import About from "./pages/About.svelte";
   import Specs from "./pages/Specs.svelte";
   import Home from "./pages/Home.svelte";
+  import Dosyalar from "./pages/Dosyalar.svelte";
 </script>
 
 <Router>
@@ -29,6 +30,7 @@
   <Route path="home" component={Home} />
   <Route path="/" component={LandingPage} />
   <Route path="*" component={NotFound} />
+  <Route path = "dosya" component={Dosyalar}/>
 </Router>
 
 <style>

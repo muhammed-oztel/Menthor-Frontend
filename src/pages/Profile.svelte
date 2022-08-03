@@ -63,7 +63,7 @@
         <span class="material-symbols-outlined">
             logout
             </span>
-            <Text><a href="#" style="text-decoration: none; color :black;">Çıkış</a></Text>
+            <Text><a href="/home" style="text-decoration: none; color :black;">Çıkış</a></Text>
          </Item>
     </List>
   </div>

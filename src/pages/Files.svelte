@@ -9,8 +9,9 @@ let dosyaTarihi = '';
 let dosyaAcıklama = '';
 
 
-
+let files;
 let dosyalar=[];
+let i=1;
 
 
 
@@ -25,20 +26,7 @@ let addFile = () => {
     };
 
    dosyalar = dosyalar.concat(newFile);
-   
-    const myFiles = document.querySelector("#myfiles");
-    function logFilenames(){
-  const fileInput = document.querySelector("#myfiles");
-  const files = fileInput.files;
-  const fileListLength = files.length;
-  for (let i = 0; i < fileListLength; i++) {
-    dosyaAdi = files.item(i).name;
-    console.log(files.item(i).name);
 
-  }
-}
-  
-myFiles.addEventListener("change", logFilenames);
 } 
 
 
@@ -67,11 +55,12 @@ myFiles.addEventListener("change", logFilenames);
                           id="myfiles"
                           multiple
                           type="file"
-                          bind:value="{dosyaAdi}"
+                          accept=".pdf"
+                          bind:files
                       /> 
                       </div> 
                       <h4>Açıklama</h4>
-		                <textarea rows="3" id="description" bind:value={dosyaAcıklama}/>
+		                <textarea style="resize:none; width:500px; height:100px;" rows="3" id="description" bind:value={dosyaAcıklama}/>
                         <br>
                          <Fab color="primary" on:click={addFile} extended>
                           <Label>Seçilen Dosyayı Yükle</Label>
@@ -84,10 +73,10 @@ myFiles.addEventListener("change", logFilenames);
               <p>Gösterilecek dosya yok</p>
               
               {:else}
-              {#each dosyalar as dosya}
+              {#each dosyalar as dosya,i}
 
             
-                  <File dosyaAdi ={dosya.dosyaAdi}
+                  <File dosyaAdi ={"Dosya" + (i+1)}
                    dosyaAcıklama = {dosya.dosyaAcıklama}
                     dosyaTarihi ={dosya.dosyaTarihi} 
                     on:delete = {deleteFile(dosya.dosyaAdi)}
