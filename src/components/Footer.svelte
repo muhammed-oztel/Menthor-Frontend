@@ -14,6 +14,9 @@
       <li class="nav-item">
         <a href="/dosyalar" class="nav-link px-2 " use:link>Dosyalar</a>
       </li>
+      <li class="nav-item">
+        <a href="/iletisim" class="nav-link px-2 " use:link>İletişim</a>
+      </li>
     </ul>
     <p class="text-center ">© 2022 Menthor</p>
   </footer>
