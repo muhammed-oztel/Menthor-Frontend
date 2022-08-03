@@ -3,41 +3,39 @@
   import Textfield from "@smui/textfield";
   import Icon from "@smui/textfield/icon";
   import SideImage from "../components/SideImage.svelte";
-  import HelperText from "@smui/textfield/helper-text";
   import toast, { Toaster } from "svelte-french-toast";
+  import { postLogin } from "../services/login.js";
 
   import * as yup from "yup";
 
   let schema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Lütfen e-mail adresinizi girin")
-      .email("Lütfen geçerli bir e-mail adresi girin"),
-    password: yup
-      .string()
-      .required("Lütfen şifrenizi girin")
-      .min(8, "Geçersiz şifre. Şifreniz en az 8 karakter olmalıdır"),
+    username: yup.string("Lütfen e-mail adresinizi girin").required("Lütfen e-mail adresinizi girin"),
+    // .required("Lütfen e-mail adresinizi girin")
+    // .email("Lütfen geçerli bir e-mail adresi girin")
+    password: yup.string().required("Lütfen şifrenizi girin"),
+    // .min(8, "Geçersiz şifre. Şifreniz en az 8 karakter olmalıdır"),
   });
-  let values = { email: "", password: "" };
-  let errors = { email: "", password: "" };
+  let user = { username: "", password: "" };
+  let errors = { username: "", password: "" };
 
   async function submitHandler() {
     try {
-      // `abortEarly: false` to get all the errors
-      await schema.validate(values, { abortEarly: false });
-      // alert(JSON.stringify(values, null, 2));
+      console.log("We are here")
+      await schema.validate(user, { abortEarly: false });
+      console.log(user);
       toast.success("Giriş Başarılı!", { position: "top-right" });
-      errors = {};
+      // `abortEarly: false` to get all the errors
+      postLogin(user).then((e) => {
+        // navigate("/giris");
+        console.log("Gelen veri: ", e);
+      });
+
+      errors = { username: "", password: "" };
     } catch (err) {
-      errors = extractErrors(err);
-      toast.error("Giriş Başarısız!", { position: "top-right" });
+      errors = err.inner.reduce((acc, err) => {
+        return { ...acc, [err.path]: err.message };
+      }, {});
     }
-  }
-  function extractErrors(err) {
-    return err.inner.reduce((acc, err) => {
-      console.log(err.path);
-      return { ...acc, [err.path]: err.message };
-    }, {});
   }
 </script>
 
@@ -60,7 +58,7 @@
                 <Textfield
                   class=""
                   variant="outlined"
-                  bind:value={values.email}
+                  bind:value={user.username}
                   label="E-posta"
                   input$autocomplete="email"
                   style="min-width: 400px;"
@@ -68,14 +66,14 @@
                   <Icon class="material-icons" slot="leadingIcon">mail</Icon>
                 </Textfield>
                 <small class="invalid-feedback d-block"
-                  >{#if errors.email}{errors.email}{/if}</small
+                  >{#if errors.username}{errors.username}{/if}</small
                 >
               </div>
               <div class="text-center mt-2">
                 <Textfield
                   class=""
                   variant="outlined"
-                  bind:value={values.password}
+                  bind:value={user.password}
                   label="Şifre"
                   type="password"
                   style="min-width: 400px;"

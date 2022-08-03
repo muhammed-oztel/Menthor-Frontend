@@ -1,5 +1,5 @@
 <script>
-  import FullCalendar from "svelte-fullcalendar";
+  import FullCalendar, { Calendar } from "svelte-fullcalendar";
   import daygridPlugin from "@fullcalendar/daygrid";
   import timegridPlugin from "@fullcalendar/timegrid";
   import interactionPlugin from "@fullcalendar/interaction";
@@ -7,8 +7,11 @@
   import SveltyPicker from "svelty-picker";
   import Button, { Label } from "@smui/button";
   import trLocale from "@fullcalendar/core/locales/tr";
+  import CalendarEdit from "../components/CalendarEdit.svelte";
 
   let date;
+  let isEdit;
+
   export let value = { title: "Haftalık Toplantı", duration: "02:00" };
   const tr = {
     days: [
@@ -60,7 +63,7 @@
   };
   let eventId = 1;
   let options = {
-    // dateClick: handleDateClick,
+    dateClick: handleDateClick,
     locale: trLocale,
     droppable: true,
     editable: false,
@@ -81,14 +84,15 @@
     eventClick: function (info) {
       //   console.log(info.);
       // remove the event from the calendar by id
-      if (confirm("Görüşmeyi iptal etmek istiyor musunuz?")) {
-        console.log(info.event.id);
-        options = {
-          ...options,
-          events: options.events.filter((event) => event.id != info.event.id),
-        };
-        console.log(options.events);
-      }
+      isEdit = true;
+      // if (confirm("Görüşmeyi iptal etmek istiyor musunuz?")) {
+      //   console.log(info.event.id);
+      //   options = {
+      //     ...options,
+      //     events: options.events.filter((event) => event.id != info.event.id),
+      //   };
+      //   console.log(options.events);
+      // }
     },
   };
   let calendarComponentRef;
@@ -96,13 +100,15 @@
 
   let events = {};
   function handleDateClick() {
-    const { events } = options;
-    const calendarEvents = [...events, eventData];
-    options = {
-      ...options,
-      events: calendarEvents,
-    };
-    console.log("eklendi");
+    isEdit = true;
+    // const { events } = options;
+    // const calendarEvents = [...events, eventData];
+
+    // options = {
+    //   ...options,
+    //   events: calendarEvents,
+    // };
+    // console.log("eklendi");
   }
 
   let errors = { title: "", duration: "" };
@@ -129,6 +135,7 @@
   }
 </script>
 
+<CalendarEdit bind:open={isEdit} />
 <div class="container">
   <div class="row align-items-center vh-100">
     <div class="card card-rounded shadow border-0">
@@ -179,10 +186,10 @@
           </div>
           <div class="col-8 justify-content-center">
             <div class="demo-app">
-            <div class="demo-app-calendar">
-              <FullCalendar bind:this={calendarComponentRef} {options} />
+              <div class="demo-app-calendar">
+                <FullCalendar bind:this={calendarComponentRef} {options} />
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
