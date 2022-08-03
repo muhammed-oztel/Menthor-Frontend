@@ -1,4 +1,6 @@
 <script>
+    import Carousel from "../components/Carousel.svelte";
+    import FaqExpandable from "../components/FaqExpandable.svelte";
     import Footer from "../components/Footer.svelte";
     import Navbar from "../components/Navbar.svelte";
     import Splide from "../components/Splide.svelte";
@@ -96,6 +98,7 @@
             likeCount: 40,
         },
     ];
+    let number = 1;
 </script>
 
 <Navbar />
@@ -132,7 +135,7 @@
             </div>
         </div>
         <hr />
-        <div class="row">
+        <div class="row mb-5">
             <h1>En favori mentorlar</h1>
             <div class="d-flex">
                 {#each favoriteMentors as mentor}
@@ -158,35 +161,40 @@
                 {/each}
             </div>
         </div>
-        <div class="row">
-            <h1>En favori mentorlar</h1>
+        <hr />
+        <div class="row mb-5">
+            <h1>Özellikler</h1>
             <div class="d-flex">
-                {#each favoriteMentors as mentor}
-                    <div class="card me-3 rounded-5">
-                        <img
-                            src={mentor.image}
-                            class="card-img-top rounded-circle mx-auto my-2"
-                            alt="..."
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title text-center">
-                                <h1 class="display-6">
-                                    <strong>{mentor.name}</strong>
-                                </h1>
-                                <h5 class="text-muted">{mentor.title}</h5>
-                                <div class="d-flex justify-content-center">
-                                    <i class="bi bi-heart-fill me-2" />
-                                    <h5>{mentor.likeCount}</h5>
-                                </div>
-                            </h5>
-                        </div>
-                    </div>
-                {/each}
+                <Carousel />
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-5">
+            <h1>Hakkımızda</h1>
+            <div class="d-flex">
+                <div class="row">
+                    <h5 class="lead">
+                        2022 yılında 8 kişilik bir ekip tarafından kurulmuş
+                        olan, asıl amacı gençlerimizin kariyer yolunda onlara
+                        destek olmak üzere kurulmuş bir firmayız. Önceliğimiz
+                        akıl hocalığının yanı sıra gelecek nesillerin iş
+                        hayatına mümkün oldukça hazırlıklı başlamasıdır. Bu
+                        yolda bize eşlik eden değerli takım arkadaşlarımız ve
+                        mentorlarımızla birlikte gün geçtikçe büyüyen ve gelişen
+                        bir platform olmaya devam ediyoruz.
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-5">
+            <h1>Sıkça Sorulan Sorular</h1>
+            <div class="d-flex flex-column  align-items-center">
+                <FaqExpandable />
             </div>
         </div>
     </div>
 </main>
-
 <Footer />
 
 <style>
@@ -197,8 +205,8 @@
         width: 50%;
     }
     main {
-        width: 100%;
-        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
     .mb-6 {
         margin-bottom: 10rem;

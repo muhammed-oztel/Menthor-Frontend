@@ -7,7 +7,6 @@
     let panel4Open = false;
 </script>
 
-<h1>Sıkça Sorulan Sorular</h1>
 <div class="mb-3 mt-3">
     <Accordion>
         <Panel bind:open={panel1Open}>

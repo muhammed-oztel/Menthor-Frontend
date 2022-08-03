@@ -1,11 +1,7 @@
 <script>
-
   import Carousel from "svelte-carousel";
-  
   import Footer from "../components/Footer.svelte";
   import Navbar from "../components/Navbar.svelte";
-
-  
 </script>
 
 <Navbar />
@@ -19,7 +15,6 @@
   swiping={false}
   pauseOnFocus
 >
- 
   <div class="solo-demo-container solo-container">
     <h1>Aylık 1000'e yakın aktif kullanıcı sayısı</h1>
     <img
