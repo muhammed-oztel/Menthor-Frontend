@@ -1,5 +1,5 @@
 <script>
-  import FullCalendar, { Calendar } from "svelte-fullcalendar";
+  import FullCalendar, { Calendar, Draggable } from "svelte-fullcalendar";
   import daygridPlugin from "@fullcalendar/daygrid";
   import timegridPlugin from "@fullcalendar/timegrid";
   import interactionPlugin from "@fullcalendar/interaction";
@@ -8,67 +8,22 @@
   import Button, { Label } from "@smui/button";
   import trLocale from "@fullcalendar/core/locales/tr";
   import CalendarEdit from "../components/CalendarEdit.svelte";
+  import { tr } from "../services/global";
 
   let date;
-  let isEdit;
+  let isEdit, modalResponse;
+  $: modalResponse == "create" ? handleCreateEvent() : alert(modalResponse) 
+  let value = { title: "Haftalık Toplantı", duration: "02:00" };
 
-  export let value = { title: "Haftalık Toplantı", duration: "02:00" };
-  const tr = {
-    days: [
-      "Pazar",
-      "Pazartesi",
-      "Salı",
-      "Çarşamba",
-      "Perşembe",
-      "Cuma",
-      "Cumartesi",
-    ],
-    months: [
-      "Ocak",
-      "Şubat",
-      "Mart",
-      "Nisan",
-      "Mayıs",
-      "Haziran",
-      "Temmuz",
-      "Ağustos",
-      "Eylül",
-      "Ekim",
-      "Kasım",
-      "Aralık",
-    ],
-
-    daysShort: ["Paz", "Pzt", "Sal", "Çarş", "Perş", "Cum", "Cmt", "Paz"],
-    daysMin: ["Paz", "Pzt", "Sal", "Çarş", "Perş", "Cum", "Cmt", "Paz"],
-    monthsShort: [
-      "Ocak",
-      "Şubat",
-      "Mart",
-      "Nisan",
-      "Mayıs",
-      "Haziran",
-      "Temmuz",
-      "Ağustos",
-      "Eylül",
-      "Ekim",
-      "Kasım",
-      "Aralık",
-    ],
-    meridiem: ["am", "pm"],
-    suffix: ["st", "nd", "rd", "th"],
-    todayBtn: "Bugün",
-    clearBtn: "Temizle",
-    timeView: "Show time view",
-    backToDate: "Back to calendar view",
-  };
   let eventId = 1;
   let options = {
     dateClick: handleDateClick,
     locale: trLocale,
     droppable: true,
-    editable: false,
+    editable: true,
     events: [
       // initial event data
+      { title: "New Event", start: new Date() },
     ],
     initialView: "dayGridMonth",
     plugins: [daygridPlugin, timegridPlugin, interactionPlugin],
@@ -80,11 +35,12 @@
     height: "100%",
     weekends: true,
     eventColor: "black",
+    eventOverlap: false,
 
     eventClick: function (info) {
       //   console.log(info.);
       // remove the event from the calendar by id
-      isEdit = true;
+      // isEdit = true;
       // if (confirm("Görüşmeyi iptal etmek istiyor musunuz?")) {
       //   console.log(info.event.id);
       //   options = {
@@ -96,11 +52,12 @@
     },
   };
   let calendarComponentRef;
-  let eventData;
-
+	let eventData = { title: 'my event', duration: '02:00' };
+  let modalEvent;
   let events = {};
   function handleDateClick() {
     isEdit = true;
+    modalResponse = "nothing"
     // const { events } = options;
     // const calendarEvents = [...events, eventData];
 
@@ -109,6 +66,30 @@
     //   events: calendarEvents,
     // };
     // console.log("eklendi");
+  }
+
+  function handleCreateEvent(){
+    console.log("We are here")
+    let fullCalenderevent = {
+      title: modalEvent.title,
+      description: modalEvent.description,
+      start: modalEvent.start,
+      end: modalEvent.end,
+      id: eventId++,
+    };
+    console.log(fullCalenderevent);
+    options = {
+      ...options,
+      events: [...options.events, fullCalenderevent],
+    };
+
+    // reset modalEvent to default
+    modalEvent = {
+      title: "",
+      description: "",
+      start: "",
+      end: "",
+    };
   }
 
   let errors = { title: "", duration: "" };
@@ -135,7 +116,11 @@
   }
 </script>
 
-<CalendarEdit bind:open={isEdit} />
+<Draggable {eventData} class="draggable">
+  Drag me in Week or Day view!
+</Draggable>
+
+<CalendarEdit bind:open={isEdit}  bind:calendarEvent={modalEvent} bind:response={modalResponse} />
 <div class="container">
   <div class="row align-items-center vh-100">
     <div class="card card-rounded shadow border-0">
@@ -213,4 +198,5 @@
     flex-grow: 1;
     max-width: 800px;
   }
+  
 </style>
