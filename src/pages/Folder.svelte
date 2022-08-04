@@ -70,6 +70,7 @@
                     id="upload-files"
                     bind:files
                     type="file"
+                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*"
                     class="form-control mb-3"
                 />
                 <button type="submit" class="btn btn-dark mb-3">
