@@ -10,6 +10,7 @@
   import CircularProgress from "@smui/circular-progress";
   import Radio from "@smui/radio";
   import FormField from "@smui/form-field";
+  import { onMount } from "svelte";
 
   let submitting = false;
   let verify = false;
@@ -45,7 +46,12 @@
         /^\d{10}$/,
         "Lütfen başında 0 olmadan 10 haneli bir telefon numarası girin"
       ),
-    birth: yup.string().required("Lütfen doğum tarihinizi girin"),
+    birth: yup
+      .date()
+      .nullable()
+      .transform((v) => (v instanceof Date && !isNaN(v) ? v : null))
+      .max(new Date(Date.now()), "Lütfen geçerli bir tarih girin")
+      .required("Lütfen doğum tarihinizi girin"),
     pass: yup
       .string()
       .required("Lütfen şifrenizi girin")
