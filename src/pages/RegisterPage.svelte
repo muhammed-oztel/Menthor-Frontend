@@ -98,10 +98,10 @@
 
 <Toaster />
 <div class="container-fluid">
-  <div class="row">
+  <div class="row d-flex justify-content-center align-items-center">
     <div class="col-6"><SideImage /></div>
     {#if verify}
-      <div class="col-6 d-flex justify-content-center align-items-center">
+      <div class="col-6">
         <div class="row">
           <div class="col">
             <h1 class="text-center">Menthor'a Hoşgeldin</h1>
@@ -118,8 +118,8 @@
         </div>
       </div>
     {:else if !verify}
-      <div class="col-6 mt-page">
-        <div class="row">
+      <div class="col-6">
+        <div class="row d-flex justify-content-center align-items-center">
           <div class="col">
             <h1 class="text-center">Menthor'a Hoşgeldin</h1>
             <h1 class="text-center">Üye Ol</h1>
@@ -225,7 +225,7 @@
               >
             </div>
             <div class="row">
-              <div class="col d-flex justify-content-center ms-button ">
+              <div class="col d-flex flex-column justify-content-end">
                 {#if submitting}
                   <CircularProgress
                     style="height: 32px; width: 32px;"
@@ -233,7 +233,7 @@
                   />
                 {:else}
                   <Button
-                    style="text-transform: none;"
+                    style="text-transform: none;width:505px;"
                     class="bg-dark"
                     type="submit"
                     variant="raised"
@@ -253,13 +253,6 @@
 </div>
 
 <style>
-  .mt-page {
-    margin-top: 180px;
-  }
-
-  .ms-button {
-    margin-left: 260px;
-  }
   .ml-page {
     margin-left: 18vh;
   }
