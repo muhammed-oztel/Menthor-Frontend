@@ -17,6 +17,9 @@
     start: "",
     end: "",
     id: "",
+    editable: true,
+
+    overlap: false,
   };
   export let response = "Nothing yet.";
 

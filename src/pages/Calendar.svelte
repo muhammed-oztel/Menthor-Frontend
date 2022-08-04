@@ -3,14 +3,10 @@
   import daygridPlugin from "@fullcalendar/daygrid";
   import timegridPlugin from "@fullcalendar/timegrid";
   import interactionPlugin from "@fullcalendar/interaction";
-  import Textfield from "@smui/textfield";
-  import SveltyPicker from "svelty-picker";
-  import Button, { Label } from "@smui/button";
   import trLocale from "@fullcalendar/core/locales/tr";
   import CalendarEdit from "../components/CalendarEdit.svelte";
-  import { tr } from "../../scripts/global";
   import Drawer from "../components/Drawer.svelte";
-
+  import { isAnOverlapEvent } from "../../scripts/calendarOverlap";
   let date;
   let openModal = false;
   let isEdit, isCreate, modalResponse;
@@ -45,6 +41,7 @@
     weekends: true,
     eventColor: "black",
     eventOverlap: false,
+    selectOverlap: false,
 
     eventClick: handleEventClick,
   };
@@ -74,10 +71,19 @@
       id: eventId++,
     };
     console.log(fullCalenderevent);
-    options = {
-      ...options,
-      events: [...options.events, fullCalenderevent],
-    };
+    console.log(
+      "Check for an overlap event: ",
+      isAnOverlapEvent(options.events, fullCalenderevent)
+    );
+    if (isAnOverlapEvent(options.events, fullCalenderevent)) {
+      console.log("Overlap event");
+      alert("Seçtiğiniz saatte görüşme zaten mevcut!");
+    } else {
+      options = {
+        ...options,
+        events: [...options.events, fullCalenderevent],
+      };
+    }
 
     // reset modalEvent to default
     modalEvent = {
@@ -140,7 +146,7 @@
   bind:openCreate={isCreate}
   bind:openEdit={isEdit}
 />
-<Drawer/>
+<Drawer />
 
 <div class="container">
   <div class="row align-items-center vh-100">
