@@ -4,6 +4,7 @@
     import { navigate } from "svelte-routing";
     import  { Label} from '@smui/button';
     import Fab from '@smui/fab';
+    import Drawer from "../components/Drawer.svelte";
 
     let files;
     //senin ben mkdir
@@ -45,7 +46,7 @@
 </script>
 
 <Toaster />
-
+<Drawer/>
 
 <div class="container">
     <div class="row align-items-center vh-100">

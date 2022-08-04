@@ -2,6 +2,7 @@
     import Dialog, { Title, Content, Actions } from "@smui/dialog";
     import Button, { Label } from "@smui/button";
     import Drawer from "../components/Drawer.svelte";
+   
 
     let open = false;
     let clicked = "Nothing yet.";
@@ -84,9 +85,11 @@
                                     />
                                 </svg>
                                 <Button
+                                    href = "/videocall"
                                     color="primary"
                                     variant="raised"
                                     style="max-width: 150px; text-transform: none;"
+                                   
                                     >Görüşme başlat</Button
                                 >
                             </div>
@@ -114,6 +117,7 @@
                             </div>
                             <div class="col-4 ">
                                 <Button
+                                    
                                     color="primary"
                                     variant="raised"
                                     style="text-transform: none;"

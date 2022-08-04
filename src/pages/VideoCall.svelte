@@ -1,16 +1,24 @@
 <script>
-    import {Peer} from 'peerjs'
+
+    import {Peer} from 'peerjs';
+    import { postVideoId } from "../services/videocall.js";
+    
+
   var peer = new Peer();
   let codeid = ""
   let videocurrent;
   let videoEl;
   let youid = ""
-  
-    // GET YOU ID
+ 
+     // GET YOU ID
     peer.on("open",(id)=>{
       youid = id
       console.log(id)
     })
+    postVideoId(youid);
+ 
+
+   
     // IF ERROR CAN GET ID
      peer.on("error",(id)=>{
       console.log("error id "+ id)
@@ -45,13 +53,15 @@
     videoEl.srcObject = stream
     videoEl.play()
   }
-  
+
   </script>
-  <div>
+  
+    <!-- VIDEO YOU FRIEND TAG HTML -->
+    <div>
     you id cam  = {youid}
     <br>
     code : <input type=""
-    bind:value={codeid} name="">
+    bind:value={codeid} name="" placeholder="{youid}">
     <!-- BUTTON CONNECT TO FRIEND -->
     <button
     on:click={async()=>{
@@ -75,19 +85,44 @@
     }}
     >
     connect</button>
-  
-    <!-- VIDEO YOU FRIEND TAG HTML -->
-    <video 
+    
+    
+    <div class="yourvideo">
+          <video 
     bind:this={videoEl}
-    width="400" height="400" autoplay="true">
+    width="400" height="400" autoplay="true" >
       <track kind="captions" src="">
     </video>
+
+    
     <br>
-  
+  </div>
     <!-- YOU FACE CAM HERE -->
+    <div class="myvideo">
     <video 
     bind:this={videocurrent}
     width="400" height="400" autoplay="true">
       <track kind="captions" src="">
     </video>
-  </div>
+    </div>
+    
+
+    </div>
+   
+  
+    
+    
+  
+
+  <style>
+    .myvideo{
+        display: flex;
+        align-items: center;
+    }
+
+    .yourvideo{
+        display: flex;
+        align-items: center;
+    }
+
+  </style>
