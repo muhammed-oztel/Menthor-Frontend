@@ -9,6 +9,7 @@
   import trLocale from "@fullcalendar/core/locales/tr";
   import CalendarEdit from "../components/CalendarEdit.svelte";
   import { tr } from "../../scripts/global";
+  import Drawer from "../components/Drawer.svelte";
 
   let date;
   let openModal = false;
@@ -139,6 +140,8 @@
   bind:openCreate={isCreate}
   bind:openEdit={isEdit}
 />
+<Drawer/>
+
 <div class="container">
   <div class="row align-items-center vh-100">
     <div class="card card-rounded shadow border-0">

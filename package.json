@@ -31,6 +31,7 @@
     "@splidejs/svelte-splide": "^0.2.5",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "peerjs": "^1.4.6",
     "sirv-cli": "^2.0.0",
     "svelte-carousel": "^1.0.19",
     "svelte-french-toast": "^1.0.3",
@@ -39,6 +40,7 @@
     "svelte-tags-input": "^2.9.2",
     "svelte-typed-js": "^1.0.3",
     "svelty-picker": "^2.1.1",
+    "sweetalert2": "^11.4.24",
     "yup": "^0.32.11"
   }
 }

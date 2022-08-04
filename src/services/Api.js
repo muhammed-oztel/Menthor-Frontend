@@ -3,16 +3,13 @@ import axios from "axios";
 
 // Create a instance of axios to use the same base url.
 const axiosAPI = axios.create({
-  baseURL : "http://localhost:8081/" // it's not recommended to have this info here.
+  baseURL : "http://localhost:8080/" // it's not recommended to have this info here.
 });
 
 // implement a method to execute all the request from here.
 const apiRequest = (method, url, request) => {
     const headers = {
         authorization: "",
-        "Access-Control-Allow-Origin": "http://localhost:8081/"
-
-        
     };
     //using the axios instance to perform the request that received from each http method
     return axiosAPI({
