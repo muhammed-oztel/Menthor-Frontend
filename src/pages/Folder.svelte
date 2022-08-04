@@ -4,10 +4,7 @@
     import { navigate } from "svelte-routing";
     import { onMount } from "svelte";
 
-    import  { Label} from '@smui/button';
-    import Fab from '@smui/fab';
     import Drawer from "../components/Drawer.svelte";
-
 
     let files;
     let list = [];
@@ -67,9 +64,9 @@
 
 <Toaster />
 
-
+<Drawer />
 <div class="container d-flex align-items-center justify-content-center">
-    <div class="card text-start">
+    <div class="card text-start shadow border-0">
         <div class="card-body">
             <h4 class="card-title mb-3">Dosya Yükleme</h4>
             <form on:submit|preventDefault={submitForm}>
@@ -84,74 +81,47 @@
                 </button>
             </form>
             <hr />
-            <div>
-                <h4>Yüklenen Dosyalar Listesi</h4>
-                <table class="table text-center">
-                    <thead>
+            <h4>Yüklenen Dosyalar Listesi</h4>
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Dosya İsmi</th>
+                        <th scope="col">Yüklenme Tarihi</th>
+                        <th scope="col">Yüklenme Saati</th>
+                        <th scope="col">Dosya Silme</th>
+                        <th scope="col">Dosya İndirme</th>
+                    </tr>
+                </thead>
+                {#each list as item (item.id)}
+                    <tbody>
                         <tr>
-                            <th scope="col">Dosya İsmi</th>
-                            <th scope="col">Yüklenme Tarihi</th>
-                            <th scope="col">Yüklenme Saati</th>
-                            <th scope="col">Dosya Silme</th>
-                            <th scope="col">Dosya İndirme</th>
+                            <td>{item.fileName}</td>
+                            <td>{item.localDateTime}</td>
+                            <td>12:00</td>
+                            <td>
+                                <button
+                                    on:click={deleteFile(item.id)}
+                                    type="button"
+                                    class="btn btn-danger rounded-circle"
+                                >
+                                    <i class="bi bi-trash" />
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    on:click={downloadFile(item.id)}
+                                    type="button"
+                                    class="btn btn-success rounded-circle"
+                                >
+                                    <i class="bi bi-download" />
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    {#each list as item (item.id)}
-                        <tbody>
-                            <tr>
-                                <td>{item.fileName}</td>
-                                <td>{item.localDateTime}</td>
-                                <td>12:00</td>
-                                <td>
-                                    <button
-                                        on:click={deleteFile(item.id)}
-                                        type="button"
-                                        class="btn btn-danger rounded-circle"
-                                    >
-                                        <i class="bi bi-trash" />
-                                    </button>
-                                </td>
-                                <td>
-                                    <button
-                                        on:click={downloadFile(item.id)}
-                                        type="button"
-                                        class="btn btn-success rounded-circle"
-                                    >
-                                        <i class="bi bi-download" />
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    {:else}
-                        <p>Dosya Yok</p>
-                    {/each}
-                </table>
-<Drawer/>
-
-<div class="container">
-    <div class="row align-items-center vh-100">
-      <div class="col-8 mx-auto">
-        
-           
-        <div class="card card-rounded shadow border-0">
-          <div class="card-body d-flex flex-column  "> 
-            <h2 class="card-title mb-2">Dosyalar</h2>
-            <hr>
-
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h4>Dosya Yükle</h4>
-                    <div class="form-group d-flex">
-                    <form on:submit|preventDefault={submitForm}>
-                    <input type="file" bind:files />
-                    <br> <br>
-                        <Fab color="primary"  extended>
-                            <Label>Seçilen Dosyayı Yükle</Label>
-                          </Fab>  
-                    </form>
-                    </div>     
-                </div>     
-            </div>
+                    </tbody>
+                {:else}
+                    <p>Dosya Yok</p>
+                {/each}
+            </table>
         </div>
     </div>
 </div>
