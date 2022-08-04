@@ -6,14 +6,17 @@
 
     let files;
     let list = [];
-    let downloadURL;
-    $: downloadURL;
-    $: list;
+
     onMount(() => {
+        getFileListFromBase();
+    });
+
+    async function getFileListFromBase() {
         getFiles(1).then((res) => {
             list = [...res];
         });
-    });
+    }
+
     async function submitForm() {
         try {
             let upload = files[0];
@@ -24,10 +27,9 @@
             if (upload) {
                 document.getElementById("upload-files").value = "";
                 uploadFiles(formData).then((res) => {
+                    getFileListFromBase();
                     toast.success("Dosya başarıyla yüklendi.");
-                    downloadURL = res.downloadURL;
                 });
-                // document.location.reload(true);
             } else {
                 toast.error("Lütfen bir dosya seçiniz.");
             }
@@ -49,9 +51,9 @@
             //     downloadURL.length
             // );
             deleteFiles(id).then((res) => {
+                getFileListFromBase();
                 toast.success("Dosya başarıyla silindi.");
             });
-            // document.location.reload(true);
         } catch (error) {
             console.log(error);
         }
