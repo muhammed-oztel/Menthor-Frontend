@@ -3,7 +3,7 @@
     import toast, { Toaster } from "svelte-french-toast";
     import { navigate } from "svelte-routing";
     import { onMount } from "svelte";
-
+    import { format } from "date-fns";
     import Drawer from "../components/Drawer.svelte";
 
     let files;
@@ -96,8 +96,18 @@
                     <tbody>
                         <tr>
                             <td>{item.fileName}</td>
-                            <td>{item.localDateTime}</td>
-                            <td>12:00</td>
+                            <td>
+                                {format(
+                                    new Date(item.localDateTime),
+                                    "dd.MM.yyyy"
+                                )}
+                            </td>
+                            <td>
+                                {format(
+                                    new Date(item.localDateTime),
+                                    "HH:mm:ss"
+                                )}
+                            </td>
                             <td>
                                 <button
                                     on:click={deleteFile(item.id)}
