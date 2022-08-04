@@ -4,10 +4,13 @@
   import Textfield from "@smui/textfield";
   import CharacterCounter from "@smui/textfield/character-counter";
   import SveltyPicker from "svelty-picker";
-  import { tr } from "../services/global";
+  import { tr } from "../../scripts/global";
 
-  export let open = false;
-  let calEventStartDate, calEventEndDate;
+  export let openCreate = false;
+  export let openEdit = false;
+  let open = false;
+  $: open = openCreate ^ openEdit;
+
   export let calendarEvent = {
     title: "",
     description: "",
@@ -17,15 +20,6 @@
   };
   export let response = "Nothing yet.";
 
-  // function that takes inputs from the form and creates a new event object
-  // function createEvent() {
-  //   calendarEvent.title = newEventDate.title;
-  //   calendarEvent.description = newEventDate.description;
-  //   calendarEvent.start = newEventDate;
-  //   calendarEvent.end = newEventDate;
-  //   calendarEvent.id = newEventDate.id;
-  //   console.log(calendarEvent);
-  // }
 </script>
 
 <Dialog
@@ -81,17 +75,45 @@
     </div>
   </Content>
   <Actions>
-    <Button
-      on:click={() => {
-        // createEvent();
-        response = "create";
-      }}
-    >
-      <Label>Ekle</Label>
-    </Button>
+    {#if openCreate}
+      <Button
+        on:click={() => {
+          alert("Görüşme oluşturuluyor.");
+          openEdit = false;
+          openCreate = false;
+          response = "create";
+        }}
+      >
+        <Label>Ekle</Label>
+      </Button>
+    {:else if openEdit}
+      <Button
+      class="bg-danger text-white"
+      style="text-transform: none;"
+        on:click={() => {
+          openEdit = false;
+          openCreate = false;
+          response = "delete";
+        }}
+      >
+        <Label>Sil</Label>
+      </Button>
+      <Button
+        on:click={() => {
+          openEdit = false;
+          openCreate = false;
+          response = "edit";
+        }}
+      >
+        <Label>Kaydet</Label>
+      </Button>
+    {/if}
     <Button
       on:click={() => {
         response = "close";
+        openEdit = false;
+        openCreate = false;
+
         calendarEvent = {
           title: "",
           description: "",
