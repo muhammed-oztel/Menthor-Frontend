@@ -23,6 +23,7 @@
   <Route path="folder" component={Folder} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
+ 
 </Router>
 
 <style>
