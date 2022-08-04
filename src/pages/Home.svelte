@@ -177,7 +177,7 @@
                     <h5>Mentor</h5>
                 </div>
                 <div>
-                    <h1>2000+</h1>
+                    <h1>1000+</h1>
                     <h5>Mentee</h5>
                 </div>
             </div>

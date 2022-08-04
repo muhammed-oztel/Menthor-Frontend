@@ -1,23 +1,25 @@
 <script>
-    import { uploadFiles } from "../services/file.js";
+    import { uploadFiles, deleteFiles, getFiles } from "../services/file.js";
     import toast, { Toaster } from "svelte-french-toast";
     import { navigate } from "svelte-routing";
-    import { Label } from "@smui/button";
-    import Fab from "@smui/fab";
+    import { onMount } from "svelte";
 
     let files;
     let list = [];
     let downloadURL;
     $: downloadURL;
-    $: list = files;
-    let deleteFile = (dosyaAdi) => {
-        dosyalar = dosyalar.filter((dosya) => dosya.dosyaAdi != dosyaAdi);
-    };
+    $: list;
+    onMount(() => {
+        getFiles(1).then((res) => {
+            list = [...res];
+        });
+    });
     async function submitForm() {
         try {
             let upload = files[0];
             const formData = new FormData();
             formData.append("file", upload);
+            formData.append("uploader_id", 1);
             console.log(upload);
             if (upload) {
                 document.getElementById("upload-files").value = "";
@@ -25,6 +27,7 @@
                     toast.success("Dosya başarıyla yüklendi.");
                     downloadURL = res.downloadURL;
                 });
+                // document.location.reload(true);
             } else {
                 toast.error("Lütfen bir dosya seçiniz.");
             }
@@ -32,15 +35,23 @@
             console.log(error);
         }
     }
-    async function downloadFile() {
+    async function downloadFile(id) {
         try {
-            //idye bölme işlemi
-            // id = downloadURL.substring(
+            navigate("http://localhost:8080/download/" + id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async function deleteFile(id) {
+        try {
+            // let id = downloadURL.substring(
             //     downloadURL.lastIndexOf("/") + 1,
             //     downloadURL.length
             // );
-
-            navigate(downloadURL);
+            deleteFiles(id).then((res) => {
+                toast.success("Dosya başarıyla silindi.");
+            });
+            // document.location.reload(true);
         } catch (error) {
             console.log(error);
         }
@@ -77,33 +88,41 @@
                             <th scope="col">Dosya İndirme</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Yeni Metin Belgesi.txt</td>
-                            <td>04.08.22</td>
-                            <td>12:00</td>
-                            <td><i class="bi bi-trash" /></td>
-                            <td><i class="bi bi-download" /></td>
-                        </tr>
-                    </tbody>
+                    {#each list as item (item.id)}
+                        <tbody>
+                            <tr>
+                                <td>{item.fileName}</td>
+                                <td>{item.localDateTime}</td>
+                                <td>12:00</td>
+                                <td>
+                                    <button
+                                        on:click={deleteFile(item.id)}
+                                        type="button"
+                                        class="btn btn-danger rounded-circle"
+                                    >
+                                        <i class="bi bi-trash" />
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        on:click={downloadFile(item.id)}
+                                        type="button"
+                                        class="btn btn-success rounded-circle"
+                                    >
+                                        <i class="bi bi-download" />
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {:else}
+                        <p>Dosya Yok</p>
+                    {/each}
                 </table>
             </div>
         </div>
     </div>
 </div>
 
-<!-- {#if list}
-                        {#each list as file}
-                            <div class="d-flex">
-                                <p class="me-3">{file.name}</p>
-                                <button on:click={downloadFile}>
-                                    <i class="bi bi-download" />
-                                </button>
-                            </div>
-                        {/each}
-                    {:else}
-                        <p>Dosya Yok</p>
-                    {/if} -->
 <style>
     .container {
         height: 100%;
