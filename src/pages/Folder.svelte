@@ -48,10 +48,6 @@
     }
     async function deleteFile(id) {
         try {
-            // let id = downloadURL.substring(
-            //     downloadURL.lastIndexOf("/") + 1,
-            //     downloadURL.length
-            // );
             deleteFiles(id).then((res) => {
                 getFileListFromBase();
                 toast.success("Dosya başarıyla silindi.");
