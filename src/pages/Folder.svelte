@@ -11,7 +11,7 @@
     $: list;
     onMount(() => {
         getFiles(1).then((res) => {
-            list = res;
+            list = [...res];
         });
     });
     async function submitForm() {
@@ -27,7 +27,7 @@
                     toast.success("Dosya başarıyla yüklendi.");
                     downloadURL = res.downloadURL;
                 });
-                document.location.reload(true);
+                // document.location.reload(true);
             } else {
                 toast.error("Lütfen bir dosya seçiniz.");
             }
@@ -51,7 +51,7 @@
             deleteFiles(id).then((res) => {
                 toast.success("Dosya başarıyla silindi.");
             });
-            document.location.reload(true);
+            // document.location.reload(true);
         } catch (error) {
             console.log(error);
         }
@@ -88,7 +88,7 @@
                             <th scope="col">Dosya İndirme</th>
                         </tr>
                     </thead>
-                    {#each list as item}
+                    {#each list as item (item.id)}
                         <tbody>
                             <tr>
                                 <td>{item.fileName}</td>
