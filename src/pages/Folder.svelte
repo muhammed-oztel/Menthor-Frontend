@@ -4,6 +4,11 @@
     import { navigate } from "svelte-routing";
     import { onMount } from "svelte";
 
+    import  { Label} from '@smui/button';
+    import Fab from '@smui/fab';
+    import Drawer from "../components/Drawer.svelte";
+
+
     let files;
     let list = [];
     let downloadURL;
@@ -59,6 +64,7 @@
 </script>
 
 <Toaster />
+
 
 <div class="container d-flex align-items-center justify-content-center">
     <div class="card text-start">
@@ -118,6 +124,31 @@
                         <p>Dosya Yok</p>
                     {/each}
                 </table>
+<Drawer/>
+
+<div class="container">
+    <div class="row align-items-center vh-100">
+      <div class="col-8 mx-auto">
+        
+           
+        <div class="card card-rounded shadow border-0">
+          <div class="card-body d-flex flex-column  "> 
+            <h2 class="card-title mb-2">Dosyalar</h2>
+            <hr>
+
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4>Dosya Yükle</h4>
+                    <div class="form-group d-flex">
+                    <form on:submit|preventDefault={submitForm}>
+                    <input type="file" bind:files />
+                    <br> <br>
+                        <Fab color="primary"  extended>
+                            <Label>Seçilen Dosyayı Yükle</Label>
+                          </Fab>  
+                    </form>
+                    </div>     
+                </div>     
             </div>
         </div>
     </div>
