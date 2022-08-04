@@ -40,6 +40,7 @@
     "svelte-tags-input": "^2.9.2",
     "svelte-typed-js": "^1.0.3",
     "svelty-picker": "^2.1.1",
+    "sweetalert2": "^11.4.24",
     "yup": "^0.32.11"
   }
 }
