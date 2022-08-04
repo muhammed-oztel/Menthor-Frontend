@@ -2,6 +2,8 @@
     import { uploadFiles } from "../services/file.js";
     import toast, { Toaster } from "svelte-french-toast";
     import { navigate } from "svelte-routing";
+    import  { Label} from '@smui/button';
+    import Fab from '@smui/fab';
 
     let files;
     //senin ben mkdir
@@ -43,23 +45,53 @@
 </script>
 
 <Toaster />
-<form on:submit|preventDefault={submitForm}>
-    <input type="file" bind:files />
-    <button type="submit">Seçilen Dosyayı Yükle</button>
-</form>
 
-{#if list}
-    {#each list as file}
-        <div class="d-flex">
-            <p class="me-3">{file.name}</p>
-            <button on:click={downloadFile}>
-                <i class="bi bi-download" />
+
+<div class="container">
+    <div class="row align-items-center vh-100">
+      <div class="col-8 mx-auto">
+        
+           
+        <div class="card card-rounded shadow border-0">
+          <div class="card-body d-flex flex-column  "> 
+            <h2 class="card-title mb-2">Dosyalar</h2>
+            <hr>
+
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4>Dosya Yükle</h4>
+                    <div class="form-group d-flex">
+                    <form on:submit|preventDefault={submitForm}>
+                    <input type="file" bind:files />
+                    <br> <br>
+                        <Fab color="primary"  extended>
+                            <Label>Seçilen Dosyayı Yükle</Label>
+                          </Fab>  
+                    </form>
+                    </div>     
+                </div>     
+            </div>
+            {#if list}
+                 {#each list as file}
+                    <div class="d-flex">
+                     <p class="me-3">{file.name}</p>
+                    <button on:click={downloadFile}>
+                    <i class="bi bi-download" />
             </button>
         </div>
-    {/each}
-{:else}
-    <p>Dosya Yok</p>
-{/if}
+        {/each}
+            {:else}
+            <p>Dosya Yok</p>
+        {/if}
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
 <style>
 </style>

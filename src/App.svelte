@@ -10,6 +10,7 @@
   import Calendar from "./pages/Calendar.svelte";
   import Home from "./pages/Home.svelte";
   import Folder from "./pages/Folder.svelte";
+import VideoCall from "./pages/VideoCall.svelte";
 </script>
 
 <Router>
@@ -23,6 +24,7 @@
   <Route path="folder" component={Folder} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
+  <Route path="videocall" component={VideoCall} />
  
 </Router>
 
