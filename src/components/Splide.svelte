@@ -6,13 +6,14 @@
 </script>
 
 <Splide
+    class="mt-4"
     options={{
         type: "loop",
-        perPage: 3,
+        perPage: 2,
         autoplay: true,
         focus: "center",
         direction: "ttb",
-        height: "52rem",
+        height: "36rem",
         width: "10rem",
         arrows: false,
         pagination: false,
