@@ -173,7 +173,7 @@
 </div>
 
 <style>
-    .container {
-        height: 100%;
+    .card {
+        width: 70%;
     }
 </style>
