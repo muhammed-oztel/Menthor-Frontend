@@ -1,8 +1,9 @@
 <script>
   import { link } from "svelte-routing";
+  import { searchMentor } from "../services/search";
   let value = "";
   function doSearch() {
-    alert("Search for " + value);
+    searchMentor(value);
     value = "";
   }
 </script>
