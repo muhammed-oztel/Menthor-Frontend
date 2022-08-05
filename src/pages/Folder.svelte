@@ -97,9 +97,8 @@
     }
 </script>
 
-<Toaster />
-
 <Drawer />
+<Toaster />
 <div class="container d-flex align-items-center justify-content-center">
     <div class="card text-start shadow border-0">
         <div class="card-body">
