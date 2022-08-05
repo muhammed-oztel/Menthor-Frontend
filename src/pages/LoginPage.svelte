@@ -33,12 +33,11 @@
       // `abortEarly: false` to get all the errors
       postLogin(user)
         .then((response) => {
-          // navigate("/giris");
           if (response) {
             console.log("Gelen veri: ", response);
             toast.success("Giriş Başarılı!", { position: "top-right" });
             setTimeout(() => {
-              navigate("/profil");
+              navigate("/profil", { state: { user: { response } } });
             }, 2000);
           } else {
             toast.error("Mail veya şifre hatalı!", { position: "top-right" });
