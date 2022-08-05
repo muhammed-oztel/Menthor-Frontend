@@ -50,7 +50,7 @@
           <Text>Takvim</Text>
         </Item>
         <Item
-          href="/folder"
+          href="/dosyalar"
           on:click={() => setActive('All of the Shrimp')}
           activated={active === 'All of the Shrimp'}
         >
