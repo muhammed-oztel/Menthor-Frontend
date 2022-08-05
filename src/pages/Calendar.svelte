@@ -7,6 +7,23 @@
   import CalendarEdit from "../components/CalendarEdit.svelte";
   import Drawer from "../components/Drawer.svelte";
   import { isAnOverlapEvent } from "../../scripts/calendarOverlap";
+  import {
+    postCreateEvent,
+    getEventList,
+    putUpdateEvent,
+    deleteEvent,
+  } from "../services/calendar";
+  import { onMount } from 'svelte';
+
+
+  onMount(async () => {
+    getEventList({matchId:1}).then((response) => {
+      console.log(response);
+      options = {...options, events: response};
+    });
+  });
+
+
   let date;
   let openModal = false;
   let isEdit, isCreate, modalResponse;
@@ -68,7 +85,7 @@
       description: modalEvent.description,
       start: modalEvent.start,
       end: modalEvent.end,
-      id: eventId++,
+      matchId: 1,
     };
     console.log(fullCalenderevent);
     console.log(
@@ -79,10 +96,18 @@
       console.log("Overlap event");
       alert("Seçtiğiniz saatte görüşme zaten mevcut!");
     } else {
-      options = {
-        ...options,
-        events: [...options.events, fullCalenderevent],
-      };
+      postCreateEvent(fullCalenderevent).then((response) => {
+        console.log(response);
+        getEventList({matchId:1}).then((response) => {
+          console.log()
+          console.log(response)
+          options = {
+            ...options,
+            events: response,
+          };
+        });
+      });
+      
     }
 
     // reset modalEvent to default
@@ -105,6 +130,18 @@
       start: modalEvent.start,
       end: modalEvent.end,
     };
+
+    putUpdateEvent(updatedEvent).then((response) => {
+      console.log(response);
+      getEventList({matchId:1}).then((response) => {
+        console.log()
+        console.log(response)
+        options = {
+          ...options,
+          events: response,
+        };
+      });
+    });
     console.log("Updated Event: ", updatedEvent);
     // replace the old event with updated event based on event id
     options = {
@@ -124,10 +161,19 @@
   }
 
   function handleDeleteEvent() {
-    options = {
-      ...options,
-      events: options.events.filter((event) => event.id !== modalEvent.id),
-    };
+
+    deleteEvent(modalEvent).then((response) => {
+      console.log(response);
+      getEventList({matchId:1}).then((response) => {
+        console.log()
+        console.log(response)
+        options = {
+          ...options,
+          events: response,
+        };
+      });
+    });
+
     modalResponse = "nothing";
     modalEvent = {
       title: "",
