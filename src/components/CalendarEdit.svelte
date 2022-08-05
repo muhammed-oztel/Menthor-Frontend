@@ -5,12 +5,12 @@
   import CharacterCounter from "@smui/textfield/character-counter";
   import SveltyPicker from "svelty-picker";
   import { tr } from "../../scripts/global";
+  import * as yup from "yup";
 
   export let openCreate = false;
   export let openEdit = false;
   let open = false;
   $: open = openCreate ^ openEdit;
-
   export let calendarEvent = {
     title: "",
     description: "",
@@ -22,6 +22,18 @@
     overlap: false,
   };
   export let response = "Nothing yet.";
+
+  let schema = yup.object().shape({
+    title: yup
+      .string("Lütfen görüşme başlığını girin")
+      .required("Lütfen görüşme başlığını girin")
+      .max(50, "Görüşme başlığı en fazla 50 karakter olabilir"),
+    description: yup
+      .string(),
+      start: yup
+      .string("Lütfen görüşme başlangıç tarihini girin")
+      .required("Lütfen görüşme başlangıç tarihini girin")
+  });
 
 </script>
 
@@ -91,8 +103,8 @@
       </Button>
     {:else if openEdit}
       <Button
-      class="bg-danger text-white"
-      style="text-transform: none;"
+        class="bg-danger text-white"
+        style="text-transform: none;"
         on:click={() => {
           openEdit = false;
           openCreate = false;
