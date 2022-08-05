@@ -6,6 +6,7 @@
   import toast, { Toaster } from "svelte-french-toast";
   import { postLogin } from "../services/login.js";
   import { navigate } from "svelte-routing";
+  import IconButton from "@smui/icon-button";
 
   import * as yup from "yup";
 
@@ -21,7 +22,10 @@
   });
   let user = { mail: "", password: "" };
   let errors = { mail: "", password: "" };
-
+  let isVisible = false;
+  const toggleVisibility = () => {
+    isVisible = !isVisible;
+  };
   async function submitHandler() {
     try {
       await schema.validate(user, { abortEarly: false });
@@ -33,10 +37,9 @@
           if (response) {
             console.log("Gelen veri: ", response);
             toast.success("Giriş Başarılı!", { position: "top-right" });
-            setTimeout(
-              () => {navigate("/profil")},
-              2000
-            )
+            setTimeout(() => {
+              navigate("/profil");
+            }, 2000);
           } else {
             toast.error("Mail veya şifre hatalı!", { position: "top-right" });
           }
@@ -91,16 +94,24 @@
                   variant="outlined"
                   bind:value={user.password}
                   label="Şifre"
-                  type="password"
+                  type={isVisible ? "text" : "password"}
                   style="min-width: 400px;"
                 >
-                  <Icon class="material-icons" slot="leadingIcon" style=""
-                    >password</Icon
+                  <Icon class="material-icons" slot="leadingIcon" style="">
+                    password
+                  </Icon>
+                  <IconButton
+                    type="button"
+                    class="material-icons text-muted"
+                    slot="trailingIcon"
+                    on:click={toggleVisibility}
                   >
+                    {isVisible ? "visibility" : "visibility_off"}
+                  </IconButton>
                 </Textfield>
-                <small class="invalid-feedback d-block"
-                  >{#if errors.password}{errors.password}{/if}</small
-                >
+                <small class="invalid-feedback d-block">
+                  {#if errors.password}{errors.password}{/if}
+                </small>
               </div>
             </div>
           </div>
@@ -110,8 +121,10 @@
               color="primary"
               variant="raised"
               style="min-width: 100px; text-transform: none;"
-              type="submit">Giriş Yap</Button
+              type="submit"
             >
+              Giriş Yap
+            </Button>
           </div>
         </form>
       </div>
