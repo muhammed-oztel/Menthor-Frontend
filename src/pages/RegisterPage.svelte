@@ -10,6 +10,14 @@
   import CircularProgress from "@smui/circular-progress";
   import Radio from "@smui/radio";
   import FormField from "@smui/form-field";
+  import IconButton from '@smui/icon-button';
+
+
+	let isVisible = false;
+	let textType = "text";
+	const toggleVisibility = () => {
+	  isVisible = !isVisible;
+	};
 
   let submitting = false;
   let verify = false;
@@ -197,7 +205,7 @@
             <div class="input-group mb-3">
               <Textfield
                 style="width: 505px;"
-                type="password"
+                type={isVisible? "text":"password"}
                 variant="outlined"
                 bind:value={user.pass}
                 label="Şifre"
@@ -208,6 +216,15 @@
                 >{#if errors.pass}{errors.pass}{/if}</small
               >
             </div>
+            {#if !isVisible}
+            <IconButton class="material-icons" style="margin-left: 450px"on:click={toggleVisibility}
+            >visibility</IconButton>
+            {:else if isVisible}
+            <IconButton class="material-icons" style="margin-left: 450px"on:click={toggleVisibility}
+            >visibility_off</IconButton>
+            {:else}
+            <br>
+            {/if}
             <div
               class="input-group mb-3 d-flex flex-column justify-content-start"
             >
