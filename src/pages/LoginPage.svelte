@@ -5,6 +5,9 @@
   import SideImage from "../components/SideImage.svelte";
   import HelperText from "@smui/textfield/helper-text";
   import toast, { Toaster } from "svelte-french-toast";
+  import { postLogin } from "../services/login.js";
+  import { navigate } from "svelte-routing";
+  import IconButton from '@smui/icon-button';
 
   import * as yup from "yup";
 
@@ -20,6 +23,16 @@
   });
   let values = { email: "", password: "" };
   let errors = { email: "", password: "" };
+
+  let user = { mail: "", password: "" };
+  let errors = { mail: "", password: "" };
+	let isVisible = false;
+	let textType = "text";
+
+
+	const toggleVisibility = () => {
+	  isVisible = !isVisible;
+	};
 
   async function submitHandler() {
     try {
@@ -77,7 +90,7 @@
                   variant="outlined"
                   bind:value={values.password}
                   label="Şifre"
-                  type="password"
+                  type={isVisible? "text":"password"}
                   style="min-width: 400px;"
                 >
                   <Icon class="material-icons" slot="leadingIcon" style=""
@@ -88,6 +101,15 @@
                   >{#if errors.password}{errors.password}{/if}</small
                 >
               </div>
+              {#if !isVisible}
+              <IconButton class="material-icons" style="margin-left: 350px"on:click={toggleVisibility}
+              >visibility</IconButton>
+              {:else if isVisible}
+              <IconButton class="material-icons" style="margin-left: 350px"on:click={toggleVisibility}
+              >visibility_off</IconButton>
+              {:else}
+              <br>
+              {/if}
             </div>
           </div>
 
