@@ -1,7 +1,7 @@
 <script lang="ts">
  
   import Paper, { Title, Content } from "@smui/paper";
-  import Card, { PrimaryAction, Media, MediaContent } from "@smui/card";
+  
   import Drawer from "../components/Drawer.svelte";
 
   let clicked = "nothing yet";
