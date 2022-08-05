@@ -5,10 +5,18 @@
     import { onMount } from "svelte";
     import { format } from "date-fns";
     import Drawer from "../components/Drawer.svelte";
+    import Swal from "sweetalert2";
 
     let files;
     let list = [];
-
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger me-3",
+        },
+        buttonsStyling: false,
+        backdrop: false,
+    });
     onMount(() => {
         getFileListFromBase();
     });
@@ -48,10 +56,6 @@
     }
     async function deleteFile(id) {
         try {
-            // let id = downloadURL.substring(
-            //     downloadURL.lastIndexOf("/") + 1,
-            //     downloadURL.length
-            // );
             deleteFiles(id).then((res) => {
                 getFileListFromBase();
                 toast.success("Dosya başarıyla silindi.");
@@ -59,6 +63,37 @@
         } catch (error) {
             console.log(error);
         }
+    }
+    function openDialog(id) {
+        swalWithBootstrapButtons
+            .fire({
+                title: "Bu Dosyayı Silmek İstediğinize Emin misiniz?",
+                text: "Bunu geri alamazsınız!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Evet, sil!",
+                cancelButtonText: "Hayır, silme!",
+                reverseButtons: true,
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    deleteFile(id);
+                    swalWithBootstrapButtons.fire(
+                        "Silindi!",
+                        "Dosya başarıyla silindi.",
+                        "success"
+                    );
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        "İptal Edildi",
+                        "Dosya silinmedi.",
+                        "error"
+                    );
+                }
+            });
     }
 </script>
 
@@ -74,6 +109,7 @@
                     id="upload-files"
                     bind:files
                     type="file"
+                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*"
                     class="form-control mb-3"
                 />
                 <button type="submit" class="btn btn-dark mb-3">
@@ -110,7 +146,7 @@
                             </td>
                             <td>
                                 <button
-                                    on:click={deleteFile(item.id)}
+                                    on:click={openDialog(item.id)}
                                     type="button"
                                     class="btn btn-danger rounded-circle"
                                 >
@@ -137,7 +173,7 @@
 </div>
 
 <style>
-    .container {
-        height: 100%;
+    .card {
+        width: 70%;
     }
 </style>
