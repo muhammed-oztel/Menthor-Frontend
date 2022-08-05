@@ -10,6 +10,7 @@
   import Home from "./pages/Home.svelte";
   import Folder from "./pages/Folder.svelte";
   import VideoCall from "./pages/VideoCall.svelte";
+  import ContactUs from "./pages/ContactUs.svelte";
 </script>
 
 <Router>
@@ -20,6 +21,7 @@
   <Route path="giris" component={LoginPage} />
   <Route path="kayit" component={RegisterPage} />
   <Route path="dosyalar" component={Folder} />
+  <Route path="bizeulasin" component={ContactUs} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
   <Route path="videocall" component={VideoCall} />
