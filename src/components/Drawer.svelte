@@ -1,102 +1,91 @@
 <script lang="ts">
-  import Drawer, {
-    AppContent,
-    Content,
-    Header,
-    Title,
-  } from '@smui/drawer';
-  import Button, { Label } from '@smui/button';
-  import List, { Item, Text } from '@smui/list';
- 
+  import Drawer, { AppContent, Content, Header, Title } from "@smui/drawer";
+  import Button, { Label } from "@smui/button";
+  import List, { Item, Text } from "@smui/list";
+
   let open = false;
-  let active = 'Gray Kittens';
- 
+  let active = "";
+
   function setActive(value) {
     active = value;
   }
 </script>
- 
 
-
-
-
-<div >
+<div>
   <Drawer variant="dismissible" bind:open>
     <Header>
       <Title>Menthor</Title>
-      
     </Header>
     <Content>
       <List>
         <Item
           href="/profil"
-          on:click={() => setActive('Gray Kittens')}
-          activated={active === 'Gray Kittens'}
+          on:click={() => setActive("profil")}
+          activated={active === "profil"}
         >
           <Text>Profil</Text>
         </Item>
         <Item
           href="/panel"
-          on:click={() => setActive('A Space Rocket')}
-          activated={active === 'A Space Rocket'}
+          on:click={() => setActive("panel")}
+          activated={active === "panel"}
         >
           <Text>Panel</Text>
         </Item>
         <Item
           href="/takvim"
-          on:click={() => setActive('100 Pounds of Gravel')}
-          activated={active === '100 Pounds of Gravel'}
+          on:click={() => setActive("calendar")}
+          activated={active === "calendar"}
         >
           <Text>Takvim</Text>
         </Item>
         <Item
           href="/dosyalar"
-          on:click={() => setActive('All of the Shrimp')}
-          activated={active === 'All of the Shrimp'}
+          on:click={() => setActive("files")}
+          activated={active === "files"}
         >
           <Text>Dosyalar</Text>
         </Item>
         <Item
           href="/ayarlar"
-          on:click={() => setActive('A Planet with a Mall')}
-          activated={active === 'A Planet with a Mall'}
+          on:click={() => setActive("settings")}
+          activated={active === "settings"}
         >
           <Text>Ayarlar</Text>
         </Item>
 
         <Item
-        href="/"
-        on:click={() => setActive('çıkış ')}
-        activated={active === 'çıkış '}
-      >
-        <Text>Çıkış</Text>
-      </Item>
+          href="/"
+          on:click={() => {
+            setActive("logout");
+            localStorage.removeItem("token");
+          }}
+          activated={active === "logout"}
+        >
+          <Text>Çıkış</Text>
+        </Item>
       </List>
     </Content>
   </Drawer>
- 
+
   <AppContent class="app-content">
     <main class="main-content">
-      <Button on:click={() => (open = !open)}
-        ><Label>Menü</Label></Button
-      >
-     </main>
+      <Button on:click={() => (open = !open)}><Label>Menü</Label></Button>
+    </main>
   </AppContent>
 </div>
- 
 
 <style>
   /* These classes are only needed because the
     drawer is in a container on the page. */
-  
- 
+
   * :global(.app-content) {
     flex: auto;
-    overflow:auto;
+    overflow: auto;
     position: relative;
     flex-grow: 1;
   }
- 
+
   .main-content {
     overflow: auto;
     padding: 16px;
