@@ -2,34 +2,16 @@
     import Dialog, { Title, Content, Actions } from "@smui/dialog";
     import Button, { Label } from "@smui/button";
     import Drawer from "../components/Drawer.svelte";
-    import {postVideoId} from "../services/videocall.js";
-   
-    console.log(postVideoId);
+    import { onMount } from 'svelte';
+    import  youid  from "../pages/VideoCall.svelte";
+    
     let open = false;
     let clicked = "Nothing yet.";
-    async function sendId() {
-        try {
-            postVideoId(youid).then((response)=>{
-                if (response) {
-            console.log("Gelen veri: ", response);
-                }
-            });
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    async function getId() {
-        try {
-            getVideoId().then((response)=>{
-                console.log("Gelen veri: ", response);
-            });
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    
+   
+    /*onMount(async () => {
+    const res = await sendId();
+    mentorpass = res;
+  });*/
 
 </script>
 
@@ -110,25 +92,14 @@
                                     />
                                 </svg>
                                 <Button
-                                    href = "/videocall"
+                                href = "/videocall"
                                     color="primary"
                                     variant="raised"
-                                    style="max-width: 150px; text-transform: none;"
-                                    on:click={sendId}
+                                    style="max-width: 250px; text-transform: none;"
+                                    
                                     
                                    
-                                    >Görüşme başlat</Button
-                                >
-                                <Button
-                                    href = "/videocall"
-                                    color="primary"
-                                    variant="raised"
-                                    style="max-width: 150px; text-transform: none;"
-                                    on:click={getId}
-                                    
-                                   
-                                    >Görüşmeye Katıl</Button
-                                >
+                                    >Görüşme Sayfasına Git</Button>
                             </div>
                         </div>
                         <div class="col-4 text-center">
