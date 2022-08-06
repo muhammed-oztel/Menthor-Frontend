@@ -1,11 +1,6 @@
 <script>
   import { link } from "svelte-routing";
-  import { searchMentor } from "../services/search";
-  let value = "";
-  function doSearch() {
-    searchMentor(value);
-    value = "";
-  }
+  import Search from "./Search.svelte";
 </script>
 
 <nav class="navbar bg-dark px-3 py-4">
@@ -20,19 +15,8 @@
       />
       <h1>Menthor</h1>
     </a>
-    <form class="d-flex w-50" role="search" on:submit|preventDefault={doSearch}>
-      <input
-        bind:value
-        class="form-control me-2 py-2"
-        type="search"
-        placeholder="Mentorlarınızı arayın"
-        aria-label="Search"
-      />
-      <button class="btn btn-light rounded-circle" type="submit">
-        <i class="bi bi-search" />
-      </button>
-    </form>
-    <div class="d-flex align-items-center">
+    <Search />
+    <div class="d-flex align-items-center" use:link>
       <div class="me-3">
         <button class="btn btn-light rounded-pill py-2 px-3" type="submit">
           <strong

@@ -1,8 +1,8 @@
 import Api from "./Api";
 // Get
-export const searchMentor = async ( name ) => {
+export const getUserInfos = async ( id) => {
     try {
-      const response = await Api.get(`user/search/${name}`);
+      const response = await Api.get(`user/single/${id}`);
       return response;
     } catch (error) {
       console.error(error);
