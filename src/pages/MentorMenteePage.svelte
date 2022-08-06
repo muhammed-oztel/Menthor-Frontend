@@ -97,8 +97,6 @@
                                     variant="raised"
                                     style="max-width: 250px; text-transform: none;"
                                     
-                                    
-                                   
                                     >Görüşme Sayfasına Git</Button>
                             </div>
                         </div>
