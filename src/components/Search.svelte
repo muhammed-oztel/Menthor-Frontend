@@ -1,9 +1,10 @@
 <script>
     import Result from "./Result.svelte";
-    import { searchMentor } from "../services/search";
+    import { searchMentor, targetProfile } from "../services/search";
+    import { navigate } from "svelte-routing";
 
     let searchResult = [];
-
+    let targetId = "";
     let filteredResults = [];
 
     const filterSearch = () => {
@@ -11,6 +12,7 @@
         if (inputValue) {
             Promise.resolve(searchMentor(inputValue))
                 .then((result) => {
+                    console.log(result);
                     searchResult = result;
                     searchResult.forEach((item) => {
                         if (item) {
@@ -38,6 +40,11 @@
     }
 
     const setInputVal = (result) => {
+        searchResult.find((item) => {
+            if (item.name + " " + item.surname === result) {
+                targetId = item.id;
+            }
+        });
         inputValue = result;
         filteredResults = [];
         hiLiteIndex = null;
@@ -47,9 +54,12 @@
     const submitValue = () => {
         try {
             if (inputValue) {
-                console.log(inputValue);
+                targetProfile(targetId).then((result) => {
+                    console.log(result);
+                    navigate(`/profil/${result.id}`);
+                });
+
                 //Profil Sayfasına Gidilen Fonksiyon olacak
-                console.log(inputValue);
             } else {
                 console.log("No value");
             }
@@ -99,11 +109,13 @@
 
     {#if filteredResults.length > 0}
         <ul class="px-2" id="autocomplete-items-list">
-            {#each filteredResults as country, i}
+            {#each filteredResults as mentor, i}
                 <Result
-                    itemLabel={country}
+                    itemLabel={mentor}
                     highlighted={i === hiLiteIndex}
-                    on:click={() => setInputVal(country)}
+                    on:click={() => {
+                        setInputVal(mentor);
+                    }}
                 />
             {/each}
         </ul>
