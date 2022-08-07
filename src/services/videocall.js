@@ -5,6 +5,7 @@ export const getVideoId= async () => {
     try {
       const response = await Api.get("meetroom/Mentee_side/1");
       console.log(response);
+      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
