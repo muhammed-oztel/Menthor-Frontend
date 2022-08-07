@@ -7,6 +7,7 @@
     
     let open = false;
     let clicked = "Nothing yet.";
+    let mentor;
    
     /*onMount(async () => {
     const res = await sendId();

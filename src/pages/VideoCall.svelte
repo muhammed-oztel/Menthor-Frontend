@@ -46,6 +46,7 @@ let youid = ""
                 codeid.then(value => {
                   codeid=value;
               console.log(codeid);
+              console.log(codeid);
 })
         } catch (error) {
             console.log(error);
