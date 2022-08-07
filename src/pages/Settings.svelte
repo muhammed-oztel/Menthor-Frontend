@@ -15,23 +15,22 @@
   };
   const update = () => {
     toast.success("Kullanıcı Bilgileriniz Başarıyla Güncellendi!", {
-        position: "top-right",
-      });
+      position: "top-right",
+    });
     console.log(user);
   };
   const deleteAccount = () => {
     toast.error("Kullanıcı Profiliniz Başarıyla Silindi!", {
-        position: "top-right",
-      });
+      position: "top-right",
+    });
     console.log("Account deleted");
   };
 </script>
 
-
-<Drawer/>
+<Drawer />
 <Toaster />
 <div class="container">
-  <div class="row align-items-center vh-100">
+  <div class="row align-items-center">
     <div class="col-6 mx-auto">
       <div class="card card-rounded shadow border-0">
         <div class="card-body d-flex flex-column align-items-center">
@@ -171,8 +170,8 @@
     right: 0;
   }
   .inner:hover {
-  background-color: gray;
-}
+    background-color: gray;
+  }
 
   .inputfile {
     opacity: 0;

@@ -5,6 +5,7 @@
 
   import Drawer from "../components/Drawer.svelte";
   import { format } from "date-fns";
+  import Navbar from "../components/Navbar.svelte";
   let user = {
     nameSurname: "",
     email: "",
@@ -14,6 +15,7 @@
     age: "",
   };
   let id = "";
+  let token = "";
 
   async function getUserData(id) {
     console.log(history.state);
@@ -39,11 +41,16 @@
   }
   onMount(() => {
     id = localStorage.getItem("uid");
+    token = localStorage.getItem("token");
     getUserData(id);
   });
 </script>
 
-<Drawer />
+{#if token}
+  <Drawer />
+{:else if !token}
+  <Navbar />
+{/if}
 
 <div class="container">
   <div class="row align-items-center">
@@ -59,6 +66,7 @@
         <h2 class="text-center">{user.nameSurname}</h2>
         <h6 class="text-center">{user.role}</h6>
       </div>
+      <div class="mb-5" />
       <div class="paper-container paper-shaped-round">
         <Paper color="primary" variant="unelevated">
           <Title>Hakkımda</Title>
@@ -74,15 +82,17 @@
         </Paper>
       </div>
 
-      <div class="card">
-        <div class="card-header">Yaklaşan Görüşmeler</div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
-            <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
-          </blockquote>
+      {#if token}
+        <div class="card">
+          <div class="card-header">Yaklaşan Görüşmeler</div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
+              <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
+            </blockquote>
+          </div>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
 </div>
