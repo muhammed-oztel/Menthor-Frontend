@@ -13,16 +13,14 @@
     putUpdateEvent,
     deleteEvent,
   } from "../services/calendar";
-  import { onMount } from 'svelte';
-
+  import { onMount } from "svelte";
 
   onMount(async () => {
-    getEventList({matchId:1}).then((response) => {
+    getEventList({ matchId: 1 }).then((response) => {
       console.log(response);
-      options = {...options, events: response};
+      options = { ...options, events: response };
     });
   });
-
 
   let date;
   let openModal = false;
@@ -98,16 +96,15 @@
     } else {
       postCreateEvent(fullCalenderevent).then((response) => {
         console.log(response);
-        getEventList({matchId:1}).then((response) => {
-          console.log()
-          console.log(response)
+        getEventList({ matchId: 1 }).then((response) => {
+          console.log();
+          console.log(response);
           options = {
             ...options,
             events: response,
           };
         });
       });
-      
     }
 
     // reset modalEvent to default
@@ -133,9 +130,9 @@
 
     putUpdateEvent(updatedEvent).then((response) => {
       console.log(response);
-      getEventList({matchId:1}).then((response) => {
-        console.log()
-        console.log(response)
+      getEventList({ matchId: 1 }).then((response) => {
+        console.log();
+        console.log(response);
         options = {
           ...options,
           events: response,
@@ -161,12 +158,11 @@
   }
 
   function handleDeleteEvent() {
-
     deleteEvent(modalEvent).then((response) => {
       console.log(response);
-      getEventList({matchId:1}).then((response) => {
-        console.log()
-        console.log(response)
+      getEventList({ matchId: 1 }).then((response) => {
+        console.log();
+        console.log(response);
         options = {
           ...options,
           events: response,
@@ -195,7 +191,7 @@
 <Drawer />
 
 <div class="container">
-  <div class="row align-items-center vh-100">
+  <div class="row align-items-center">
     <div class="card card-rounded shadow border-0">
       <div class="card-body flex-column-center">
         <div class="row">
