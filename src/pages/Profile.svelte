@@ -13,8 +13,12 @@
     phone: "",
     age: "",
   };
-  async function getUserData() {
-    await getUserInfos(history.state.user.response.id)
+  let id = "";
+
+  async function getUserData(id) {
+    console.log(history.state);
+    // console.log(history.state.user.response.id);
+    await getUserInfos(id)
       .then((response) => {
         console.log(response);
         let today = new Date();
@@ -28,14 +32,14 @@
           phone: response.phone,
           age: age.toString(),
         };
-        // list = [...response];
       })
       .catch((err) => {
         console.log(err);
       });
   }
   onMount(() => {
-    getUserData();
+    id = localStorage.getItem("uid");
+    getUserData(id);
   });
 </script>
 

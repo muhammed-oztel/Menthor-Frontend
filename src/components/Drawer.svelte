@@ -58,7 +58,7 @@
           href="/"
           on:click={() => {
             setActive("logout");
-            localStorage.removeItem("token");
+            localStorage.clear();
           }}
           activated={active === "logout"}
         >
@@ -76,9 +76,6 @@
 </div>
 
 <style>
-  /* These classes are only needed because the
-    drawer is in a container on the page. */
-
   * :global(.app-content) {
     flex: auto;
     overflow: auto;

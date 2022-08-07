@@ -16,8 +16,8 @@
 </script>
 
 <Router>
+  <Route path="profil" component={Profile} />
   {#if token}
-    <Route path="profil" component={Profile} />
     <Route path="takvim" component={Calendar} />
     <Route path="ayarlar" component={Settings} />
     <Route path="panel" component={Panel} />

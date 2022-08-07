@@ -37,7 +37,8 @@
             console.log("Gelen veri: ", response);
             toast.success("Giriş Başarılı!", { position: "top-right" });
             setTimeout(() => {
-              navigate("/profil", { state: { user: { response } } });
+              navigate("/profil");
+              // navigate("/profil", { state: { user: { response } } });
             }, 2000);
           } else {
             toast.error("Mail veya şifre hatalı!", { position: "top-right" });
