@@ -5,7 +5,12 @@
 
 <nav class="navbar bg-dark px-3 py-4">
   <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" href="/">
+    <a
+      on:click={() => localStorage.removeItem("target")}
+      class="navbar-brand d-flex align-items-center"
+      href="/"
+      use:link
+    >
       <img
         src="https://st3.depositphotos.com/2927609/18123/v/600/depositphotos_181237302-stock-illustration-thor-hammer-icon-vector-illustration.jpg"
         alt="navbar-logo"

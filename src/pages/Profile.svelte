@@ -14,11 +14,12 @@
     phone: "",
     age: "",
   };
-  let id = "";
+  export let id;
+  id = localStorage.getItem("target") || localStorage.getItem("uid");
+  // let id = "";
   let token = "";
 
   async function getUserData(id) {
-    console.log(history.state);
     // console.log(history.state.user.response.id);
     await getUserInfos(id)
       .then((response) => {
@@ -40,14 +41,14 @@
       });
   }
   onMount(() => {
-    id = localStorage.getItem("uid");
+    // id = localStorage.getItem("uid") || localStorage.getItem("target");
     token = localStorage.getItem("token");
     getUserData(id);
   });
 </script>
 
 {#if token}
-  <Drawer />
+  <Drawer {id} />
 {:else if !token}
   <Navbar />
 {/if}

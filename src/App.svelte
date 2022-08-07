@@ -13,10 +13,15 @@
   import ContactUs from "./pages/ContactUs.svelte";
   let token;
   $: token = localStorage.getItem("token");
+  let searchId;
+  $: searchId = localStorage.getItem("target");
 </script>
 
 <Router>
-  <Route path="profil" component={Profile} />
+  <Route path="profil/:id">
+    <Profile id={searchId} />
+    <!-- <Profile /> -->
+  </Route>
   {#if token}
     <Route path="takvim" component={Calendar} />
     <Route path="ayarlar" component={Settings} />
