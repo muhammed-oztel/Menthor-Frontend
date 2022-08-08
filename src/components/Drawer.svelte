@@ -24,7 +24,6 @@
             setActive("Gray Kittens");
             localStorage.setItem("target", localStorage.getItem("uid"));
           }}
-          activated={active === "Gray Kittens"}
         >
           <Text>Profil</Text>
         </Item>
