@@ -5,6 +5,7 @@ export const postLogin = async ( request ) => {
       const response = await Api.post("menthor/login", request);
       localStorage.setItem("token", response.token);
       localStorage.setItem("uid", response.id);
+      localStorage.setItem("role", response.role);
       console.log("Send the request");
       return response;
     } catch (error) {
