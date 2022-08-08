@@ -8,7 +8,7 @@
 
   function setActive(value) {}
   export let id;
-  id = localStorage.getItem("target") || localStorage.getItem("uid");
+  id = localStorage.getItem("uid");
 </script>
 
 <div>
@@ -19,8 +19,11 @@
     <Content>
       <List>
         <Item
-          href={`profil/${id}`}
-          on:click={() => setActive("Gray Kittens")}
+          href={`/profil/${id}`}
+          on:click={() => {
+            setActive("Gray Kittens");
+            localStorage.setItem("target", localStorage.getItem("uid"));
+          }}
           activated={active === "Gray Kittens"}
         >
           <Text>Profil</Text>
@@ -59,6 +62,7 @@
           on:click={() => {
             localStorage.clear()
             setActive("çıkış ")
+
           }}
           activated={active === "çıkış "}
         >
