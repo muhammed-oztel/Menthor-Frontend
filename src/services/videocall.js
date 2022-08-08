@@ -1,10 +1,9 @@
 import Api from "./Api";
 
 
-export const getVideoId= async () => {
+export const getVideoId= async (menteeid) => {
     try {
-      const response = await Api.get("meetroom/Mentee_side/1");
-      console.log(response);
+      const response = await Api.get(`meetroom/Mentee_side/${menteeid}`);
       console.log(response);
       return response;
     } catch (error) {
@@ -15,10 +14,10 @@ export const getVideoId= async () => {
 
 
 // Post 
-export const postVideoId = async ( request ) => {
+export const postVideoId = async ( request, mentorid ) => {
     try {
      
-      const response = await Api.post("meetroom/Mentor_side/2", request);
+      const response = await Api.post(`meetroom/Mentor_side/${mentorid}`, request);
       console.log("Send the request");
       
      console.log(request);
