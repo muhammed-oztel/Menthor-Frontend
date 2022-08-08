@@ -11,6 +11,7 @@
   import Folder from "./pages/Folder.svelte";
   import VideoCall from "./pages/VideoCall.svelte";
   import ContactUs from "./pages/ContactUs.svelte";
+import EmailVerification from "./pages/EmailVerification.svelte";
   let token;
   $: token = localStorage.getItem("token");
   let searchId;
@@ -31,6 +32,7 @@
   {/if}
   <Route path="giris" component={LoginPage} />
   <Route path="kayit" component={RegisterPage} />
+  <Route path="email" component={EmailVerification} />
   <Route path="bizeulasin" component={ContactUs} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
