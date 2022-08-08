@@ -1,4 +1,5 @@
 <script>
+  import {postVideoId, getVideoId } from "../services/videocall.js";
   import {Peer} from 'peerjs'
 var peer = new Peer();
 let codeid = ""
@@ -6,15 +7,54 @@ let videocurrent;
 let videoEl;
 let youid = ""
 
+
+
   // GET YOU ID
   peer.on("open",(id)=>{
-    youid = id
-    console.log(id)
+    youid = id;
+    console.log(id);
+   
   })
+    
   // IF ERROR CAN GET ID
-   peer.on("error",(id)=>{
+  peer.on("error",(id)=>{
     console.log("error id "+ id)
   })
+
+  //Get and post requests
+  async function sendId() {
+        try {
+           
+            postVideoId(youid).then((response)=>{
+               /* if (response) {
+            console.log("Gelen veri: ", response);
+                }*/
+                console.log( response);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async function getId() {
+        try {
+            getVideoId().then((response)=>{
+                console.log("Gelen veri: ", response);
+                
+            });
+              codeid = getVideoId();
+
+                codeid.then(value => {
+                  codeid=value;
+              console.log(codeid);
+              console.log(codeid);
+})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+  
+
+
 
   peer.on("connection",(conn)=>{
     console.log("message....")
@@ -48,16 +88,14 @@ let renderYouwebcam = (stream)=>{
 
 </script>
 <div>
-  you id cam  = {youid}
-  <br>
-  code : <input type=""
-  bind:value={codeid} name="">
-  <!-- BUTTON CONNECT TO FRIEND -->
+ 
+  <!-- starting the call button for mentor -->
   <button
   on:click={async()=>{
-    var conn = peer.connect(codeid)
+    var conn = peer.connect(codeid) 
     conn.on("data",(data)=>{
       console.log("new data " + data)
+     
     })
     conn.on("open",function(){
       conn.send("hi")
@@ -68,13 +106,47 @@ let renderYouwebcam = (stream)=>{
       audio:true
     }).then(stream=>{
       let call = peer.call(codeid,stream)
+      console.log(codeid);
       videocurrent.srcObject = stream
       videocurrent.play()
       call.on("stream",renderYouwebcam)
     }).catch(err=>console.log("have error " + err))
   }}
+
+    on:click={sendId}
   >
-  connect</button>
+  Görüşmeyi Başlat</button>
+  
+  
+  
+  <!-- Joining the call button for mentee-->
+  <button
+  on:click={getId}
+  on:click={async()=>{
+    var conn = peer.connect(codeid)
+    conn.on("data",(data)=>{
+      console.log("new data " + data)
+      console.log(codeid);
+    })
+    conn.on("open",function(){
+      conn.send("hi")
+    })
+    // OPEN YOU WEBAM
+    await navigator.mediaDevices.getUserMedia({
+      video:true,
+      audio:true
+    }).then(stream=>{
+      let call = peer.call(codeid,stream)
+      console.log(codeid);
+      videocurrent.srcObject = stream
+      videocurrent.play()
+      call.on("stream",renderYouwebcam)
+    }).catch(err=>console.log("have error " + err))
+  }}
+
+    
+  >
+  Görüşmeye Katıl</button> 
 
   </div>
   

@@ -10,7 +10,7 @@
   import CircularProgress from "@smui/circular-progress";
   import Radio from "@smui/radio";
   import FormField from "@smui/form-field";
-  import { onMount } from "svelte";
+  import IconButton from "@smui/icon-button";
 
   let submitting = false;
   let verify = false;
@@ -61,6 +61,10 @@
       ),
     role: yup.string().required("Lütfen bir rol seçiniz"),
   });
+  let isVisible = false;
+  const toggleVisibility = () => {
+    isVisible = !isVisible;
+  };
   async function validate() {
     try {
       await schema.validate(user, { abortEarly: false });
@@ -203,12 +207,20 @@
             <div class="input-group mb-3">
               <Textfield
                 style="width: 505px;"
-                type="password"
+                type={isVisible ? "text" : "password"}
                 variant="outlined"
                 bind:value={user.pass}
                 label="Şifre"
               >
                 <Icon class="material-icons" slot="leadingIcon">password</Icon>
+                <IconButton
+                  type="button"
+                  class="material-icons text-muted"
+                  slot="trailingIcon"
+                  on:click={toggleVisibility}
+                >
+                  {isVisible ? "visibility" : "visibility_off"}
+                </IconButton>
               </Textfield>
               <small class="invalid-feedback d-block"
                 >{#if errors.pass}{errors.pass}{/if}</small

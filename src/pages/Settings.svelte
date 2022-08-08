@@ -2,8 +2,9 @@
   import { Icon } from "@smui/fab";
   import Textfield from "@smui/textfield";
   import Tags from "../components/Tags.svelte";
-  import toast, { Toaster } from "svelte-french-toast";
   import Drawer from "../components/Drawer.svelte";
+  import Swal from "sweetalert2";
+
   let user = {
     name: "Cemal",
     surname: "Sayer",
@@ -13,25 +14,73 @@
     password: "tregitim",
     interests: ["HTML", "CSS", "Svelte"],
   };
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger me-3",
+    },
+    buttonsStyling: false,
+    backdrop: false,
+  });
   const update = () => {
-    toast.success("Kullanıcı Bilgileriniz Başarıyla Güncellendi!", {
-        position: "top-right",
+    swalWithBootstrapButtons
+      .fire({
+        title: "Bilgilerinizi Güncellemek İstediğinize Emin misiniz?",
+        text: "Bunu geri alamazsınız!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Evet, güncelle!",
+        cancelButtonText: "Hayır, güncelleme!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          console.log(user);
+          swalWithBootstrapButtons.fire(
+            "Güncelleme Başarılı!",
+            "Hesabınız başarıyla güncellendi.",
+            "success"
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire("İşleminiz İptal Edildi", "", "error");
+        }
       });
-    console.log(user);
   };
   const deleteAccount = () => {
-    toast.error("Kullanıcı Profiliniz Başarıyla Silindi!", {
-        position: "top-right",
+    swalWithBootstrapButtons
+      .fire({
+        title: "Hesabınızı Silmek İstediğinize Emin misiniz?",
+        text: "Bunu geri alamazsınız!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Evet, sil!",
+        cancelButtonText: "Hayır, silme!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          console.log("Account deleted");
+          swalWithBootstrapButtons.fire(
+            "Silme başarılı!",
+            "Hesabınız başarıyla silindi.",
+            "success"
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire("İşleminiz İptal Edildi", "", "error");
+        }
       });
-    console.log("Account deleted");
   };
 </script>
 
-
-<Drawer/>
-<Toaster />
+<Drawer />
 <div class="container">
-  <div class="row align-items-center vh-100">
+  <div class="row align-items-center">
     <div class="col-6 mx-auto">
       <div class="card card-rounded shadow border-0">
         <div class="card-body d-flex flex-column align-items-center">
@@ -130,7 +179,7 @@
           </form>
           <div class="card-buttons">
             <div class="form-group form-button">
-              <button on:click={deleteAccount} class="btn btn-danger"
+              <button on:click={() => deleteAccount()} class="btn btn-danger"
                 >Hesabı Sil</button
               >
             </div>
@@ -171,8 +220,8 @@
     right: 0;
   }
   .inner:hover {
-  background-color: gray;
-}
+    background-color: gray;
+  }
 
   .inputfile {
     opacity: 0;

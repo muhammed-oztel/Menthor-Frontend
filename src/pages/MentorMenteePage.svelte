@@ -2,40 +2,20 @@
     import Dialog, { Title, Content, Actions } from "@smui/dialog";
     import Button, { Label } from "@smui/button";
     import Drawer from "../components/Drawer.svelte";
-    import {postVideoId} from "../services/videocall.js";
-   
-    console.log(postVideoId);
+    import { onMount } from "svelte";
+    import youid from "../pages/VideoCall.svelte";
+
     let open = false;
     let clicked = "Nothing yet.";
-    async function sendId() {
-        try {
-            postVideoId(youid).then((response)=>{
-                if (response) {
-            console.log("Gelen veri: ", response);
-                }
-            });
+    let mentor;
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    async function getId() {
-        try {
-            getVideoId().then((response)=>{
-                console.log("Gelen veri: ", response);
-            });
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    
-
+    /*onMount(async () => {
+    const res = await sendId();
+    mentorpass = res;
+  });*/
 </script>
 
-
-       <Drawer/> 
-   
+<Drawer />
 
 <Dialog
     bind:open
@@ -61,9 +41,9 @@
     </Actions>
 </Dialog>
 
-<div class="cotainer">
-    <div class="row align-items-center vh-100">
-        <div class="col-6 mx-auto">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-6">
             <div class="card card-rounded shadow border-0">
                 <div class="card-body flex-column-center">
                     <div class="row">
@@ -110,24 +90,11 @@
                                     />
                                 </svg>
                                 <Button
-                                    href = "/videocall"
+                                    href="/videocall"
                                     color="primary"
                                     variant="raised"
-                                    style="max-width: 150px; text-transform: none;"
-                                    on:click={sendId}
-                                    
-                                   
-                                    >Görüşme başlat</Button
-                                >
-                                <Button
-                                    href = "/videocall"
-                                    color="primary"
-                                    variant="raised"
-                                    style="max-width: 150px; text-transform: none;"
-                                    on:click={getId}
-                                    
-                                   
-                                    >Görüşmeye Katıl</Button
+                                    style="max-width: 250px; text-transform: none;"
+                                    >Görüşme Sayfasına Git</Button
                                 >
                             </div>
                         </div>
@@ -154,7 +121,6 @@
                             </div>
                             <div class="col-4 ">
                                 <Button
-                                    
                                     color="primary"
                                     variant="raised"
                                     style="text-transform: none;"
