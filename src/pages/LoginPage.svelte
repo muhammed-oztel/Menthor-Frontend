@@ -37,7 +37,6 @@
             console.log("Gelen veri: ", response);
             toast.success("Giriş Başarılı!", { position: "top-right" });
             setTimeout(() => {
-              localStorage.setItem("target", response.id)
               navigate(`/profil/${response.id}`);
               // navigate("/profil", { state: { user: { response } } });
             }, 2000);
@@ -133,6 +132,7 @@
   </div>
 </div>
 
+<!-- <Footer /> -->
 <style>
   .ms-6 {
     margin-left: 300px;
