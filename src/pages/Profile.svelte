@@ -12,7 +12,7 @@
     role: "",
     picture: "",
     phone: "",
-    age: "",
+    // age: "",
   };
   export let id;
   id = localStorage.getItem("target") || localStorage.getItem("uid");
@@ -25,15 +25,15 @@
       .then((response) => {
         console.log(response);
         let today = new Date();
-        let birthDate = format(new Date(response.birth), "yyyy");
-        let age = today.getFullYear() - parseInt(birthDate);
+        // let birthDate = format(new Date(response.birth), "yyyy");
+        // let age = today.getFullYear() - parseInt(birthDate);
         user = {
           nameSurname: response.name + " " + response.surname,
           email: response.email,
           role: response.role,
           picture: response.picture,
           phone: response.phone,
-          age: age.toString(),
+          // age: age.toString(),
         };
       })
       .catch((err) => {
@@ -72,13 +72,14 @@
         <Paper color="primary" variant="unelevated">
           <Title>Hakkımda</Title>
           <Content>
-            “Adım {user.nameSurname}.{user.age} yaşındayım. Ve yeni insanlarla tanışmaktan
-            ve onların canlandırıcı bir deneyim yaşamalarına yardımcı olacak yollar
-            bulmaktan keyif alıyorum. Kendini işine adamış, dışa dönük ve takım oyuncusuyum.
-            İnsanlar beni, mükemmel iletişim becerilerine sahip, iyimser, kendi kendini
-            motive eden bir takım oyuncusu olarak görüyor. Son birkaç yıldır teknoloji
-            endüstrisinde lider kalifikasyon, telefonla pazarlama ve müşteri hizmetleri
-            alanlarında çalıştım. "
+            “Adım {user.nameSurname}. Ve yeni insanlarla tanışmaktan ve onların
+            canlandırıcı bir deneyim yaşamalarına yardımcı olacak yollar
+            bulmaktan keyif alıyorum. Kendini işine adamış, dışa dönük ve takım
+            oyuncusuyum. İnsanlar beni, mükemmel iletişim becerilerine sahip,
+            iyimser, kendi kendini motive eden bir takım oyuncusu olarak
+            görüyor. Son birkaç yıldır teknoloji endüstrisinde lider
+            kalifikasyon, telefonla pazarlama ve müşteri hizmetleri alanlarında
+            çalıştım. "
           </Content>
         </Paper>
       </div>

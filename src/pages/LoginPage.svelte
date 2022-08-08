@@ -37,12 +37,18 @@
         .then((response) => {
           if (response) {
             console.log("Gelen veri: ", response);
-            toast.success("Giriş Başarılı!", { position: "top-right" });
-            submitting = true;
-            setTimeout(() => {
-              navigate(`/profil/${response.id}`);
-              // navigate("/profil", { state: { user: { response } } });
-            }, 2000);
+            if (response.enabled) {
+              toast.success("Giriş Başarılı!", { position: "top-right" });
+              submitting = true;
+              setTimeout(() => {
+                navigate(`/profil/${response.id}`);
+                // navigate("/profil", { state: { user: { response } } });
+              }, 2000);
+            } else {
+              toast.error("Hesabınızı doğrulamanız gerekiyor.", {
+                position: "top-right",
+              });
+            }
           } else {
             toast.error("Mail veya şifre hatalı!", { position: "top-right" });
           }
