@@ -6,9 +6,11 @@
   import toast, { Toaster } from "svelte-french-toast";
   import { postLogin } from "../services/login.js";
   import { navigate } from "svelte-routing";
+  import CircularProgress from "@smui/circular-progress";
   import IconButton from "@smui/icon-button";
 
   import * as yup from "yup";
+  let submitting = false;
 
   let schema = yup.object().shape({
     mail: yup
@@ -36,6 +38,7 @@
           if (response) {
             console.log("Gelen veri: ", response);
             toast.success("Giriş Başarılı!", { position: "top-right" });
+            submitting = true;
             setTimeout(() => {
               navigate(`/profil/${response.id}`);
               // navigate("/profil", { state: { user: { response } } });
@@ -117,14 +120,21 @@
           </div>
 
           <div class="text-center mt-3 ms-6">
-            <Button
-              color="primary"
-              variant="raised"
-              style="min-width: 100px; text-transform: none;"
-              type="submit"
-            >
-              Giriş Yap
-            </Button>
+            {#if submitting}
+              <CircularProgress
+                style="height: 32px; width: 32px;"
+                indeterminate
+              />
+            {:else}
+              <Button
+                color="primary"
+                variant="raised"
+                style="min-width: 100px; text-transform: none;"
+                type="submit"
+              >
+                Giriş Yap
+              </Button>
+            {/if}
           </div>
         </form>
       </div>

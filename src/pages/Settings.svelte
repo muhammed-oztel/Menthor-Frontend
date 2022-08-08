@@ -4,16 +4,69 @@
   import Tags from "../components/Tags.svelte";
   import Drawer from "../components/Drawer.svelte";
   import Swal from "sweetalert2";
+  import { onMount } from "svelte";
+  import {
+    addInterest,
+    fetchInterest,
+    fetchUser,
+    updateUser,
+    deleteUser,
+  } from "../services/settings";
+  import { navigate } from "svelte-routing";
+  import Cities from "../components/Cities.svelte";
+  let avatar, fileinput;
 
+  let id;
   let user = {
-    name: "Cemal",
-    surname: "Sayer",
-    phone: "555555555",
-    birthdate: "01/01/1978",
-    email: "cemalsayer@tregitim.com.tr",
-    password: "tregitim",
-    interests: ["HTML", "CSS", "Svelte"],
+    name: "",
+    surname: "",
+    email: "",
+    picture: "",
+    phone: "",
+    birth: "",
+    city: "",
+    about: "",
   };
+
+  let interests = [];
+
+  async function getUserData(id) {
+    await fetchUser(id)
+      .then((response) => {
+        // let date = format(new Date(response.birth), "dd.MM.yyyy");
+        user = {
+          name: response.name,
+          surname: response.surname,
+          email: response.email,
+          picture: response.picture,
+          phone: response.phone,
+          birth: response.birth,
+          city: response.city,
+          about: response.about,
+        };
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+
+    await fetchInterest(id)
+      .then((response) => {
+        console.log(response);
+        response.forEach((element) => {
+          console.log(element.field);
+          interests = [...interests, element.field];
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  onMount(() => {
+    id = localStorage.getItem("uid");
+    getUserData(id);
+  });
+
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success",
@@ -35,7 +88,14 @@
       })
       .then((result) => {
         if (result.isConfirmed) {
+          let create = interests.map(function (interest) {
+            return { userId: id, field: interest };
+          });
           console.log(user);
+          console.log(user.birth);
+          updateUser(id, user);
+          addInterest(create);
+
           swalWithBootstrapButtons.fire(
             "Güncelleme Başarılı!",
             "Hesabınız başarıyla güncellendi.",
@@ -63,6 +123,15 @@
       .then((result) => {
         if (result.isConfirmed) {
           console.log("Account deleted");
+          deleteUser(id)
+            .then(() => {
+              navigate("/");
+              localStorage.clear();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
           swalWithBootstrapButtons.fire(
             "Silme başarılı!",
             "Hesabınız başarıyla silindi.",
@@ -76,24 +145,43 @@
         }
       });
   };
+  const onFileSelected = (e) => {
+    let image = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = (e) => {
+      avatar = e.target.result;
+      user.picture = avatar;
+    };
+  };
 </script>
 
 <Drawer />
 <div class="container">
   <div class="row align-items-center">
     <div class="col-6 mx-auto">
-      <div class="card card-rounded shadow border-0">
-        <div class="card-body d-flex flex-column align-items-center">
-          <form on:submit|preventDefault={update}>
+      <div class="card card-rounded shadow border-0 ">
+        <div class="card-body d-flex flex-column align-items-center ">
+          <form
+            class="d-flex flex-column justify-content-center align-items-center"
+            on:submit|preventDefault={update}
+          >
             <h1 class="card-title mb-2">Ayarlar</h1>
             <div class="cnt mb-4">
-              <div class="outer">
+              <div
+                class="outer"
+                style="background-image: url('{user.picture == null
+                  ? 'https://cdn-icons-png.flaticon.com/512/7710/7710521.png'
+                  : user.picture}');"
+              >
                 <div class="inner">
                   <input
                     class="inputfile"
                     type="file"
                     name="pic"
                     accept="image/*"
+                    bind:this={fileinput}
+                    on:change={(e) => onFileSelected(e)}
                   />
                   <label for="">
                     <Icon class="material-icons">edit</Icon>
@@ -112,7 +200,7 @@
                     label="İsim"
                   />
                   <Textfield
-                    style="min-width:240px;"
+                    style="min-width:200px;"
                     bind:value={user.surname}
                     variant="outlined"
                     label="Soyisim"
@@ -133,8 +221,9 @@
                     label="Telefon"
                   />
                   <Textfield
-                    style="min-width:240px;"
-                    bind:value={user.birthdate}
+                    style="min-width:218px;"
+                    type="date"
+                    bind:value={user.birth}
                     variant="outlined"
                     label="Doğum Tarihi"
                   />
@@ -152,20 +241,33 @@
                     variant="outlined"
                     label="E-posta"
                   />
-                  <Textfield
-                    type="password"
-                    style="min-width:240px;"
-                    bind:value={user.password}
-                    variant="outlined"
-                    label="Şifre"
-                  />
+                  <div>
+                    <Cities bind:city={user.city} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="col">
+                  <h6>Hakkımda</h6>
+                  <div>
+                    <div class="form-outline">
+                      <textarea
+                        maxlength="100"
+                        bind:value={user.about}
+                        class="form-control about"
+                        rows="3"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <div class="form-group tag-size">
-                  <Tags tags={user.interests} />
+                <div class="form-group">
+                  <Tags tags={interests} />
                 </div>
               </div>
             </div>
@@ -191,6 +293,10 @@
 </div>
 
 <style>
+  .about {
+    resize: none;
+    min-width: 480px;
+  }
   .cnt {
     width: 150px;
     height: 150px;
@@ -204,7 +310,6 @@
     max-width: 150px !important;
     max-height: 150px !important;
     margin: auto;
-    background-image: url("https://grain.org/system/attachments/sources/000/005/237/med_large/Henk.png");
     background-size: cover;
     border-radius: 100%;
     position: relative;
@@ -252,6 +357,9 @@
   }
 
   .card-buttons {
-    margin-left: 335px;
+    margin-left: 305px;
+  }
+  :global(.mdc-text-field__input::-webkit-calendar-picker-indicator) {
+    display: initial !important;
   }
 </style>
