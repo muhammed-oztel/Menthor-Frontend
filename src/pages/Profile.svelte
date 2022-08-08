@@ -15,9 +15,10 @@
     age: "",
   };
   export let id;
-  id = localStorage.getItem("target") || localStorage.getItem("uid");
-  // let id = "";
+  $: id = localStorage.getItem("target") ;
+  // id = "";
   let token = "";
+  let displayerRole = "";
 
   async function getUserData(id) {
     // console.log(history.state.user.response.id);
@@ -43,6 +44,11 @@
   onMount(() => {
     // id = localStorage.getItem("uid") || localStorage.getItem("target");
     token = localStorage.getItem("token");
+    displayerRole = localStorage.getItem("role");
+    if (!displayerRole){
+      displayerRole = "guest";
+    }
+    console.log(displayerRole)
     getUserData(id);
   });
 </script>
@@ -53,50 +59,52 @@
   <Navbar />
 {/if}
 
-<div class="container">
-  <div class="row align-items-center">
-    <div class="col-12 mx-auto d-flex flex-column align-items-center">
-      <div class="profile-pic">
-        <img
-          class="card-img-top"
-          src={user.picture == null
-            ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-            : user.picture}
-          alt=""
-        />
-        <h2 class="text-center">{user.nameSurname}</h2>
-        <h6 class="text-center">{user.role}</h6>
-      </div>
-      <div class="mb-5" />
-      <div class="paper-container paper-shaped-round">
-        <Paper color="primary" variant="unelevated">
-          <Title>Hakkımda</Title>
-          <Content>
-            “Adım {user.nameSurname}.{user.age} yaşındayım. Ve yeni insanlarla tanışmaktan
-            ve onların canlandırıcı bir deneyim yaşamalarına yardımcı olacak yollar
-            bulmaktan keyif alıyorum. Kendini işine adamış, dışa dönük ve takım oyuncusuyum.
-            İnsanlar beni, mükemmel iletişim becerilerine sahip, iyimser, kendi kendini
-            motive eden bir takım oyuncusu olarak görüyor. Son birkaç yıldır teknoloji
-            endüstrisinde lider kalifikasyon, telefonla pazarlama ve müşteri hizmetleri
-            alanlarında çalıştım. "
-          </Content>
-        </Paper>
-      </div>
-
-      {#if token}
-        <div class="card">
-          <div class="card-header">Yaklaşan Görüşmeler</div>
-          <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
-              <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
-            </blockquote>
-          </div>
+{#if displayerRole}
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 mx-auto d-flex flex-column align-items-center">
+        <div class="profile-pic">
+          <img
+            class="card-img-top"
+            src={user.picture == null
+              ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+              : user.picture}
+            alt=""
+          />
+          <h2 class="text-center">{user.nameSurname}</h2>
+          <h6 class="text-center">{user.role}</h6>
         </div>
-      {/if}
+        <div class="mb-5" />
+        <div class="paper-container paper-shaped-round">
+          <Paper color="primary" variant="unelevated">
+            <Title>Hakkımda</Title>
+            <Content>
+              “Adım {user.nameSurname}.{user.age} yaşındayım. Ve yeni insanlarla
+              tanışmaktan ve onların canlandırıcı bir deneyim yaşamalarına yardımcı
+              olacak yollar bulmaktan keyif alıyorum. Kendini işine adamış, dışa
+              dönük ve takım oyuncusuyum. İnsanlar beni, mükemmel iletişim becerilerine
+              sahip, iyimser, kendi kendini motive eden bir takım oyuncusu olarak
+              görüyor. Son birkaç yıldır teknoloji endüstrisinde lider kalifikasyon,
+              telefonla pazarlama ve müşteri hizmetleri alanlarında çalıştım. "
+            </Content>
+          </Paper>
+        </div>
+
+        {#if token}
+          <div class="card">
+            <div class="card-header">Yaklaşan Görüşmeler</div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
+                <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
+              </blockquote>
+            </div>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
-</div>
+{/if}
 
 <style>
   /* These classes are only needed because the
