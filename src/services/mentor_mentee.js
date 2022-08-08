@@ -5,9 +5,9 @@ import { getUserInfos } from "./profile";
 export const postMentorMenteeInfo = async (id) => {
   try {
     let ownInfo = await getUserInfos(id);
-    console.log("we are here");
     const response = await Api.post(`user/panel/${id}`);
     let infos;
+    if (!response){return response}
     if (ownInfo.role == "mentor") {
       infos = {
         mentor: ownInfo,
