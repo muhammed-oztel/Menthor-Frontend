@@ -1,162 +1,121 @@
 <script>
-  import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs';
-  import List, { Item, Graphic, Label } from '@smui/list';
+  import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
   import Drawer from "../components/Drawer.svelte";
-  import Radio from '@smui/radio';
-  import Fab, {Icon} from '@smui/fab';
-  let selected = 'Tom Hanks';
+  import Fab, { Icon, Label } from "@smui/fab";
+  import Match from "../components/Match.svelte";
   let clicked = 0;
+  let mentorList = [
+    { name: "1" },
+    { name: "2" },
+    { name: "3" },
+    { name: "4" },
+    { name: "5" },
+    { name: "6" },
+    { name: "7" },
+    { name: "8" },
+    { name: "9" },
+    { name: "10" },
+  ];
+  let menteeList = [
+    { name: "1" },
+    { name: "2" },
+    { name: "3" },
+    { name: "4" },
+    { name: "5" },
+    { name: "6" },
+    { name: "7" },
+    { name: "8" },
+    { name: "9" },
+    { name: "10" },
+  ];
+</script>
 
-  </script>
+<Drawer />
+<Tabs>
+  <TabList>
+    <Tab>Eşleştirme</Tab>
+    <Tab>Kullanıcı Ayarları</Tab>
+    <Tab>Detaylar</Tab>
+  </TabList>
 
-<Drawer/>
-  <Tabs>
-    <TabList>
-      <Tab>Eşleştirme</Tab>
-      <Tab>Kullanıcı Ayarları</Tab>
-      <Tab>Detaylar</Tab>
-    </TabList>
-
-    <TabPanel>
-    <div>
-      <div style="width: 35%; height: 450px; float: left; border-radius: 10px; margin-left: 10%; margin-top: 30px; overflow: scroll; padding: 30px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
-        <h2>Mentor</h2>
-        <List class="demo-list" radioList>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Bruce Willis" />
-            </Graphic>
-            <Label>Bruce Willis</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Tom Hanks" />
-            </Graphic>
-            <Label>Tom Hanks</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Jack Nicholson" />
-            </Graphic>
-            <Label>Jack Nicholson</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Leonardo DiCaprio" />
-            </Graphic>
-            <Label>Leonardo DiCaprio</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Matt Damon" />
-            </Graphic>
-            <Label>Matt Damon</Label> 
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Jack Nicholson" />
-            </Graphic>
-            <Label>Jack Nicholson</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Leonardo DiCaprio" />
-            </Graphic>
-            <Label>Leonardo DiCaprio</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Matt Damon" />
-            </Graphic>
-            <Label>Matt Damon</Label> 
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Jack Nicholson" />
-            </Graphic>
-            <Label>Jack Nicholson</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Leonardo DiCaprio" />
-            </Graphic>
-            <Label>Leonardo DiCaprio</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Matt Damon" />
-            </Graphic>
-            <Label>Matt Damon</Label> 
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Tom Hanks" />
-            </Graphic>
-            <Label>Tom Hanks</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Jack Nicholson" />
-            </Graphic>
-            <Label>Jack Nicholson</Label>
-          </Item>
-        </List>
+  <TabPanel>
+    <div class="d-flex justify-content-center align-items-center mt-admin">
+      <div class="card text-start shadow-lg rounded p-4 me-5">
+        <h4 class="text-center mt-3">Mentor Listesi</h4>
+        <div class="card-body">
+          <p class="card-text">
+            <Match class="mentor" list={mentorList} />
+          </p>
+        </div>
       </div>
-      <div style="width: 35%;  height: 450px; float: right; margin-right: 10%;  border-radius: 10px;  margin-top: 30px; padding: 30px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
-        <h2>Mentee</h2>
-        <List class="demo-list" radioList>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Bruce Willis" />
-            </Graphic>
-            <Label>Bruce Willis</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Tom Hanks" />
-            </Graphic>
-            <Label>Tom Hanks</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Jack Nicholson" />
-            </Graphic>
-            <Label>Jack Nicholson</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Leonardo DiCaprio" />
-            </Graphic>
-            <Label>Leonardo DiCaprio</Label>
-          </Item>
-          <Item>
-            <Graphic>
-              <Radio bind:group={selected} value="Matt Damon" />
-            </Graphic>
-            <Label>Matt Damon</Label>
-          </Item>
-        </List>
-      </div>
-      <div class="margins" style="position: absolute; margin-top: 32%; margin-left: 45%;">
+      <div class="me-5">
         <Fab on:click={() => clicked++} extended>
-          <Icon class="material-icons"> escalator_warning</Icon>
+          <Icon class="material-icons">escalator_warning</Icon>
           <Label>Eşleştir</Label>
         </Fab>
       </div>
+      <div class="card text-start shadow-lg rounded p-4">
+        <h4 class="text-center mt-3">Mentee Listesi</h4>
+        <div class="card-body">
+          <p class="card-text">
+            <Match class="mentee" list={menteeList} />
+          </p>
+        </div>
+      </div>
     </div>
-    </TabPanel>
-  
-    <TabPanel>
-      <h2>Panel Two</h2>
-    </TabPanel>
-  
-    <TabPanel>
-      <h2>Panel Three</h2>
-    </TabPanel>
-  </Tabs>
+  </TabPanel>
 
-  <style>
-    * :global(.demo-list) {
-    max-width: 300px;
+  <TabPanel>
+    <h2>Panel Two</h2>
+  </TabPanel>
+
+  <TabPanel>
+    <h2>Panel Three</h2>
+  </TabPanel>
+</Tabs>
+
+<style>
+  .mt-admin {
+    margin-top: 10rem;
   }
-  </style>
+  .card-body {
+    height: 400px;
+    width: 400px;
+    overflow: hidden;
+  }
+  .card-body:hover {
+    overflow-y: scroll;
+  }
+  .rounded {
+    border-radius: 10px !important;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 14px;
+    animation: ease-in-out;
+  }
+  @keyframes ease-in-out {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+  }
+</style>
