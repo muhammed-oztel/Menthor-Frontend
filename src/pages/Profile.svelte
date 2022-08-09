@@ -85,7 +85,7 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 mx-auto d-flex flex-column align-items-center">
-        <div class="profile-pic">
+        <div class="profile-pic text-center">
           <img
             class="card-img-top shadow"
             src={user.picture == null
@@ -144,7 +144,7 @@
                 {/each}
               {:else}
                 <blockquote class="blockquote mb-0">
-                  <p>Yaklaşan etkinlik bulunmuyor</p>
+                  <p>Yaklaşan görüşme bulunmuyor</p>
                 </blockquote>
               {/if}
             </div>
@@ -181,13 +181,17 @@
     width: 200px;
     height: 200px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
   }
   .card-img-top {
-    border-radius: 50%;
     border: 1px solid black;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    margin: auto;
     background-size: cover;
-    background-repeat: no-repeat;
+    border-radius: 100%;
+    position: relative;
   }
 </style>
