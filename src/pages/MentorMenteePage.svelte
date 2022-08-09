@@ -1,21 +1,10 @@
 <script>
     import Dialog, { Title, Content, Actions } from "@smui/dialog";
     import Button, { Label } from "@smui/button";
-    import Drawer from "../components/Drawer.svelte";
-    import { onMount } from "svelte";
-    import youid from "../pages/VideoCall.svelte";
 
     let open = false;
     let clicked = "Nothing yet.";
-    let mentor;
-
-    /*onMount(async () => {
-    const res = await sendId();
-    mentorpass = res;
-  });*/
 </script>
-
-<Drawer />
 
 <Dialog
     bind:open
@@ -41,9 +30,9 @@
     </Actions>
 </Dialog>
 
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-6">
+<div class="cotainer">
+    <div class="row align-items-center vh-100">
+        <div class="col-6 mx-auto">
             <div class="card card-rounded shadow border-0">
                 <div class="card-body flex-column-center">
                     <div class="row">
@@ -90,11 +79,10 @@
                                     />
                                 </svg>
                                 <Button
-                                    href="/videocall"
                                     color="primary"
                                     variant="raised"
-                                    style="max-width: 250px; text-transform: none;"
-                                    >Görüşme Sayfasına Git</Button
+                                    style="max-width: 150px; text-transform: none;"
+                                    >Görüşme başlat</Button
                                 >
                             </div>
                         </div>

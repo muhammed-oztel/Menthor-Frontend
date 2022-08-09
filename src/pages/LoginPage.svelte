@@ -3,16 +3,17 @@
   import Textfield from "@smui/textfield";
   import Icon from "@smui/textfield/icon";
   import SideImage from "../components/SideImage.svelte";
+  import HelperText from "@smui/textfield/helper-text";
   import toast, { Toaster } from "svelte-french-toast";
   import { postLogin } from "../services/login.js";
   import { navigate } from "svelte-routing";
-  import IconButton from "@smui/icon-button";
+  import IconButton from '@smui/icon-button';
 
   import * as yup from "yup";
 
   let schema = yup.object().shape({
-    mail: yup
-      .string("Lütfen e-mail adresinizi girin")
+    email: yup
+      .string()
       .required("Lütfen e-mail adresinizi girin")
       .email("Lütfen geçerli bir e-mail adresi girin"),
     password: yup
@@ -20,41 +21,36 @@
       .required("Lütfen şifrenizi girin")
       .min(8, "Geçersiz şifre. Şifreniz en az 8 karakter olmalıdır"),
   });
+  let values = { email: "", password: "" };
+  let errors = { email: "", password: "" };
+
   let user = { mail: "", password: "" };
   let errors = { mail: "", password: "" };
-  let isVisible = false;
-  const toggleVisibility = () => {
-    isVisible = !isVisible;
-  };
+	let isVisible = false;
+	let textType = "text";
+
+
+	const toggleVisibility = () => {
+	  isVisible = !isVisible;
+	};
+
   async function submitHandler() {
     try {
-      await schema.validate(user, { abortEarly: false });
-      console.log(user);
       // `abortEarly: false` to get all the errors
-      postLogin(user)
-        .then((response) => {
-          if (response) {
-            console.log("Gelen veri: ", response);
-            toast.success("Giriş Başarılı!", { position: "top-right" });
-            setTimeout(() => {
-              navigate(`/profil/${response.id}`);
-              // navigate("/profil", { state: { user: { response } } });
-            }, 2000);
-          } else {
-            toast.error("Mail veya şifre hatalı!", { position: "top-right" });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Giriş Başarısız!", { position: "top-right" });
-        });
-
-      errors = { mail: "", password: "" };
+      await schema.validate(values, { abortEarly: false });
+      // alert(JSON.stringify(values, null, 2));
+      toast.success("Giriş Başarılı!", { position: "top-right" });
+      errors = {};
     } catch (err) {
-      errors = err.inner.reduce((acc, err) => {
-        return { ...acc, [err.path]: err.message };
-      }, {});
+      errors = extractErrors(err);
+      toast.error("Giriş Başarısız!", { position: "top-right" });
     }
+  }
+  function extractErrors(err) {
+    return err.inner.reduce((acc, err) => {
+      console.log(err.path);
+      return { ...acc, [err.path]: err.message };
+    }, {});
   }
 </script>
 
@@ -77,7 +73,7 @@
                 <Textfield
                   class=""
                   variant="outlined"
-                  bind:value={user.mail}
+                  bind:value={values.email}
                   label="E-posta"
                   input$autocomplete="email"
                   style="min-width: 400px;"
@@ -85,34 +81,35 @@
                   <Icon class="material-icons" slot="leadingIcon">mail</Icon>
                 </Textfield>
                 <small class="invalid-feedback d-block"
-                  >{#if errors.mail}{errors.mail}{/if}</small
+                  >{#if errors.email}{errors.email}{/if}</small
                 >
               </div>
               <div class="text-center mt-2">
                 <Textfield
                   class=""
                   variant="outlined"
-                  bind:value={user.password}
+                  bind:value={values.password}
                   label="Şifre"
-                  type={isVisible ? "text" : "password"}
+                  type={isVisible? "text":"password"}
                   style="min-width: 400px;"
                 >
-                  <Icon class="material-icons" slot="leadingIcon" style="">
-                    password
-                  </Icon>
-                  <IconButton
-                    type="button"
-                    class="material-icons text-muted"
-                    slot="trailingIcon"
-                    on:click={toggleVisibility}
+                  <Icon class="material-icons" slot="leadingIcon" style=""
+                    >password</Icon
                   >
-                    {isVisible ? "visibility" : "visibility_off"}
-                  </IconButton>
                 </Textfield>
-                <small class="invalid-feedback d-block">
-                  {#if errors.password}{errors.password}{/if}
-                </small>
+                <small class="invalid-feedback d-block"
+                  >{#if errors.password}{errors.password}{/if}</small
+                >
               </div>
+              {#if !isVisible}
+              <IconButton class="material-icons" style="margin-left: 350px"on:click={toggleVisibility}
+              >visibility</IconButton>
+              {:else if isVisible}
+              <IconButton class="material-icons" style="margin-left: 350px"on:click={toggleVisibility}
+              >visibility_off</IconButton>
+              {:else}
+              <br>
+              {/if}
             </div>
           </div>
 
@@ -121,10 +118,8 @@
               color="primary"
               variant="raised"
               style="min-width: 100px; text-transform: none;"
-              type="submit"
+              type="submit">Giriş Yap</Button
             >
-              Giriş Yap
-            </Button>
           </div>
         </form>
       </div>

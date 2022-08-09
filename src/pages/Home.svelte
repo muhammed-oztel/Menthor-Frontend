@@ -98,13 +98,14 @@
             likeCount: 40,
         },
     ];
+    let number = 1;
 </script>
 
 <Navbar />
-<main class="mt-4">
+<main class="mt-5">
     <div class="container">
         <div
-            class="d-flex flex-row mb-3 justify-content-between align-items-start"
+            class="d-flex flex-row mb-3 justify-content-between align-items-center"
         >
             <div class="row">
                 <h1 class="display-2 fw-bold">
@@ -132,11 +133,9 @@
                 <Splide {mentors} interval={5000} />
             </div>
         </div>
-        <br /><br />
         <hr />
         <div class="row mb-5">
-            <h1 class="mb-4">En favori mentorlar</h1>
-
+            <h1>En favori mentorlar</h1>
             <div class="d-flex">
                 {#each favoriteMentors as mentor}
                     <div class="card me-3 rounded-5">
@@ -163,7 +162,7 @@
         </div>
         <hr />
         <div class="row mb-5">
-            <h1 class="mb-4">Özellikler</h1>
+            <h1>Özellikler</h1>
             <div class="d-flex">
                 <Carousel />
             </div>
@@ -177,14 +176,14 @@
                     <h5>Mentor</h5>
                 </div>
                 <div>
-                    <h1>1000+</h1>
+                    <h1>2000+</h1>
                     <h5>Mentee</h5>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row mb-5">
-            <h1 class="mb-4">Hakkımızda</h1>
+            <h1>Hakkımızda</h1>
             <div class="d-flex">
                 <div class="row">
                     <h5 class="lead">
@@ -202,7 +201,7 @@
         </div>
         <hr />
         <div class="row mb-5">
-            <h1 class="mb-4">Sıkça Sorulan Sorular</h1>
+            <h1>Sıkça Sorulan Sorular</h1>
             <div class="d-flex flex-column  align-items-center">
                 <FaqExpandable />
             </div>

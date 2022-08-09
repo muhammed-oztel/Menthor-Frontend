@@ -10,7 +10,14 @@
   import CircularProgress from "@smui/circular-progress";
   import Radio from "@smui/radio";
   import FormField from "@smui/form-field";
-  import IconButton from "@smui/icon-button";
+  import IconButton from '@smui/icon-button';
+
+
+	let isVisible = false;
+	let textType = "text";
+	const toggleVisibility = () => {
+	  isVisible = !isVisible;
+	};
 
   let submitting = false;
   let verify = false;
@@ -46,12 +53,7 @@
         /^\d{10}$/,
         "Lütfen başında 0 olmadan 10 haneli bir telefon numarası girin"
       ),
-    birth: yup
-      .date()
-      .nullable()
-      .transform((v) => (v instanceof Date && !isNaN(v) ? v : null))
-      .max(new Date(Date.now()), "Lütfen geçerli bir tarih girin")
-      .required("Lütfen doğum tarihinizi girin"),
+    birth: yup.string().required("Lütfen doğum tarihinizi girin"),
     pass: yup
       .string()
       .required("Lütfen şifrenizi girin")
@@ -61,10 +63,6 @@
       ),
     role: yup.string().required("Lütfen bir rol seçiniz"),
   });
-  let isVisible = false;
-  const toggleVisibility = () => {
-    isVisible = !isVisible;
-  };
   async function validate() {
     try {
       await schema.validate(user, { abortEarly: false });
@@ -207,25 +205,26 @@
             <div class="input-group mb-3">
               <Textfield
                 style="width: 505px;"
-                type={isVisible ? "text" : "password"}
+                type={isVisible? "text":"password"}
                 variant="outlined"
                 bind:value={user.pass}
                 label="Şifre"
               >
                 <Icon class="material-icons" slot="leadingIcon">password</Icon>
-                <IconButton
-                  type="button"
-                  class="material-icons text-muted"
-                  slot="trailingIcon"
-                  on:click={toggleVisibility}
-                >
-                  {isVisible ? "visibility" : "visibility_off"}
-                </IconButton>
               </Textfield>
               <small class="invalid-feedback d-block"
                 >{#if errors.pass}{errors.pass}{/if}</small
               >
             </div>
+            {#if !isVisible}
+            <IconButton class="material-icons" style="margin-left: 450px"on:click={toggleVisibility}
+            >visibility</IconButton>
+            {:else if isVisible}
+            <IconButton class="material-icons" style="margin-left: 450px"on:click={toggleVisibility}
+            >visibility_off</IconButton>
+            {:else}
+            <br>
+            {/if}
             <div
               class="input-group mb-3 d-flex flex-column justify-content-start"
             >

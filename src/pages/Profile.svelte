@@ -1,101 +1,132 @@
 <script lang="ts">
+  import List, { Item, Graphic, Separator, Text } from "@smui/list";
   import Paper, { Title, Content } from "@smui/paper";
-  import { onMount } from "svelte";
-  import { getUserInfos } from "../services/profile.js";
+  import Card, { PrimaryAction, Media, MediaContent } from "@smui/card";
+  import Fab, { Label, Icon } from "@smui/fab";
 
-  import Drawer from "../components/Drawer.svelte";
-  import { format } from "date-fns";
-  import Navbar from "../components/Navbar.svelte";
-  let user = {
-    id:"",
-    nameSurname: "",
-    email: "",
-    role: "",
-    picture: "",
-    phone: "",
-    age: "",
-  };
-  export let id;
-  id = localStorage.getItem("target") || localStorage.getItem("uid");
-  // let id = "";
-  let token = "";
-
-  export async function getUserData(id) {
-    // console.log(history.state.user.response.id);
-    await getUserInfos(id)
-      .then((response) => {
-        console.log(response);
-        let today = new Date();
-        let birthDate = format(new Date(response.birth), "yyyy");
-        let age = today.getFullYear() - parseInt(birthDate);
-        user = {
-          nameSurname: response.name + " " + response.surname,
-          email: response.email,
-          role: response.role,
-          picture: response.picture,
-          phone: response.phone,
-          age: age.toString(),
-          id: response.id,
-        };
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  onMount(() => {
-    // id = localStorage.getItem("uid") || localStorage.getItem("target");
-    token = localStorage.getItem("token");
-    getUserData(id);
-  });
+  let clicked = "nothing yet";
 </script>
 
-{#if token}
-  <Drawer {id} />
-{:else if !token}
-  <Navbar />
-{/if}
+<nav />
 
-<div class="container">
-  <div class="row align-items-center">
-    <div class="col-12 mx-auto d-flex flex-column align-items-center">
-      <div class="profile-pic">
-        <img
-          class="card-img-top"
-          src={user.picture == null
-            ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-            : user.picture}
-          alt=""
-        />
-        <h2 class="text-center">{user.nameSurname}</h2>
-        <h6 class="text-center">{user.role}</h6>
-      </div>
-      <div class="mb-5" />
-      <div class="paper-container paper-shaped-round">
-        <Paper color="primary" variant="unelevated">
-          <Title>Hakkımda</Title>
-          <Content>
-            “Adım {user.nameSurname}.{user.age} yaşındayım. Ve yeni insanlarla tanışmaktan
-            ve onların canlandırıcı bir deneyim yaşamalarına yardımcı olacak yollar
-            bulmaktan keyif alıyorum. Kendini işine adamış, dışa dönük ve takım oyuncusuyum.
-            İnsanlar beni, mükemmel iletişim becerilerine sahip, iyimser, kendi kendini
-            motive eden bir takım oyuncusu olarak görüyor. Son birkaç yıldır teknoloji
-            endüstrisinde lider kalifikasyon, telefonla pazarlama ve müşteri hizmetleri
-            alanlarında çalıştım. "
-          </Content>
-        </Paper>
-      </div>
+<div class="drawer">
+  <img
+    class="card-img-top"
+    src="https://grain.org/system/attachments/sources/000/005/237/med_large/Henk.png"
+    style="margin: 30px;"
+    alt=""
+  />
+  <h2>Cemal Sayer</h2>
+  <h6>Yazılım Birim Müdürü</h6>
+  <div>
+    <List class="demo-list" dense>
+      <Item>
+        <span class="material-symbols-outlined"> account_circle </span>
+        <Text
+          ><a href="/profil" style="text-decoration: none; color :black;"
+            >Profil</a
+          ></Text
+        >
+      </Item>
+      <Item>
+        <span class="material-symbols-outlined"> web </span>
+        <Text
+          ><a href="/panel" style="text-decoration: none; color :black;"
+            >Panel</a
+          ></Text
+        >
+      </Item>
+      <Item>
+        <span class="material-symbols-outlined"> calendar_month </span>
+        <Text
+          ><a href="/takvim" style="text-decoration: none; color :black;"
+            >Takvim</a
+          ></Text
+        >
+      </Item>
+      <Item>
+        <span class="material-symbols-outlined"> inventory_2 </span>
+        <Text
+          ><a href="/dosyalar" style="text-decoration: none; color :black;"
+            >Dosyalar</a
+          ></Text
+        >
+      </Item>
+      <Separator />
 
-      {#if token}
-        <div class="card">
-          <div class="card-header">Yaklaşan Görüşmeler</div>
-          <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
-              <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
-            </blockquote>
-          </div>
+      <Item>
+        <span class="material-symbols-outlined"> settings </span>
+        <Text
+          ><a href="/ayarlar" style="text-decoration: none; color :black;"
+            >Ayarlar</a
+          ></Text
+        >
+      </Item>
+
+      <Item>
+        <span class="material-symbols-outlined"> logout </span>
+        <Text
+          ><a href="/" style="text-decoration: none; color :black;">Çıkış</a
+          ></Text
+        >
+      </Item>
+    </List>
+  </div>
+</div>
+
+<div class="paper-container paper-shaped-round">
+  <Paper color="primary" variant="unelevated">
+    <Title>Hakkımda</Title>
+    <Content>
+      “Adım Cemal Sayer ve yeni insanlarla tanışmaktan ve onların canlandırıcı
+      bir deneyim yaşamalarına yardımcı olacak yollar bulmaktan keyif alıyorum.
+      Kendini işine adamış, dışa dönük ve takım oyuncusuyum. İnsanlar beni,
+      mükemmel iletişim becerilerine sahip, iyimser, kendi kendini motive eden
+      bir takım oyuncusu olarak görüyor. Son birkaç yıldır teknoloji
+      endüstrisinde lider kalifikasyon, telefonla pazarlama ve müşteri
+      hizmetleri alanlarında çalıştım. "
+    </Content>
+  </Paper>
+</div>
+
+<div class="card">
+  <div class="card-header">Yaklaşan Görüşmeler</div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
+      <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
+    </blockquote>
+  </div>
+</div>
+
+<div class="my-mentee">
+  <h2>Menteelerim</h2>
+  <hr />
+  <div class="card-container d-flex flex-row flex-wrap">
+    <Card style="width:200px; height: 200px; margin: 10px;">
+      <Media class="card-media-square" aspectRatio="square">
+        <div style="color: #fff; position: absolute; bottom: 16px; left: 16px;">
+          <p class="mdc-typography--headline6" style="margin: 0;">
+            Ayşe Yılmaz
+          </p>
+          <p class="mdc-typography--subtitle2" style="margin: 0;" />
         </div>
-      {/if}
+      </Media>
+    </Card>
+
+    <div class="card-container ">
+      <Card style="width:200px; height: 200px; margin:10px;">
+        <Media class="card-media-square" aspectRatio="square">
+          <div
+            style="color: #fff; position: absolute; bottom: 16px; left: 16px;"
+          >
+            <p class="mdc-typography--headline6" style="margin: 0;">
+              Kadir Ercan
+            </p>
+            <p class="mdc-typography--subtitle2" style="margin: 0;" />
+          </div>
+        </Media>
+      </Card>
     </div>
   </div>
 </div>
@@ -105,14 +136,30 @@
       drawer is in a container on the page. */
 
   .paper-container {
+    float: right;
     width: 60%;
-    margin: 50px;
-    margin-bottom: 20px;
+    margin: 90px;
+    margin-bottom: 50px;
     border-radius: 30px;
+  }
+  .drawer {
+    margin-top: auto;
+    margin-left: 7%;
+    float: left;
+    margin-right: 7%;
+    margin-bottom: 80%;
+    width: 200px;
+    height: 200px;
+  }
+
+  nav {
+    height: 40px;
+    background-color: black;
   }
 
   .card {
-    margin: 50px;
+    float: right;
+    margin: 90px;
     margin-bottom: 20px;
     width: 60%;
     border-radius: 30px;
@@ -122,12 +169,9 @@
     background-image: url(https://place-hold.it/100x100?text=square&fontsize=20);
   }
 
-  .profile-pic {
-    width: 200px;
-    height: 200px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50px;
+  .my-mentee {
+    margin: 20px;
+
+    padding-bottom: 50px;
   }
 </style>
