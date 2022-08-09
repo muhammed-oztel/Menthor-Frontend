@@ -1,6 +1,6 @@
 <script>
   import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
-  import Drawer from "../components/Drawer.svelte";
+  import { link } from "svelte-routing";
   import Fab, { Icon, Label } from "@smui/fab";
   import Match from "../components/Match.svelte";
   let clicked = 0;
@@ -30,12 +30,18 @@
   ];
 </script>
 
-<Drawer />
 <Tabs>
   <TabList>
     <Tab>Eşleştirme</Tab>
     <Tab>Kullanıcı Ayarları</Tab>
     <Tab>Detaylar</Tab>
+    <Tab>
+      <button type="button" class="btn btn-dark rounded-pill ">
+        <a class="text-decoration-none text-white" href="/" use:link>
+          Çıkış Yap
+        </a>
+      </button>
+    </Tab>
   </TabList>
 
   <TabPanel>
@@ -49,7 +55,7 @@
         </div>
       </div>
       <div class="me-5">
-        <Fab on:click={() => clicked++} extended>
+        <Fab class="bg-dark" on:click={() => clicked++} extended>
           <Icon class="material-icons">escalator_warning</Icon>
           <Label>Eşleştir</Label>
         </Fab>
