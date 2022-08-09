@@ -1,10 +1,9 @@
 <script lang="ts">
   import Paper, { Title, Content } from "@smui/paper";
   import { onMount } from "svelte";
-  import { getUserInfos } from "../services/profile.js";
+  import { getUserInfos, getEventList } from "../services/profile.js";
   import { fetchInterest } from "../services/settings.js";
   import Drawer from "../components/Drawer.svelte";
-  import { format } from "date-fns";
   import Navbar from "../components/Navbar.svelte";
   let user = {
     nameSurname: "",
@@ -23,6 +22,7 @@
   let token = "";
   let displayerRole = "";
   let interests = [];
+  let events = [];
 
   async function getUserData(id) {
     // console.log(history.state.user.response.id);
@@ -30,7 +30,6 @@
       .then((response) => {
         console.log(response);
         let today = new Date();
-        console.log();
 
         let birthDate = parseInt(response.birth.split("-")[0]);
         let age = today.getFullYear() - birthDate;
@@ -56,9 +55,16 @@
       .catch((err) => {
         console.log(err);
       });
+    await getEventList(id)
+      .then((response) => {
+        console.log(response);
+        events = response;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   onMount(() => {
-    // id = localStorage.getItem("uid") || localStorage.getItem("target");
     token = localStorage.getItem("token");
     displayerRole = localStorage.getItem("role");
     if (!displayerRole) {
@@ -126,10 +132,21 @@
           <div class="card">
             <div class="card-header">Yaklaşan Görüşmeler</div>
             <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <p>13.08.22 - Sektörün Son Durumu Hakkında</p>
-                <footer class="blockquote-footer">Ayşe Yılmaz ile</footer>
-              </blockquote>
+              {#if events.length > 0}
+                {#each events as item}
+                  <blockquote class="blockquote mb-0">
+                    <p>{item.start} - {item.end}</p>
+                    <p>{item.title}</p>
+                    <footer class="blockquote-footer">
+                      {item.description}
+                    </footer>
+                  </blockquote>
+                {/each}
+              {:else}
+                <blockquote class="blockquote mb-0">
+                  <p>Yaklaşan etkinlik bulunmuyor</p>
+                </blockquote>
+              {/if}
             </div>
           </div>
         {/if}
@@ -139,11 +156,8 @@
 {/if}
 
 <style>
-  /* These classes are only needed because the
-      drawer is in a container on the page. */
-
   .mb-p {
-    margin-bottom: 10rem;
+    margin-bottom: 13rem;
   }
   .paper-container {
     width: 60%;
