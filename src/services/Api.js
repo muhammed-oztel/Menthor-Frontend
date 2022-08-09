@@ -10,6 +10,7 @@ const axiosAPI = axios.create({
 const apiRequest = (method, url, request) => {
     const headers = {
         authorization: "",
+        "Access-Control-Allow-Origin": "http://localhost:8080/"
     };
     //using the axios instance to perform the request that received from each http method
     return axiosAPI({

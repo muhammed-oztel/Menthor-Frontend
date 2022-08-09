@@ -15,7 +15,7 @@
     age: "",
   };
   export let id;
-  $: id = localStorage.getItem("target") ;
+  $: id = localStorage.getItem("uid") ;
   // id = "";
   let token = "";
   let displayerRole = "";
