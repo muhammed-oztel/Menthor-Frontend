@@ -256,7 +256,7 @@
                     {#if errors.name}{errors.name}{/if}
                   </small>
                   <Textfield
-                    style="min-width:200px;"
+                    style="min-width:218px;"
                     bind:value={user.surname}
                     variant="outlined"
                     label="Soyisim"
@@ -310,7 +310,7 @@
                   <div>
                     <div class="form-outline">
                       <textarea
-                        maxlength="100"
+                        maxlength="250"
                         bind:value={user.about}
                         class="form-control about"
                         rows="3"
