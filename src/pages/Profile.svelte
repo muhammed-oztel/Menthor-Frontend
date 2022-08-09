@@ -31,7 +31,7 @@
     await getUserInfos(id)
       .then((response) => {
         console.log(response);
-
+        let today = new Date();
         let birthDate = parseInt(response.birth.split("-")[0]);
         let age = today.getFullYear() - birthDate;
         user = {
@@ -88,7 +88,6 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 mx-auto d-flex flex-column align-items-center">
-
         <div class="profile-pic text-center">
           <img
             class="card-img-top shadow"
@@ -136,7 +135,6 @@
           <div class="card">
             <div class="card-header">Yaklaşan Görüşmeler</div>
             <div class="card-body">
-
               {#if events.length > 0}
                 {#each events as item}
                   <blockquote class="blockquote mb-0">
