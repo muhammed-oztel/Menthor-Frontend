@@ -42,6 +42,7 @@
               toast.success("Giriş Başarılı!", { position: "top-right" });
               submitting = true;
               localStorage.setItem("target", response.id);
+              localStorage.setItem("role", response.role);
               setTimeout(() => {
                 navigate(`/profil/${response.id}`);
                 // navigate("/profil", { state: { user: { response } } });
