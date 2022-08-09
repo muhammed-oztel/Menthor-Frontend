@@ -4,6 +4,7 @@
   import Tags from "../components/Tags.svelte";
   import Drawer from "../components/Drawer.svelte";
   import Swal from "sweetalert2";
+  import * as yup from "yup";
   import { onMount } from "svelte";
   import {
     addInterest,
@@ -27,7 +28,15 @@
     city: "",
     about: "",
   };
-
+  let errors = {
+    name: "",
+    surname: "",
+    email: "",
+    phone: "",
+    birth: "",
+    city: "",
+    about: "",
+  };
   let interests = [];
 
   async function getUserData(id) {
@@ -75,39 +84,83 @@
     buttonsStyling: false,
     backdrop: false,
   });
-  const update = () => {
-    swalWithBootstrapButtons
-      .fire({
-        title: "Bilgilerinizi Güncellemek İstediğinize Emin misiniz?",
-        text: "Bunu geri alamazsınız!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Evet, güncelle!",
-        cancelButtonText: "Hayır, güncelleme!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          let create = interests.map(function (interest) {
-            return { userId: id, field: interest };
-          });
-          console.log(user);
-          console.log(user.birth);
-          updateUser(id, user);
-          addInterest(create);
 
-          swalWithBootstrapButtons.fire(
-            "Güncelleme Başarılı!",
-            "Hesabınız başarıyla güncellendi.",
-            "success"
-          );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire("İşleminiz İptal Edildi", "", "error");
-        }
-      });
+  let schema = yup.object().shape({
+    name: yup.string().required("Lütfen adınızı giriniz"),
+    surname: yup.string().required("Lütfen soyadınızı giriniz"),
+    email: yup
+      .string()
+      .required("Lütfen e-mail adresinizi girin")
+      .email("Lütfen geçerli bir e-mail adresi girin"),
+    phone: yup
+      .string()
+      .matches(
+        /^\d{10}$/,
+        "Lütfen başında 0 olmadan 10 haneli bir telefon numarası girin"
+      ),
+    birth: yup
+      .date()
+      .nullable()
+      .transform((v) => (v instanceof Date && !isNaN(v) ? v : null))
+      .max(new Date(Date.now()), "Lütfen geçerli bir tarih girin")
+      .required("Lütfen doğum tarihinizi girin"),
+    city: yup.string().required("Lütfen şehirinizi girin"),
+    about: yup.string().required("Lütfen açıklamanızı girin"),
+  });
+  const update = async () => {
+    try {
+      await schema.validate(user, { abortEarly: false });
+      errors = {
+        name: "",
+        surname: "",
+        email: "",
+        phone: "",
+        birth: "",
+        pass: "",
+        city: "",
+        about: "",
+      };
+      swalWithBootstrapButtons
+        .fire({
+          title: "Bilgilerinizi Güncellemek İstediğinize Emin misiniz?",
+          text: "Bunu geri alamazsınız!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Evet, güncelle!",
+          cancelButtonText: "Hayır, güncelleme!",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            let create = interests.map(function (interest) {
+              return { userId: id, field: interest };
+            });
+            console.log(user);
+            console.log(user.birth);
+            updateUser(id, user);
+            addInterest(create);
+
+            swalWithBootstrapButtons.fire(
+              "Güncelleme Başarılı!",
+              "Hesabınız başarıyla güncellendi.",
+              "success"
+            );
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              "İşleminiz İptal Edildi",
+              "",
+              "error"
+            );
+          }
+        });
+    } catch (err) {
+      errors = err.inner.reduce((acc, err) => {
+        return { ...acc, [err.path]: err.message };
+      }, {});
+    }
   };
   const deleteAccount = () => {
     swalWithBootstrapButtons
@@ -199,6 +252,9 @@
                     variant="outlined"
                     label="İsim"
                   />
+                  <small class="invalid-feedback d-flex flex-row">
+                    {#if errors.name}{errors.name}{/if}
+                  </small>
                   <Textfield
                     style="min-width:200px;"
                     bind:value={user.surname}
