@@ -4,7 +4,7 @@
   import Button, { Label } from "@smui/button";
 
   export let userRate = 0;
-  let clicked = "Nothing yet.";
+  export let clicked = "Nothing";
   $: userRate = config.score;
 
   export let open = true;
@@ -44,7 +44,7 @@
     <StarRatting bind:config />
   </Content>
   <Actions>
-    <Button on:click={() => (clicked = "Yes")} style="text-transform: none;">
+    <Button on:click={() => (clicked = "Gönder")} style="text-transform: none;">
       <Label>Gönder</Label>
     </Button>
   </Actions>

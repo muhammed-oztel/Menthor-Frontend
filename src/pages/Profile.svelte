@@ -31,6 +31,7 @@
     await getUserInfos(id)
       .then((response) => {
         console.log(response);
+        let today = new Date();
 
         let birthDate = parseInt(response.birth.split("-")[0]);
         let age = today.getFullYear() - birthDate;
