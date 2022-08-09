@@ -79,7 +79,7 @@
           <Paper color="primary" variant="unelevated">
             <Title>Hakkımda</Title>
             <Content>
-              “Adım {user.nameSurname}.{user.age} yaşındayım. Ve yeni insanlarla
+              “Adım {user.nameSurname}. Ve yeni insanlarla
               tanışmaktan ve onların canlandırıcı bir deneyim yaşamalarına yardımcı
               olacak yollar bulmaktan keyif alıyorum. Kendini işine adamış, dışa
               dönük ve takım oyuncusuyum. İnsanlar beni, mükemmel iletişim becerilerine
