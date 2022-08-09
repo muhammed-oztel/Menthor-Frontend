@@ -1,4 +1,5 @@
 <script>
+  import Drawer from "../components/Drawer.svelte";
   import {postVideoId, getVideoId } from "../services/videocall.js";
   import {Peer} from 'peerjs'
 var peer = new Peer();
@@ -6,9 +7,9 @@ let codeid = ""
 let videocurrent;
 let videoEl;
 let youid = ""
-
-
-
+export let id ="";
+   id = localStorage.getItem("uid") ;
+  
   // GET YOU ID
   peer.on("open",(id)=>{
     youid = id;
@@ -25,11 +26,12 @@ let youid = ""
   async function sendId() {
         try {
            
-            postVideoId(youid).then((response)=>{
+            postVideoId(youid,id).then((response)=>{
                /* if (response) {
             console.log("Gelen veri: ", response);
                 }*/
                 console.log( response);
+                console.log(id);
             });
         } catch (error) {
             console.log(error);
@@ -37,16 +39,17 @@ let youid = ""
     }
     async function getId() {
         try {
-            getVideoId().then((response)=>{
+            getVideoId(id).then((response)=>{
                 console.log("Gelen veri: ", response);
                 
             });
-              codeid = getVideoId();
+              codeid = getVideoId(id);
 
                 codeid.then(value => {
                   codeid=value;
-              console.log(codeid);
-              console.log(codeid);
+              console.log("codeid:" +codeid);
+             
+              console.log(id);
 })
         } catch (error) {
             console.log(error);
@@ -87,10 +90,35 @@ let renderYouwebcam = (stream)=>{
 }
 
 </script>
-<div>
+
+
+<Drawer/>
+
+<div class="d-flex justify-content-center align-items-center ">
+      <!-- VIDEO YOU FRIEND TAG HTML -->
+      
+        <video id="big-video"
+        bind:this={videoEl}
+        width="700" height="500"  autoplay="true">
+          <track kind="captions" src="">
+            
+        </video>
+        <br>
+      <!-- YOU FACE CAM HERE -->
+        <video id="small-video"
+          bind:this={videocurrent}
+          width="300" height="300" autoplay="true">
+            <track kind="captions" src="">
+          </video>
+        
+          
+  </div>
+
+
+<div class="d-flex justify-content-evenly align-items-center">
  
   <!-- starting the call button for mentor -->
-  <button
+  <button class="btn btn-dark rounded-pill py-2 px-3 text-decoration-none text-light"
   on:click={async()=>{
     var conn = peer.connect(codeid) 
     conn.on("data",(data)=>{
@@ -117,10 +145,10 @@ let renderYouwebcam = (stream)=>{
   >
   Görüşmeyi Başlat</button>
   
-  
+ 
   
   <!-- Joining the call button for mentee-->
-  <button
+  <button class="btn btn-dark rounded-pill py-2 px-3 text-decoration-none text-light"
   on:click={getId}
   on:click={async()=>{
     var conn = peer.connect(codeid)
@@ -145,38 +173,41 @@ let renderYouwebcam = (stream)=>{
   }}
 
     
-  >
-  Görüşmeye Katıl</button> 
+  >Görüşmeye Katıl</button> 
 
-  </div>
+
+  <button class="btn btn-dark rounded-pill py-2 px-3" type="submit">
+    <strong
+      ><a class="text-decoration-none text-light" href="/panel">
+        Görüşmeyi Sonlandır
+      </a></strong
+    >
+  </button>
+</div>
   
 
-<div class="d-flex justify-content-evenly align-items-center ">
-      <!-- VIDEO YOU FRIEND TAG HTML -->
-      
-        <video 
-        bind:this={videoEl}
-        width="800" height="800"  autoplay="true">
-          <track kind="captions" src="">
-            
-        </video>
-        <br>
-      <!-- YOU FACE CAM HERE -->
-        <video 
-          bind:this={videocurrent}
-          width="250" height="250" autoplay="true">
-            <track kind="captions" src="">
-          </video>
-        
-          <button class="btn btn-dark rounded-pill py-2 px-3" type="submit">
-            <strong
-              ><a class="text-decoration-none text-light" href="/panel">
-                Görüşmeyi Sonlandır
-              </a></strong
-            >
-          </button>
-  </div>
+
+
+ <style>
+
+#big-video {
+  border-radius: 25px;
+  border: 2px solid #080808;
+  padding: 5px;
+  width: 700px;
+  height: 500px;
+  margin: 20px;
+}
 
   
-  
+#small-video {
+  border-radius: 25px;
+  border: 2px solid #080808;
+  padding: 5px;
+  width: 300px;
+  height: 200px;
+}
 
+
+
+ </style>

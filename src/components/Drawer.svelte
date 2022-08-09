@@ -3,11 +3,14 @@
   import Button, { Label } from "@smui/button";
   import List, { Item, Text } from "@smui/list";
 
+
   let open = false;
-  let active = "Gray Kittens";
-  $: active = localStorage.getItem("active");
+
+  let active = "";
+  
+
   function setActive(value) {
-    localStorage.setItem("active", value);
+    active = value;
   }
   export let id;
   id = localStorage.getItem("target") || localStorage.getItem("uid");
@@ -33,6 +36,7 @@
           <Text>Dosyalar</Text>
         </Item>
         <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
+
           <Text>Ayarlar</Text>
         </Item>
 
@@ -42,6 +46,7 @@
             localStorage.clear();
             setActive("çıkış");
           }}
+
         >
           <Text>Çıkış</Text>
         </Item>
