@@ -122,7 +122,7 @@
           </div>
           <div class="d-flex justify-content-center my-3">
             <button class="btn btn-success" on:click={() => navigate("/giris")}>
-              E-postamı Doğrula
+              Giriş Ekranına Git
             </button>
           </div>
         </div>
