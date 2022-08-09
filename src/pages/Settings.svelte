@@ -310,6 +310,7 @@
                   <div>
                     <div class="form-outline">
                       <textarea
+
                         maxlength="250"
                         bind:value={user.about}
                         class="form-control about"

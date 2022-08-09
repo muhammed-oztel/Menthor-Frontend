@@ -11,6 +11,9 @@
       <li class="nav-item">
         <a href="/" class="nav-link px-2 " use:link>© 2022 Menthor</a>
       </li>
+      <li class="nav-item">
+        <a href="/bizeulasin" class="nav-link px-2 " use:link>Bize Ulaşın</a>
+      </li>
     </ul>
   </footer>
 </div>

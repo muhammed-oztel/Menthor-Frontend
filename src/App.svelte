@@ -17,6 +17,9 @@
   $: token = localStorage.getItem("token");
   let searchId;
   $: searchId = localStorage.getItem("target");
+
+  let role;
+  $: role = localStorage.getItem("role")
 </script>
 
 <Router>
@@ -38,7 +41,10 @@
   <Route path="bizeulasin" component={ContactUs} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
+
+  {#if role == "admin"}
   <Route path="dashboard" component={Dashboard} />
+  {/if}
 </Router>
 
 <style>

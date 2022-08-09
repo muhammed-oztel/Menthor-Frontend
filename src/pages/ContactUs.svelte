@@ -1,4 +1,5 @@
 <script lang="ts">
+
   import Footer from "../components/Footer.svelte";
   import Button, { Label } from "@smui/button";
   import HelperText from "@smui/textfield/helper-text";

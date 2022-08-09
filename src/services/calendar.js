@@ -2,6 +2,7 @@ import Api from "./Api";
 
 export const postCreateEvent = async (request) => {
   try {
+
     const response = await Api.post(`event/create/${localStorage.getItem("uid")}`, request);
     console.log("Send the request");
     return response;
