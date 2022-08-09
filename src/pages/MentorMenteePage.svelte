@@ -34,6 +34,7 @@
   onMount(() => {
     postMentorMenteeInfo(localStorage.getItem("uid")).then((response) => {
       infoResponse = response;
+      console.log(response);
     });
   });
 </script>

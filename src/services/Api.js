@@ -8,22 +8,21 @@ const axiosAPI = axios.create({
 
 // implement a method to execute all the request from here.
 const apiRequest = (method, url, request) => {
-  const headers = {
-    authorization: "",
-    "Access-Control-Allow-Origin": "http://localhost:8080/"
-  };
-  //using the axios instance to perform the request that received from each http method
-  return axiosAPI({
-    method,
-    url,
-    data: request,
-    headers
-  }).then(res => {
-    return Promise.resolve(res.data);
-  })
-    .catch(err => {
-      return Promise.reject(err);
-    });
+    const headers = {
+        authorization: "",
+    };
+    //using the axios instance to perform the request that received from each http method
+    return axiosAPI({
+        method,
+        url,
+        data: request,
+        headers
+      }).then(res => {
+        return Promise.resolve(res.data);
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      });
 };
 
 // function to execute the http get request
