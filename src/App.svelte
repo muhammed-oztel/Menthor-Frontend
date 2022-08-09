@@ -11,7 +11,8 @@
   import Folder from "./pages/Folder.svelte";
   import VideoCall from "./pages/VideoCall.svelte";
   import ContactUs from "./pages/ContactUs.svelte";
-import EmailVerification from "./pages/EmailVerification.svelte";
+  import EmailVerification from "./pages/EmailVerification.svelte";
+  import Dashboard from "./pages/Dashboard.svelte";
   let token;
   $: token = localStorage.getItem("token");
   let searchId;
@@ -29,6 +30,7 @@ import EmailVerification from "./pages/EmailVerification.svelte";
     <Route path="panel" component={Panel} />
     <Route path="dosyalar" component={Folder} />
     <Route path="videocall" component={VideoCall} />
+    
   {/if}
   <Route path="giris" component={LoginPage} />
   <Route path="kayit" component={RegisterPage} />
@@ -36,6 +38,7 @@ import EmailVerification from "./pages/EmailVerification.svelte";
   <Route path="bizeulasin" component={ContactUs} />
   <Route path="/" component={Home} />
   <Route path="*" component={NotFound} />
+  <Route path="dashboard" component={Dashboard} />
 </Router>
 
 <style>

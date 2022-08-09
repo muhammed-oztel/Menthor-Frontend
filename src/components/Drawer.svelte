@@ -41,6 +41,11 @@
         <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
           <Text>Dosyalar</Text>
         </Item>
+        <Item
+          href="/dashboard"
+          on:click={() => setActive("dashboard")} >
+          <Text>Dashboard</Text>
+        </Item>
         <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
 
           <Text>Ayarlar</Text>
