@@ -1,6 +1,7 @@
 <script lang="ts">
   import Paper, { Title, Content } from "@smui/paper";
   import { onMount } from "svelte";
+
   import { getUserInfos, getEventList } from "../services/profile.js";
   import { fetchInterest } from "../services/settings.js";
   import Drawer from "../components/Drawer.svelte";
@@ -10,6 +11,7 @@
     email: "",
     role: "",
     picture: "",
+
     about: "",
     city: "",
     birth: "",
@@ -29,7 +31,6 @@
     await getUserInfos(id)
       .then((response) => {
         console.log(response);
-        let today = new Date();
 
         let birthDate = parseInt(response.birth.split("-")[0]);
         let age = today.getFullYear() - birthDate;
@@ -38,6 +39,7 @@
           email: response.email,
           role: response.role,
           picture: response.picture,
+
           city: response.city,
           about: response.about,
           birth: age.toString(),
@@ -46,6 +48,7 @@
       .catch((err) => {
         console.log(err);
       });
+
     await fetchInterest(id)
       .then((response) => {
         response.forEach((element) => {
@@ -85,6 +88,7 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 mx-auto d-flex flex-column align-items-center">
+
         <div class="profile-pic text-center">
           <img
             class="card-img-top shadow"
@@ -132,6 +136,7 @@
           <div class="card">
             <div class="card-header">Yaklaşan Görüşmeler</div>
             <div class="card-body">
+
               {#if events.length > 0}
                 {#each events as item}
                   <blockquote class="blockquote mb-0">

@@ -60,6 +60,7 @@
         deleteMentorMenteeMatch(localStorage.getItem("uid"))
           .then((response) => {
             toast.success("Bağlantınız kaldırıldı.");
+
             localStorage.setItem("target", localStorage.getItem("uid"));
             setTimeout(() => {
               navigate(`/profil/${localStorage.getItem("uid")}`);
@@ -132,6 +133,7 @@
                     />
                   </svg>
                   <Button
+
                     class="mt-3"
                     href="/videocall"
                     color="primary"
@@ -146,6 +148,7 @@
               <div class="col-4 text-center">
                 <h2>Mentee</h2>
                 <img
+
                   stlye="width: 100px; height: 100px;"
                   class="user-img rounded-circle img-fluid"
                   src={infoResponse.mentee.picture == null
@@ -199,12 +202,14 @@
                 </div>
               </div>
             </div>
+
             {/if}
           </div>
         </div>
       </div>
     </div>
   </div>
+
 {:else if localStorage.getItem("role").toLowerCase() == "mentee"}
   <div class="container-fluid text-center">
     <p>Mentor hizmetiniz bulunmamaktadır</p>

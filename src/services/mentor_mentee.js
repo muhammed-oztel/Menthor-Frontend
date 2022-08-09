@@ -8,6 +8,7 @@ export const postMentorMenteeInfo = async (id) => {
     const response = await Api.post(`user/panel/${id}`);
     let infos;
     if (!response){return response}
+
     if (ownInfo.role.toLowerCase() == "mentor") {
       infos = {
         mentor: ownInfo,

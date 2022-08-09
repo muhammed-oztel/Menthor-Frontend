@@ -89,6 +89,7 @@
     } else {
       postCreateEvent(fullCalenderevent).then((response) => {
         console.log(response);
+
         getEventList().then((response) => {
           console.log();
           console.log(response);
