@@ -1,8 +1,6 @@
 <script>
   import Tags from "svelte-tags-input";
   export let tags;
-  $: console.log(tags);
-
   let interest_list = [
     "HTML",
     "CSS",
@@ -30,6 +28,6 @@
 
 <style>
   .tags-size {
-    width: 505px;
+    width: 480px;
   }
 </style>

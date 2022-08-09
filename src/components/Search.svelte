@@ -56,6 +56,7 @@
             if (inputValue) {
                 targetProfile(targetId).then((result) => {
                     console.log(result);
+                    localStorage.setItem("target", result.id);
                     navigate(`/profil/${result.id}`);
                 });
 
