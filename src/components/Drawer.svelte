@@ -5,9 +5,10 @@
 
 
   let open = false;
-
   let active = "";
-  
+
+  let role;
+  $: role = localStorage.getItem("role")
 
   function setActive(value) {
     active = value;
@@ -41,23 +42,16 @@
         <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
           <Text>Dosyalar</Text>
         </Item>
-        <Item
-          href="/dashboard"
-          on:click={() => setActive("dashboard")} >
-          <Text>Dashboard</Text>
-        </Item>
-        <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
 
+        <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
           <Text>Ayarlar</Text>
         </Item>
-
         <Item
           href="/"
           on:click={() => {
             localStorage.clear();
             setActive("çıkış");
           }}
-
         >
           <Text>Çıkış</Text>
         </Item>

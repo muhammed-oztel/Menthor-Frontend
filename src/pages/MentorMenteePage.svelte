@@ -60,6 +60,11 @@
         deleteMentorMenteeMatch(localStorage.getItem("uid"))
           .then((response) => {
             toast.success("Bağlantınız kaldırıldı.");
+
+            localStorage.setItem("target", localStorage.getItem("uid"));
+            setTimeout(() => {
+              navigate(`/profil/${localStorage.getItem("uid")}`);
+            }, 2000);
           })
           .catch((error) => {
             toast.error("Bağlantınız kaldırılamadı.");
@@ -87,11 +92,16 @@
                 <h2>Mentor</h2>
                 <img
                   class="user-img rounded-circle img-fluid"
+                  stlye="width: 100px; height: 100px;"
                   src={infoResponse.mentor.picture == null
                     ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
                     : infoResponse.mentor.picture}
                   alt="user-profile"
                 />
+                <h5>
+                  {infoResponse.mentor.name}
+                  {infoResponse.mentor.surname}
+                </h5>
               </div>
 
               <div class="col-4 mx-auto mt-5">
@@ -123,6 +133,8 @@
                     />
                   </svg>
                   <Button
+
+                    class="mt-3"
                     href="/videocall"
                     color="primary"
                     variant="raised"
@@ -136,14 +148,21 @@
               <div class="col-4 text-center">
                 <h2>Mentee</h2>
                 <img
+
+                  stlye="width: 100px; height: 100px;"
                   class="user-img rounded-circle img-fluid"
                   src={infoResponse.mentee.picture == null
                     ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
                     : infoResponse.mentee.picture}
                   alt="user-profile"
                 />
+                <h5>
+                  {infoResponse.mentee.name}
+                  {infoResponse.mentee.surname}
+                </h5>
               </div>
             </div>
+            {#if localStorage.getItem("role").toLowerCase() == "mentor"}
             <div class="row">
               <div class="col mt-5 mb-3 text-muted">
                 <h2>Menteenin Yönetimi</h2>
@@ -183,14 +202,21 @@
                 </div>
               </div>
             </div>
+
+            {/if}
           </div>
         </div>
       </div>
     </div>
   </div>
-{:else}
+
+{:else if localStorage.getItem("role").toLowerCase() == "mentee"}
   <div class="container-fluid text-center">
     <p>Mentor hizmetiniz bulunmamaktadır</p>
+  </div>
+{:else}
+  <div class="container-fluid text-center">
+    <p>Menteeniz bulunmamaktadır</p>
   </div>
 {/if}
 
