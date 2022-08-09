@@ -1,4 +1,5 @@
 <script>
+   import { onMount } from "svelte";
   import Drawer from "../components/Drawer.svelte";
   import {postVideoId, getVideoId } from "../services/videocall.js";
   import {Peer} from 'peerjs'
@@ -6,9 +7,24 @@ var peer = new Peer();
 let codeid = ""
 let videocurrent;
 let videoEl;
-let youid = ""
+let youid = "";
+let token ="";
+let displayerRole = "";
 export let id ="";
    id = localStorage.getItem("uid") ;
+
+
+   onMount(() => {
+    // id = localStorage.getItem("uid") || localStorage.getItem("target");
+    token = localStorage.getItem("token");
+    displayerRole = localStorage.getItem("role");
+
+    if (!displayerRole){
+      displayerRole = "guest";
+    }
+    console.log(displayerRole)
+    
+  });
   
   // GET YOU ID
   peer.on("open",(id)=>{
@@ -116,7 +132,8 @@ let renderYouwebcam = (stream)=>{
 
 
 <div class="d-flex justify-content-evenly align-items-center">
- 
+  
+  {#if localStorage.getItem("role").toLowerCase() == "mentor"}
   <!-- starting the call button for mentor -->
   <button class="btn btn-dark rounded-pill py-2 px-3 text-decoration-none text-light"
   on:click={async()=>{
@@ -145,8 +162,10 @@ let renderYouwebcam = (stream)=>{
   >
   Görüşmeyi Başlat</button>
   
- 
-  
+ {/if}
+
+
+ {#if localStorage.getItem("role").toLowerCase() == "mentee"}
   <!-- Joining the call button for mentee-->
   <button class="btn btn-dark rounded-pill py-2 px-3 text-decoration-none text-light"
   on:click={getId}
@@ -174,7 +193,7 @@ let renderYouwebcam = (stream)=>{
 
     
   >Görüşmeye Katıl</button> 
-
+  {/if}
 
   <button class="btn btn-dark rounded-pill py-2 px-3" type="submit">
     <strong
