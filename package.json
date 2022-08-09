@@ -38,6 +38,7 @@
     "svelte-french-toast": "^1.0.3",
     "svelte-material-ui": "^6.0.0",
     "svelte-routing": "^1.6.0",
+    "svelte-tabs": "^1.1.0",
     "svelte-tags-input": "^2.9.2",
     "svelte-typed-js": "^1.0.3",
     "svelty-picker": "^2.1.1",
