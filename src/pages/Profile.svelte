@@ -13,7 +13,7 @@
     picture: "",
     about: "",
     city: "",
-    // age: "",
+    birth: "",
   };
   export let id;
 
@@ -30,8 +30,10 @@
       .then((response) => {
         console.log(response);
         let today = new Date();
-        // let birthDate = format(new Date(response.birth), "yyyy");
-        // let age = today.getFullYear() - parseInt(birthDate);
+        console.log();
+
+        let birthDate = parseInt(response.birth.split("-")[0]);
+        let age = today.getFullYear() - birthDate;
         user = {
           nameSurname: response.name + " " + response.surname,
           email: response.email,
@@ -39,7 +41,7 @@
           picture: response.picture,
           city: response.city,
           about: response.about,
-          // age: age.toString(),
+          birth: age.toString(),
         };
       })
       .catch((err) => {
@@ -47,9 +49,7 @@
       });
     await fetchInterest(id)
       .then((response) => {
-        console.log(response);
         response.forEach((element) => {
-          console.log(element.field);
           interests = [...interests, element.field];
         });
       })
@@ -90,6 +90,7 @@
           <div class="mt-2">
             <h2 class="text-center ">{user.nameSurname}</h2>
           </div>
+          <h6 class="text-center">{user.birth}</h6>
           <h6 class="text-center">{user.role}</h6>
           <h6 class="text-center text-muted">
             {#if user.city != null}
