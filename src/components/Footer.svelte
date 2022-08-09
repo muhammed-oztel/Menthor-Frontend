@@ -6,19 +6,12 @@
   <footer class="py-3">
     <ul class="nav justify-content-center pb-3 mb-3 pt-3">
       <li class="nav-item">
-        <a href="/" class="nav-link px-2 " use:link>Ana Sayfa</a>
-      </li>
-      <li class="nav-item">
-        <a href="/takvim" class="nav-link px-2 " use:link>Takvim</a>
-      </li>
-      <li class="nav-item">
-        <a href="/dosyalar" class="nav-link px-2 " use:link>Dosyalar</a>
-      </li>
-      <li class="nav-item">
         <a href="/bizeulasin" class="nav-link px-2 " use:link>Bize Ulaşın</a>
       </li>
+      <li class="nav-item">
+        <a href="/" class="nav-link px-2 " use:link>© 2022 Menthor</a>
+      </li>
     </ul>
-    <p class="text-center ">© 2022 Menthor</p>
   </footer>
 </div>
 
