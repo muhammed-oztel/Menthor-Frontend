@@ -12,7 +12,7 @@
     role: "",
     picture: "",
     phone: "",
-    age: "",
+    // age: "",
   };
   export let id;
   $: id = localStorage.getItem("target") ;
@@ -26,15 +26,15 @@
       .then((response) => {
         console.log(response);
         let today = new Date();
-        let birthDate = format(new Date(response.birth), "yyyy");
-        let age = today.getFullYear() - parseInt(birthDate);
+        // let birthDate = format(new Date(response.birth), "yyyy");
+        // let age = today.getFullYear() - parseInt(birthDate);
         user = {
           nameSurname: response.name + " " + response.surname,
           email: response.email,
           role: response.role,
           picture: response.picture,
           phone: response.phone,
-          age: age.toString(),
+          // age: age.toString(),
         };
       })
       .catch((err) => {
@@ -58,6 +58,7 @@
 {:else if !token}
   <Navbar />
 {/if}
+
 
 {#if displayerRole}
   <div class="container">
