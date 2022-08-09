@@ -89,7 +89,7 @@
     } else {
       postCreateEvent(fullCalenderevent).then((response) => {
         console.log(response);
-        getEventList({ matchId: 1 }).then((response) => {
+        getEventList().then((response) => {
           console.log();
           console.log(response);
           options = {

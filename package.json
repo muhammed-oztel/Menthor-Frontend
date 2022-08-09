@@ -26,6 +26,7 @@
     "svelte-preprocess": "^4.10.7"
   },
   "dependencies": {
+    "@ernane/svelte-star-rating": "^1.1.0",
     "@fullcalendar/interaction": "^5.11.2",
     "@fullcalendar/timegrid": "^5.11.2",
     "@splidejs/svelte-splide": "^0.2.5",
