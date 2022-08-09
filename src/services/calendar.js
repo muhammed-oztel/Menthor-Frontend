@@ -2,7 +2,7 @@ import Api from "./Api";
 
 export const postCreateEvent = async (request) => {
   try {
-    const response = await Api.post("event/create", request);
+    const response = await Api.post(`event/create/${localStorage.getItem("uid")}`, request);
     console.log("Send the request");
     return response;
   } catch (error) {
@@ -13,7 +13,7 @@ export const postCreateEvent = async (request) => {
 export const getEventList = async (request) => {
   try {
     //uploader id
-    const response = await Api.get(`event/list/${request.matchId}`, request);
+    const response = await Api.get(`event/list/${localStorage.getItem("uid")}`, request);
     console.log(response);
     return response;
   } catch (error) {
