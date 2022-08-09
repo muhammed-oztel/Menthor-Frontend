@@ -34,17 +34,12 @@
       handleDeleteEvent();
     }
   }
-  let value = { title: "Haftalık Toplantı", duration: "02:00" };
-  let eventId = 1;
   let options = {
     dateClick: handleDateClick,
     locale: trLocale,
     droppable: true,
     editable: false,
-    events: [
-      // initial event data
-      { title: "New Event", start: new Date(), id: 0 },
-    ],
+    events: [],
     initialView: "dayGridMonth",
     plugins: [daygridPlugin, timegridPlugin, interactionPlugin],
     headerToolbar: {
@@ -61,7 +56,6 @@
     eventClick: handleEventClick,
   };
   let calendarComponentRef;
-  let eventData = { title: "my event", duration: "02:00" };
   let modalEvent;
   let events = {};
 
@@ -83,7 +77,6 @@
       description: modalEvent.description,
       start: modalEvent.start,
       end: modalEvent.end,
-      matchId: 1,
     };
     console.log(fullCalenderevent);
     console.log(
@@ -96,7 +89,7 @@
     } else {
       postCreateEvent(fullCalenderevent).then((response) => {
         console.log(response);
-        getEventList({ matchId: 1 }).then((response) => {
+        getEventList().then((response) => {
           console.log();
           console.log(response);
           options = {
@@ -201,42 +194,6 @@
                 <h1 class="card-title mb-2">Takvim</h1>
               </div>
             </div>
-            <!-- <form on:submit|preventDefault={submitHandler}>
-              <div class="row">
-                <div class="col">
-                  <div class="mb-2">
-                    <h2>Görüşme Başlığı</h2>
-                    <Textfield
-                      class=""
-                      variant="outlined"
-                      bind:value={value.title}
-                      style="min-width: 300px;"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <h2>Görüşme Tarihi</h2>
-                <div class="col" style="max-width: 300px;">
-                  <SveltyPicker
-                    i18n={tr}
-                    placeholder={"YYYY-AA-GG HH:MM"}
-                    inputClasses="form-control"
-                    format="yyyy-mm-dd hh:ii"
-                    bind:value={date}
-                  />
-                </div>
-
-                <div class="mt-3">
-                  <Button
-                    color="primary"
-                    variant="raised"
-                    style="min-width: 100px; text-transform: none;"
-                    type="submit">Görüşmeyi oluştur</Button
-                  >
-                </div>
-              </div>
-            </form> -->
           </div>
           <div class="col justify-content-center">
             <div class="demo-app">

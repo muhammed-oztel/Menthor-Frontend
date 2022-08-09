@@ -4,8 +4,11 @@
   import List, { Item, Text } from "@smui/list";
 
   let open = false;
-
   let active = "";
+
+  let role;
+  $: role = localStorage.getItem("role")
+
 
   function setActive(value) {
     active = value;
@@ -42,7 +45,6 @@
         <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
           <Text>Ayarlar</Text>
         </Item>
-
         <Item
           href="/"
           on:click={() => {
