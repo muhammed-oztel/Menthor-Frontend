@@ -5,6 +5,7 @@
 
 
   let open = false;
+
   let active = "";
   
 
@@ -23,48 +24,35 @@
     <Content>
       <List>
         <Item
-          href={`profil/${id}`}
-          on:click={() => setActive("Profil")}
-          activated={active === "Profil"}
+          href={`/profil/${id}`}
+          on:click={() => {
+            setActive("Gray Kittens");
+            localStorage.setItem("target", localStorage.getItem("uid"));
+          }}
         >
           <Text>Profil</Text>
         </Item>
-        <Item
-          href="/panel"
-          on:click={() => setActive("Panel")}
-          activated={active === "Panel"}
-        >
+        <Item href="/panel" on:click={() => setActive("panel")}>
           <Text>Panel</Text>
         </Item>
-        <Item
-          href="/takvim"
-          on:click={() => setActive("Takvim")}
-          activated={active === "Takvim"}
-        >
+        <Item href="/takvim" on:click={() => setActive("takvim")}>
           <Text>Takvim</Text>
         </Item>
-        <Item
-          href="/dosyalar"
-          on:click={() => setActive("Dosyalar")}
-          activated={active === "Dosyalar"}
-        >
+        <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
           <Text>Dosyalar</Text>
         </Item>
-        <Item
-          href="/ayarlar"
-          on:click={() => setActive("Ayarlar")}
-          activated={active === "Ayarlar"}
-        >
+        <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
+
           <Text>Ayarlar</Text>
         </Item>
 
         <Item
           href="/"
           on:click={() => {
-            localStorage.clear()
-            setActive("Çıkış ")
+            localStorage.clear();
+            setActive("çıkış");
           }}
-          activated={active === "Çıkış "}
+
         >
           <Text>Çıkış</Text>
         </Item>
