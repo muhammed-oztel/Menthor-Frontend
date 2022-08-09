@@ -143,7 +143,7 @@
       drawer is in a container on the page. */
 
   .mb-p {
-    margin-bottom: 10rem;
+    margin-bottom: 13rem;
   }
   .paper-container {
     width: 60%;
