@@ -3,12 +3,12 @@
   import Button, { Label } from "@smui/button";
   import List, { Item, Text } from "@smui/list";
 
-
   let open = false;
   let active = "";
-  
+
   let role;
   $: role = localStorage.getItem("role")
+
 
   function setActive(value) {
     active = value;
@@ -42,11 +42,6 @@
         <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
           <Text>Dosyalar</Text>
         </Item>
-        {#if role == "admin"}
-        <Item href="/dashboard" on:click={() => setActive("dashboard")} >
-          <Text>Dashboard</Text>
-        </Item>
-        {/if}
         <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
           <Text>Ayarlar</Text>
         </Item>
@@ -56,7 +51,6 @@
             localStorage.clear();
             setActive("çıkış");
           }}
-
         >
           <Text>Çıkış</Text>
         </Item>
