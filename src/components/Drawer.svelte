@@ -23,7 +23,13 @@
     </Header>
     <Content>
       <List>
-        <Item href={`/profil/${id}`} on:click={() => setActive("profil")}>
+        <Item
+          href={`/profil/${id}`}
+          on:click={() => {
+            setActive("Gray Kittens");
+            localStorage.setItem("target", localStorage.getItem("uid"));
+          }}
+        >
           <Text>Profil</Text>
         </Item>
         <Item href="/panel" on:click={() => setActive("panel")}>

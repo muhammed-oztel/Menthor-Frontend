@@ -37,9 +37,11 @@
         .then((response) => {
           if (response) {
             console.log("Gelen veri: ", response);
+
             if (response.enabled) {
               toast.success("Giriş Başarılı!", { position: "top-right" });
               submitting = true;
+              localStorage.setItem("target", response.id);
               setTimeout(() => {
                 navigate(`/profil/${response.id}`);
                 // navigate("/profil", { state: { user: { response } } });
