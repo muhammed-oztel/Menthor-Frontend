@@ -9,3 +9,14 @@ export const postUserRate = async ( request ) => {
       console.error(error);
     }
 };
+
+
+export const getUserRate = async ( id ) => {
+  try {
+    console.log(id);
+    const response = await Api.get(`getRating/${id}`, id);
+    return response[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
