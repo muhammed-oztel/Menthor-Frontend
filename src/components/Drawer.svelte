@@ -1,14 +1,13 @@
 <script lang="ts">
   import Drawer, { AppContent, Content, Header, Title } from "@smui/drawer";
   import Button, { Label } from "@smui/button";
-  import List, { Item, Text } from "@smui/list";
-
+  import List, { Item, Text, Graphic, Separator } from "@smui/list";
 
   let open = false;
   let active = "";
 
   let role;
-  $: role = localStorage.getItem("role")
+  $: role = localStorage.getItem("role");
 
   function setActive(value) {
     active = value;
@@ -22,6 +21,7 @@
     <Header>
       <Title>Menthor</Title>
     </Header>
+    <Separator />
     <Content>
       <List>
         <Item
@@ -31,19 +31,28 @@
             localStorage.setItem("target", localStorage.getItem("uid"));
           }}
         >
+          <Graphic class="material-icons" aria-hidden="true">
+            account_circle
+          </Graphic>
           <Text>Profil</Text>
         </Item>
         <Item href="/panel" on:click={() => setActive("panel")}>
+          <Graphic class="material-icons" aria-hidden="true">
+            supervised_user_circle
+          </Graphic>
           <Text>Panel</Text>
         </Item>
         <Item href="/takvim" on:click={() => setActive("takvim")}>
+          <Graphic class="material-icons" aria-hidden="true">event</Graphic>
           <Text>Takvim</Text>
         </Item>
         <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
+          <Graphic class="material-icons" aria-hidden="true">folder</Graphic>
           <Text>Dosyalar</Text>
         </Item>
 
         <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
+          <Graphic class="material-icons" aria-hidden="true">settings</Graphic>
           <Text>Ayarlar</Text>
         </Item>
         <Item
@@ -53,6 +62,7 @@
             setActive("çıkış");
           }}
         >
+          <Graphic class="material-icons" aria-hidden="true">logout</Graphic>
           <Text>Çıkış</Text>
         </Item>
       </List>
