@@ -1,4 +1,4 @@
-<script >
+<script>
   import Paper, { Title, Content } from "@smui/paper";
   import { onMount } from "svelte";
   import StarRatting from "@ernane/svelte-star-rating";
@@ -62,7 +62,6 @@
           email: response.email,
           role: response.role,
           picture: response.picture,
-
           city: response.city,
           about: response.about,
           birth: age.toString(),
@@ -83,7 +82,12 @@
       });
     await getEventList(id)
       .then((response) => {
-        events = checkCurrentEvent(response);
+        if (response != "") {
+          console.log(response);
+          events = checkCurrentEvent(response);
+        } else {
+          console.log("No events");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -99,10 +103,7 @@
     getUserData(id);
     getUserRate(id).then((res) => {
       userRatingConfig.score = res.userRating;
-    }
-    ); 
-    
-
+    });
   });
 </script>
 
@@ -157,7 +158,7 @@
           <Paper color="primary" variant="unelevated">
             <Title>Hakkımda</Title>
             <Content>
-              {#if user.about != null || user.about != ""}
+              {#if user.about || user.about == ""}
                 “{user.about}"
               {:else}
                 Lütfen açıklamanızı ekleyiniz
@@ -168,7 +169,7 @@
 
         {#if token}
           <div class="card">
-            <div class="card-header">Yaklaşan Görüşmeler</div>
+            <div class="card-header text-white">Yaklaşan Görüşmeler</div>
             <div class="card-body">
               {#if events.length > 0}
                 {#each events as item}
@@ -184,6 +185,9 @@
                       {item.description}
                     </footer>
                   </blockquote>
+                  <div class="row">
+                    <hr class="text-muted" />
+                  </div>
                 {/each}
               {:else}
                 <blockquote class="blockquote mb-0">
@@ -213,6 +217,10 @@
     margin: 50px;
     margin-bottom: 20px;
     width: 60%;
+    border-radius: 30px;
+  }
+  .card-header {
+    background-color: black;
     border-radius: 30px;
   }
 

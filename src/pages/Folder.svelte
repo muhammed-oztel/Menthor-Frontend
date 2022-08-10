@@ -4,9 +4,9 @@
     deleteFiles,
     getFiles,
     downloadFiles,
+    fetchMatch,
   } from "../services/file.js";
   import toast, { Toaster } from "svelte-french-toast";
-  import { navigate } from "svelte-routing";
   import { onMount } from "svelte";
   import { format } from "date-fns";
   import Drawer from "../components/Drawer.svelte";
@@ -14,6 +14,9 @@
 
   let files;
   let list = [];
+  let uid;
+  let match;
+  uid = localStorage.getItem("uid");
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success",
@@ -27,8 +30,21 @@
   });
 
   async function getFileListFromBase() {
-    getFiles(1).then((res) => {
-      list = [...res];
+    fetchMatch(uid).then((res) => {
+      if (res != "") {
+        match = res;
+        getFiles(match).then((res) => {
+          list = [...res];
+        });
+      } else {
+        document.getElementById("upload").disabled = true;
+        toast.error(
+          "Mentorunuz olmadığı için bu panele dosya yükleyemezsiniz!",
+          {
+            position: "top-right",
+          }
+        );
+      }
     });
   }
 
@@ -37,13 +53,15 @@
       let upload = files[0];
       const formData = new FormData();
       formData.append("file", upload);
-      formData.append("uploader_id", 1);
+      formData.append("uploader_id", match);
       console.log(upload);
       if (upload) {
         document.getElementById("upload-files").value = "";
         uploadFiles(formData).then((res) => {
           getFileListFromBase();
-          toast.success("Dosya başarıyla yüklendi.");
+          toast.success("Dosya başarıyla yüklendi.", {
+            position: "top-right",
+          });
         });
       } else {
         toast.error("Lütfen bir dosya seçiniz.");
@@ -116,7 +134,9 @@
           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*"
           class="form-control mb-3"
         />
-        <button type="submit" class="btn btn-dark mb-3"> Dosyayı Yükle </button>
+        <button id="upload" type="submit" class="btn btn-dark mb-3">
+          Dosyayı Yükle
+        </button>
       </form>
       <hr />
       <h4>Yüklenen Dosyalar Listesi</h4>

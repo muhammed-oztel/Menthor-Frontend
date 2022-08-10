@@ -20,7 +20,6 @@ export const deleteFiles = async (request) => {
     //file id
     const response = await Api.delete(`delete/${request}`);
     console.log(response);
-    console.log(response.message);
     return response;
   } catch (error) {
     console.error(error);
@@ -28,7 +27,7 @@ export const deleteFiles = async (request) => {
 };
 export const downloadFiles = async (request) => {
   try {
-    navigate("http://93.115.79.25:8080/download/" + request);
+    navigate("https://menthor-backend.herokuapp.com/download/" + request);
   } catch (error) {
     console.log(error);
   }
@@ -44,3 +43,12 @@ export const getFiles = async (request) => {
     console.error(error);
   }
 };
+
+export const fetchMatch = async (request) => {
+  try {
+    const response = await Api.get(`getMatchId/${request}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
