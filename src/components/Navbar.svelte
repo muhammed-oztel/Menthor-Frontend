@@ -3,7 +3,7 @@
   import Search from "./Search.svelte";
 </script>
 
-<nav class="navbar bg-dark px-3 py-4">
+<nav class="navbar bg-dark px-3 py-4 mb-5">
   <div class="container-fluid">
     <a
       on:click={() => localStorage.removeItem("target")}
