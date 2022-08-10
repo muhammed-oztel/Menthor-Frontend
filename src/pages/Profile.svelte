@@ -2,7 +2,11 @@
   import Paper, { Title, Content } from "@smui/paper";
   import { onMount } from "svelte";
 
-  import { getUserInfos, getEventList } from "../services/profile.js";
+  import {
+    getUserInfos,
+    getEventList,
+    checkCurrentEvent,
+  } from "../services/profile.js";
   import { fetchInterest } from "../services/settings.js";
   import Drawer from "../components/Drawer.svelte";
   import Navbar from "../components/Navbar.svelte";
@@ -60,8 +64,7 @@
       });
     await getEventList(id)
       .then((response) => {
-        // console.log(response);
-        events = response;
+        events = checkCurrentEvent(response);
       })
       .catch((err) => {
         console.log(err);
@@ -126,7 +129,7 @@
           <Paper color="primary" variant="unelevated">
             <Title>Hakkımda</Title>
             <Content>
-              {#if user.about != null}
+              {#if user.about != null || user.about != ""}
                 “{user.about}"
               {:else}
                 Lütfen açıklamanızı ekleyiniz
@@ -142,7 +145,12 @@
               {#if events.length > 0}
                 {#each events as item}
                   <blockquote class="blockquote mb-0">
-                    <p>{item.start} - {item.end}</p>
+                    <p>
+                      {`${item.start.split("-")[2].slice(0, 2)}/${
+                        item.start.split("-")[1]
+                      }/${item.start.split("-")[0]}`}
+                      - {item.start.split("-")[2].slice(2)}
+                    </p>
                     <p>{item.title}</p>
                     <footer class="blockquote-footer">
                       {item.description}

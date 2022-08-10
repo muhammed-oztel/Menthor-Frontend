@@ -18,3 +18,18 @@ export const getEventList = async (id) => {
     console.error(error);
   }
 };
+
+export const checkCurrentEvent = (eventList) => {
+  let currentEventList = [];
+  let currentTime = new Date();
+
+  eventList.forEach(event => {
+    let eventTime = new Date(event.start);
+    if (eventTime > currentTime) {
+      currentEventList.push(event);
+    }
+  }
+  );
+
+  return currentEventList;
+}
