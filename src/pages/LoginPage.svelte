@@ -25,6 +25,7 @@
   let user = { mail: "", password: "" };
   let errors = { mail: "", password: "" };
   let isVisible = false;
+
   const toggleVisibility = () => {
     isVisible = !isVisible;
   };
@@ -39,14 +40,18 @@
             console.log("Gelen veri: ", response);
 
             if (response.enabled) {
-              toast.success("Giriş Başarılı!", { position: "top-right" });
               submitting = true;
+              toast.success("Giriş Başarılı!", { position: "top-right" });
               localStorage.setItem("target", response.id);
               localStorage.setItem("role", response.role);
               setTimeout(() => {
-                navigate(`/profil/${response.id}`);
+                if (response.role == "admin") {
+                  navigate("/dashboard");
+                } else {
+                  navigate(`/profil/${response.id}`);
+                }
                 // navigate("/profil", { state: { user: { response } } });
-              }, 2000);
+              }, 3000);
             } else {
               toast.error("Hesabınızı doğrulamanız gerekiyor.", {
                 position: "top-right",

@@ -32,7 +32,6 @@
       .then((response) => {
         console.log(response);
         let today = new Date();
-
         let birthDate = parseInt(response.birth.split("-")[0]);
         let age = today.getFullYear() - birthDate;
         user = {
@@ -61,7 +60,7 @@
       });
     await getEventList(id)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         events = response;
       })
       .catch((err) => {
@@ -89,7 +88,6 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 mx-auto d-flex flex-column align-items-center">
-
         <div class="profile-pic text-center">
           <img
             class="card-img-top shadow"
@@ -112,11 +110,15 @@
           </h6>
           <h6 class="text-center text-muted">{user.email}</h6>
           <div class="d-flex justify-content-evenly align-items-center">
-            {#each interests as interest}
-              <span class="badge bg-dark me-2" style="font-size: 14px;">
-                {interest}
-              </span>
-            {/each}
+            {#if interests.length > 0}
+              {#each interests as interest}
+                <span class="badge bg-dark me-2" style="font-size: 14px;">
+                  {interest}
+                </span>
+              {/each}
+            {:else}
+              Lütfen ilgi alanlarınızı ekleyiniz
+            {/if}
           </div>
         </div>
         <div class="mb-p" />
@@ -137,7 +139,6 @@
           <div class="card">
             <div class="card-header">Yaklaşan Görüşmeler</div>
             <div class="card-body">
-
               {#if events.length > 0}
                 {#each events as item}
                   <blockquote class="blockquote mb-0">
