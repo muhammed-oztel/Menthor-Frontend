@@ -1,43 +1,45 @@
 <script>
   import { onMount } from "svelte";
   import Drawer from "../components/Drawer.svelte";
-  import {postVideoId, getVideoId } from "../services/videocall.js";
-  import {Peer} from 'peerjs'
+  import { postVideoId, getVideoId } from "../services/videocall.js";
+  import { Peer } from "peerjs";
   import RateUser from "./RateUser.svelte";
   import { navigate } from "svelte-routing";
-let openUserRate = false;
-let userRateScore;
-let sendRateResponse;
-$: {
-  if (sendRateResponse == "Gönder"){
-    console.log(userRateScore)
-
-    navigate("/panel");
+  import { postUserRate } from "../services/rating.js";
+  let openUserRate = false;
+  let userRateScore;
+  let sendRateResponse;
+  $: {
+    if (sendRateResponse == "Gönder") {
+      console.log(userRateScore);
+      postUserRate({
+        userId: localStorage.getItem("uid"),
+        userRating: userRateScore,
+      });
+      navigate("/panel");
+    }
   }
-} 
   var peer = new Peer();
-let codeid = ""
-let videocurrent;
-let videoEl;
-let youid = "";
-let token ="";
-let displayerRole = "";
-export let id ="";
-   id = localStorage.getItem("uid") ;
+  let codeid = "";
+  let videocurrent;
+  let videoEl;
+  let youid = "";
+  let token = "";
+  let displayerRole = "";
+  export let id = "";
+  id = localStorage.getItem("uid");
 
-
-   onMount(() => {
+  onMount(() => {
     // id = localStorage.getItem("uid") || localStorage.getItem("target");
     token = localStorage.getItem("token");
     displayerRole = localStorage.getItem("role");
 
-    if (!displayerRole){
+    if (!displayerRole) {
       displayerRole = "guest";
     }
-    console.log(displayerRole)
-    
+    console.log(displayerRole);
   });
-  
+
   // GET YOU ID
   peer.on("open", (id) => {
     youid = id;
@@ -147,9 +149,8 @@ export let id ="";
 </div>
 
 <div class="d-flex justify-content-evenly align-items-center">
-  
   {#if localStorage.getItem("role").toLowerCase() == "mentor"}
-  <!-- starting the call button for mentor -->
+    <!-- starting the call button for mentor -->
     <button
       class="btn btn-dark rounded-pill py-2 px-3 text-decoration-none text-light"
       on:click={async () => {
@@ -217,14 +218,15 @@ export let id ="";
     class="btn btn-dark rounded-pill py-2 px-3"
     type="submit"
     on:click={() => {
-      openUserRate = true;
+      if (localStorage.getItem("role").toLowerCase() == "mentor") {
+        openUserRate = true;
+      } else {
+        openUserRate = false;
+        navigate("/panel");
+      }
     }}
   >
-    <strong
-      ><a class="text-decoration-none text-light" href="/panel">
-        Görüşmeyi Sonlandır
-      </a></strong
-    >
+    <strong> Görüşmeyi Sonlandır </strong>
   </button>
 </div>
 
