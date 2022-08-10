@@ -1,7 +1,8 @@
-<script lang="ts">
+<script >
   import Paper, { Title, Content } from "@smui/paper";
   import { onMount } from "svelte";
-
+  import StarRatting from "@ernane/svelte-star-rating";
+  import { getUserRate } from "../services/rating";
   import {
     getUserInfos,
     getEventList,
@@ -29,6 +30,24 @@
   let displayerRole = "";
   let interests = [];
   let events = [];
+
+  let getRateResponse;
+  let userRatingConfig = {
+    readOnly: true,
+    countStars: 5,
+    range: {
+      min: 0,
+      max: 5,
+      step: 0.1,
+    },
+    score: 0.0,
+    showScore: true,
+    starConfig: {
+      size: 30,
+      fillColor: "#F9ED4F",
+      strokeColor: "#BB8511",
+    },
+  };
 
   async function getUserData(id) {
     // console.log(history.state.user.response.id);
@@ -78,6 +97,12 @@
     }
     console.log(displayerRole);
     getUserData(id);
+    getUserRate(id).then((res) => {
+      userRatingConfig.score = res.userRating;
+    }
+    ); 
+    
+
   });
 </script>
 
@@ -104,6 +129,9 @@
           </div>
           <h6 class="text-center">{user.birth}</h6>
           <h6 class="text-center">{user.role}</h6>
+          {#if user.role.toLowerCase() == "mentee"}
+            <StarRatting bind:config={userRatingConfig} />
+          {/if}
           <h6 class="text-center text-muted">
             {#if user.city != null}
               {user.city}

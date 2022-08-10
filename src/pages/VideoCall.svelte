@@ -6,15 +6,18 @@
   import RateUser from "./RateUser.svelte";
   import { navigate } from "svelte-routing";
   import { postUserRate } from "../services/rating.js";
+  import { postMentorMenteeInfo } from "../services/mentor_mentee.js";
   let openUserRate = false;
   let userRateScore;
   let sendRateResponse;
   $: {
     if (sendRateResponse == "Gönder") {
       console.log(userRateScore);
-      postUserRate({
-        userId: localStorage.getItem("uid"),
-        userRating: userRateScore,
+      postMentorMenteeInfo(localStorage.getItem("uid")).then((response) => {
+        postUserRate({
+          userId: response.mentee.id,
+          userRating: userRateScore,
+        });
       });
       navigate("/panel");
     }
