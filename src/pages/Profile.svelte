@@ -60,7 +60,7 @@
       });
     await getEventList(id)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         events = response;
       })
       .catch((err) => {
@@ -110,11 +110,15 @@
           </h6>
           <h6 class="text-center text-muted">{user.email}</h6>
           <div class="d-flex justify-content-evenly align-items-center">
-            {#each interests as interest}
-              <span class="badge bg-dark me-2" style="font-size: 14px;">
-                {interest}
-              </span>
-            {/each}
+            {#if interests.length > 0}
+              {#each interests as interest}
+                <span class="badge bg-dark me-2" style="font-size: 14px;">
+                  {interest}
+                </span>
+              {/each}
+            {:else}
+              Lütfen ilgi alanlarınızı ekleyiniz
+            {/if}
           </div>
         </div>
         <div class="mb-p" />
