@@ -17,8 +17,6 @@
     mentee:""
   }
 
-  console.log("*");
-
 
 async function getAllUserInfo(){
   await getUserForMatch().then((response)=>{
@@ -50,6 +48,11 @@ async function getMatchList(){
 
 async function DeleteMatch(){
   await DeleteMatchId(selectedMatchToDelete);
+  Swal.fire({
+  icon: 'success',
+  title: 'Eşleşme Başarıyla Silindi',
+  confirmButton: '#3085d6',
+})
 }
 
 
@@ -64,7 +67,7 @@ async function DeleteMatch(){
   <TabList>
     <Tab>Eşleştirme</Tab>
     <Tab>Mevcut Eşleşmeler</Tab>
-    <Tab>Detaylar</Tab>
+
   </TabList>
 
   <TabPanel>
@@ -75,7 +78,7 @@ async function DeleteMatch(){
         <ul>
             {#each UserAllDash as user (user.id)}
             {#if user.role === 'Mentor'}
-                  <Radio bind:group={selectedMentor} bind:value={user.id}/>{user.name} {user.surname} {user.id}
+                  <Radio bind:group={selectedMentor} bind:value={user.id}/>{user.name} {user.surname}
                   <br>
                 {/if}
             {/each}
@@ -89,7 +92,7 @@ async function DeleteMatch(){
         <ul>
           {#each UserAllDash as user (user.id)}
           {#if user.role === 'Mentee'}
-                <Radio bind:group={selectedMentee} bind:value={user.id}/>{user.name} {user.surname} {user.id}
+                <Radio bind:group={selectedMentee} bind:value={user.id}/>{user.name} {user.surname}
                 <br>
               {/if}
       
@@ -117,12 +120,11 @@ async function DeleteMatch(){
       <h2>Eşleştirilenler</h2>
       <List class="demo-list" radioList>
         <ul>
-          {#each matchList as match (match.id)}
-          {#if match.deleted === null}
-                <Radio bind:group={selectedMatchToDelete} bind:value={match.id}/>{match.mentor} {match.mentee}
-                <br>
-                {/if}
-          {/each}
+          {#each matchList as match (match.matchId)}
+          <Radio bind:group={selectedMatchToDelete} bind:value={match.matchId}/>{match.mentor + "   "+ match.mentee}
+          <br>
+        
+        {/each}
           
       </ul>
       </List>
@@ -138,9 +140,7 @@ async function DeleteMatch(){
           </div>
   </TabPanel>
 
-  <TabPanel>
-    <h2>Panel Three</h2>
-  </TabPanel>
+
 </Tabs>
 
   <style>
