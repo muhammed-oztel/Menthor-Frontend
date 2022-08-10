@@ -4,16 +4,16 @@
   import Button, { Label } from "@smui/button";
 
   export let userRate = 0;
-  let clicked = "Nothing yet.";
+  export let clicked = "Nothing";
   $: userRate = config.score;
 
   export let open = true;
   let config = {
     readOnly: false,
-    countStars: 10,
+    countStars: 5,
     range: {
       min: 0,
-      max: 10,
+      max: 5,
       step: 0.5,
     },
     score: 0.0,
@@ -38,13 +38,13 @@
   aria-describedby="mandatory-content"
 >
   <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-  <Title id="simple-title">Görüşme Değerlendirme</Title>
+  <Title id="simple-title">Mentee Değerlendirme</Title>
   <Content id="mandatory-content">
-    Görüşme değerlendirmenizi yapınız.
+    <p class="mb-2" >Menteenin performansını değerledirin</p>
     <StarRatting bind:config />
   </Content>
   <Actions>
-    <Button on:click={() => (clicked = "Yes")} style="text-transform: none;">
+    <Button on:click={() => (clicked = "Gönder")} style="text-transform: none;">
       <Label>Gönder</Label>
     </Button>
   </Actions>
