@@ -1,91 +1,96 @@
 
+# Menthor Projesi
 
-# Menthor
-
-This is a project template for [Svelte](https://svelte.dev) apps. 
-
-```bash
-git clone https://github.com/muhammed-oztel/Menthor-Frontend.git
-```
+A brief description of what this project does and who it's for
 
 
-## Get started
-
-Install the dependencies...
-
-```bash
-cd Mentor-Frontend
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
+![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
 
 
+## Kullanılan Teknolojiler
 
-## Building and running in production mode
+**Client:** Svelte, Bootstrap
 
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-## Required packages
-
-- [Attractions](https://github.com/illright/attractions)
-- [Seveltestrap](https://github.com/bestguy/sveltestrap)
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
+**Server:** Java Spring Boot,PostgreSQL
 
 
-## Deploying to the web
+## Kullanılan Kütüphaneler
+-   svelte-splide
+-   svelte-star-rating
+-   svelte-carousel
+-   svelte-french-toast
+-   sweetalert2
+-   svelte-material-ui
+-   svelte-tabs
+-   svelte-tags-input
+-   svelte-typed-js
+-   svelty-picker
+-   fullcalendar
+-   axios
+-   bootstrap
+-   peerjs
+-   date-fns
+-   yup
 
-### With [Vercel](https://vercel.com)
 
-Install `vercel` if you haven't already:
+
+## Özellikler
+
+- Mentor Arama
+- Takvimden Randevu Alma
+- 1:1 Görüntülü Görüşme
+- Mentor-Mentee Eşleşmesi
+- Mentor-Mentee Paneli
+- Mentee Değerlendirme
+- Admin Paneli
+
+
+
+## Ekran Görüntüleri
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Demo
+
+https://menthor-frontend.vercel.app/
+
+
+## Run Locally
+
+Projeyi komut satırı yardımıyla klonla
 
 ```bash
-npm install -g vercel
+  git clone https://github.com/melihcelik09/Menthor-Frontend.git
 ```
 
-Then, from within your project folder:
+Proje klasörüne git
 
 ```bash
-cd public
-vercel deploy --name my-project
+  cd Menthor-Frontend
+
 ```
 
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
+Bağımlılıkları Yükle
 
 ```bash
-npm install -g surge
+  npm install
 ```
 
-Then, from within your project folder:
+Projeyi Çalıştır
 
 ```bash
-npm run build
-surge public my-project.surge.sh
+  npm run dev
 ```
+
+
+## Authors
+
+- [@melihcelik09](https://www.github.com/melihcelik09)
+- [@muhammed-oztel](https://www.github.com/muhammed-oztel)
+- [@zey19](https://www.github.com/zey19)
+- [@Aralidk](https://www.github.com/Aralidk)
+- [@Dogukanguven](https://www.github.com/Dogukanguven)
+- [@AhmetTuranMetin](https://www.github.com/AhmetTuranMetin)
+- [@oguzozturk-cmpe-ee](https://www.github.com/oguzozturk-cmpe-ee)
+

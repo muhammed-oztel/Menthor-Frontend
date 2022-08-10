@@ -31,7 +31,7 @@ export const DeleteMatchId = async(userId) => {
 
 export const getMatches = async() => {
     try {
-        const response = await Api.get(`admin/allMatches`);
+        const response = await Api.get(`admin/allMatch`);
         return response;
     } catch (error) {
         console.error(error);
