@@ -3,6 +3,7 @@
   import Textfield from "@smui/textfield";
   import Tags from "../components/Tags.svelte";
   import Drawer from "../components/Drawer.svelte";
+  import toast, { Toaster } from "svelte-french-toast";
   import Swal from "sweetalert2";
   import * as yup from "yup";
   import { onMount } from "svelte";
@@ -34,8 +35,6 @@
     email: "",
     phone: "",
     birth: "",
-    city: "",
-    about: "",
   };
   let interests = [];
 
@@ -61,9 +60,7 @@
 
     await fetchInterest(id)
       .then((response) => {
-        console.log(response);
         response.forEach((element) => {
-          console.log(element.field);
           interests = [...interests, element.field];
         });
       })
@@ -104,21 +101,42 @@
       .transform((v) => (v instanceof Date && !isNaN(v) ? v : null))
       .max(new Date(Date.now()), "Lütfen geçerli bir tarih girin")
       .required("Lütfen doğum tarihinizi girin"),
-    city: yup.string().required("Lütfen şehirinizi girin"),
-    about: yup.string().required("Lütfen açıklamanızı girin"),
   });
   const update = async () => {
     try {
+      if (errors.name) {
+        toast.error(errors.name, {
+          position: "top-right",
+        });
+      }
+      if (errors.surname) {
+        toast.error(errors.surname, {
+          position: "top-right",
+        });
+      }
+      if (errors.phone) {
+        toast.error(errors.phone, {
+          position: "top-right",
+        });
+      }
+      if (errors.birth) {
+        toast.error(errors.birth, {
+          position: "top-right",
+        });
+      }
+      if (errors.email) {
+        toast.error(errors.email, {
+          position: "top-right",
+        });
+      }
       await schema.validate(user, { abortEarly: false });
+
       errors = {
         name: "",
         surname: "",
         email: "",
         phone: "",
         birth: "",
-        pass: "",
-        city: "",
-        about: "",
       };
       swalWithBootstrapButtons
         .fire({
@@ -135,8 +153,6 @@
             let create = interests.map(function (interest) {
               return { userId: id, field: interest };
             });
-            console.log(user);
-            console.log(user.birth);
             updateUser(id, user);
             addInterest(create);
 
@@ -175,7 +191,6 @@
       })
       .then((result) => {
         if (result.isConfirmed) {
-          console.log("Account deleted");
           deleteUser(id)
             .then(() => {
               navigate("/");
@@ -209,6 +224,7 @@
   };
 </script>
 
+<Toaster />
 <Drawer />
 <div class="container">
   <div class="row align-items-center">
@@ -252,9 +268,7 @@
                     variant="outlined"
                     label="İsim"
                   />
-                  <small class="invalid-feedback d-flex flex-row">
-                    {#if errors.name}{errors.name}{/if}
-                  </small>
+
                   <Textfield
                     style="min-width:218px;"
                     bind:value={user.surname}
@@ -276,6 +290,7 @@
                     variant="outlined"
                     label="Telefon"
                   />
+
                   <Textfield
                     style="min-width:218px;"
                     type="date"
@@ -297,6 +312,7 @@
                     variant="outlined"
                     label="E-posta"
                   />
+
                   <div>
                     <Cities bind:city={user.city} />
                   </div>
@@ -310,7 +326,6 @@
                   <div>
                     <div class="form-outline">
                       <textarea
-
                         maxlength="250"
                         bind:value={user.about}
                         class="form-control about"
