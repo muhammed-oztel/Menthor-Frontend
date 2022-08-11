@@ -8,51 +8,38 @@
   import Splide from "../components/Splide.svelte";
   import TypeWriter from "../components/TypeWriter.svelte";
   import { fetchMentors } from "../services/slider_home";
+  import { getBestMenteeRate } from "../services/rating";
+  import { getUserInfos } from "../services/profile";
   let mentors = [];
-  let favoriteMentors = [
-    {
-      id: 1,
-      name: "John Doe",
-      title: "Web Developer",
-      image: "https://i.pravatar.cc/150?img=3",
-      likeCount: 300,
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      title: "Web Designer",
-      image: "https://i.pravatar.cc/150?img=4",
-      likeCount: 200,
-    },
-    {
-      id: 3,
-      name: "Jack Doe",
-      title: "Web Designer",
-      image: "https://i.pravatar.cc/150?img=5",
-      likeCount: 100,
-    },
-    {
-      id: 4,
-      name: "Jill Doe",
-      title: "Web Developer",
-      image: "https://i.pravatar.cc/150?img=6",
-      likeCount: 50,
-    },
-    {
-      id: 5,
-      name: "John Doe",
-      title: "Web Developer",
-      image: "https://i.pravatar.cc/150?img=7",
-      likeCount: 40,
-    },
-  ];
+  let favoriteMentees = [];
   async function sendMentors() {
     await fetchMentors().then((response) => {
       mentors = response;
     });
   }
+
+  async function fetchBestMentees() {
+    await getBestMenteeRate().then((response) => {
+      response.forEach((element) => {
+        getUserInfos(element.userId).then((userInfo) => {
+          favoriteMentees = [
+            ...favoriteMentees,
+            {
+              id: userInfo.id,
+              name: userInfo.name,
+              surname: userInfo.surname,
+              picture: userInfo.picture,
+              rate: element.rate,
+            },
+          ];
+          console.log(favoriteMentees);
+        });
+      });
+    });
+  }
   onMount(() => {
     sendMentors();
+    fetchBestMentees();
   });
 </script>
 
@@ -90,7 +77,7 @@
       <h1 class="mb-4">En başarılı menteeler</h1>
 
       <div class="d-flex">
-        {#each favoriteMentors as mentor}
+        {#each favoriteMentees as mentor}
           <div class="card me-3 rounded-5">
             <img
               src={mentor.image}
