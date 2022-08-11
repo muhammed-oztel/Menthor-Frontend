@@ -1,5 +1,5 @@
 <script>
-  import { Router, Route } from "svelte-routing";
+  import { Router, Route, navigate } from "svelte-routing";
   import LoginPage from "./pages/LoginPage.svelte";
   import NotFound from "./pages/NotFound.svelte";
   import Profile from "./pages/Profile.svelte";
@@ -13,6 +13,7 @@
   import ContactUs from "./pages/ContactUs.svelte";
   import EmailVerification from "./pages/EmailVerification.svelte";
   import Dashboard from "./pages/Dashboard.svelte";
+  import { onMount } from "svelte";
   let token;
   $: token = localStorage.getItem("token");
   let searchId;
@@ -20,6 +21,12 @@
 
   let role;
   $: role = localStorage.getItem("role");
+  onMount(() => {
+    if (token) {
+      let target = localStorage.getItem("uid");
+      navigate(`/profil/${target}`);
+    }
+  });
 </script>
 
 <Router>
