@@ -9,6 +9,7 @@
   } from "../services/mentor_mentee.js";
   import { navigate } from "svelte-routing";
   import toast, { Toaster } from "svelte-french-toast";
+  import Folder from "./Folder.svelte";
 
   let open = false;
   let clicked = "Nothing yet.";
@@ -92,8 +93,8 @@
                 <h2>Mentor</h2>
                 <div class="profile-pic">
                   <img
-                  class="card-img-top shadow"
-                  src={infoResponse.mentor.picture == null
+                    class="card-img-top shadow"
+                    src={infoResponse.mentor.picture == null
                       ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
                       : infoResponse.mentor.picture}
                     alt="user-profile"
@@ -149,8 +150,8 @@
                 <h2>Mentee</h2>
                 <div class="profile-pic">
                   <img
-                  class="card-img-top shadow"
-                  src={infoResponse.mentee.picture == null
+                    class="card-img-top shadow"
+                    src={infoResponse.mentee.picture == null
                       ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
                       : infoResponse.mentee.picture}
                     alt="user-profile"
@@ -162,6 +163,7 @@
                 </h5>
               </div>
             </div>
+            <div class="mt-5 mb-5"><Folder /></div>
             {#if localStorage.getItem("role").toLowerCase() == "mentor"}
               <div class="row">
                 <div class="col mt-5 mb-3 text-muted">
@@ -169,7 +171,7 @@
                 </div>
                 <div class="row text-center mx-auto align-items-center">
                   <div class="col-4">
-                    <div class="profile-pic">
+                    <div class="profil-pic">
                       <img
                         class="card-img-top shadow"
                         src={infoResponse.mentee.picture == null
