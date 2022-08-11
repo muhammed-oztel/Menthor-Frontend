@@ -38,12 +38,22 @@
         });
       } else {
         document.getElementById("upload").disabled = true;
-        toast.error(
-          "Mentorunuz olmadığı için bu panele dosya yükleyemezsiniz!",
-          {
-            position: "top-right",
-          }
-        );
+        let role = localStorage.getItem("role");
+        if (role == "Mentor") {
+          toast.error(
+            "Menteeniz olmadığı için bu panele dosya yükleyemezsiniz!",
+            {
+              position: "top-right",
+            }
+          );
+        } else {
+          toast.error(
+            "Mentorunuz olmadığı için bu panele dosya yükleyemezsiniz!",
+            {
+              position: "top-right",
+            }
+          );
+        }
       }
     });
   }
@@ -155,10 +165,18 @@
             <tr>
               <td>{item.fileName}</td>
               <td>
-                {format(new Date(item.localDateTime), "dd.MM.yyyy")}
+                {item.zonedDateTime
+                  .split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")}
               </td>
               <td>
-                {format(new Date(item.localDateTime), "HH:mm:ss")}
+                {item.zonedDateTime
+                  .split("T")[1]
+                  .split(":")
+                  .slice(0, 2)
+                  .join(":")}
               </td>
               <td>
                 <button
