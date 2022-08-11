@@ -90,14 +90,15 @@
             <div class="row">
               <div class="col-4 text-center">
                 <h2>Mentor</h2>
-                <img
-                  class="user-img rounded-circle img-fluid"
-                  stlye="width: 100px; height: 100px;"
+                <div class="profile-pic">
+                  <img
+                  class="card-img-top shadow"
                   src={infoResponse.mentor.picture == null
-                    ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                    : infoResponse.mentor.picture}
-                  alt="user-profile"
-                />
+                      ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                      : infoResponse.mentor.picture}
+                    alt="user-profile"
+                  />
+                </div>
                 <h5>
                   {infoResponse.mentor.name}
                   {infoResponse.mentor.surname}
@@ -133,7 +134,6 @@
                     />
                   </svg>
                   <Button
-
                     class="mt-3"
                     href="/videocall"
                     color="primary"
@@ -147,15 +147,15 @@
               </div>
               <div class="col-4 text-center">
                 <h2>Mentee</h2>
-                <img
-
-                  stlye="width: 100px; height: 100px;"
-                  class="user-img rounded-circle img-fluid"
+                <div class="profile-pic">
+                  <img
+                  class="card-img-top shadow"
                   src={infoResponse.mentee.picture == null
-                    ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                    : infoResponse.mentee.picture}
-                  alt="user-profile"
-                />
+                      ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                      : infoResponse.mentee.picture}
+                    alt="user-profile"
+                  />
+                </div>
                 <h5>
                   {infoResponse.mentee.name}
                   {infoResponse.mentee.surname}
@@ -163,53 +163,53 @@
               </div>
             </div>
             {#if localStorage.getItem("role").toLowerCase() == "mentor"}
-            <div class="row">
-              <div class="col mt-5 mb-3 text-muted">
-                <h2>Menteenin Yönetimi</h2>
+              <div class="row">
+                <div class="col mt-5 mb-3 text-muted">
+                  <h2>Menteenin Yönetimi</h2>
+                </div>
+                <div class="row text-center mx-auto align-items-center">
+                  <div class="col-4">
+                    <div class="profile-pic">
+                      <img
+                        class="card-img-top shadow"
+                        src={infoResponse.mentee.picture == null
+                          ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                          : infoResponse.mentee.picture}
+                        alt="user-profile"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-4 ">
+                    <Button
+                      color="primary"
+                      variant="raised"
+                      style="text-transform: none;"
+                      on:click={() => {
+                        localStorage.setItem("target", infoResponse.mentee.id);
+                        navigate(`/profil/${infoResponse.mentee.id}`);
+                      }}
+                      >Profili Görüntüle
+                    </Button>
+                  </div>
+                  <div class="col-4">
+                    <Button
+                      on:click={() => (open = true)}
+                      color="primary"
+                      variant="raised"
+                      style=" text-transform: none;"
+                      data-bs-toggle="modal"
+                      data-bs-target="#RemoveMenteeModalLabel"
+                      ><Label>Mentorluk Hizmetini Sonlandır</Label></Button
+                    >
+                  </div>
+                </div>
               </div>
-              <div class="row text-center mx-auto align-items-center">
-                <div class="col-4">
-                  <img
-                    class="user-img rounded-circle img-fluid"
-                    src={infoResponse.mentee.picture == null
-                      ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                      : infoResponse.mentee.picture}
-                    alt="user-profile"
-                  />
-                </div>
-                <div class="col-4 ">
-                  <Button
-                    color="primary"
-                    variant="raised"
-                    style="text-transform: none;"
-                    on:click={() => {
-                      localStorage.setItem("target", infoResponse.mentee.id);
-                      navigate(`/profil/${infoResponse.mentee.id}`);
-                    }}
-                    >Profili Görüntüle
-                  </Button>
-                </div>
-                <div class="col-4">
-                  <Button
-                    on:click={() => (open = true)}
-                    color="primary"
-                    variant="raised"
-                    style=" text-transform: none;"
-                    data-bs-toggle="modal"
-                    data-bs-target="#RemoveMenteeModalLabel"
-                    ><Label>Mentorluk Hizmetini Sonlandır</Label></Button
-                  >
-                </div>
-              </div>
-            </div>
-
             {/if}
           </div>
         </div>
       </div>
     </div>
   </div>
-
 {:else if localStorage.getItem("role").toLowerCase() == "mentee"}
   <div class="container-fluid text-center">
     <p>Mentor hizmetiniz bulunmamaktadır</p>
@@ -221,4 +221,21 @@
 {/if}
 
 <style>
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: 0 auto;
+  }
+  .card-img-top {
+    border: 1px solid black;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    margin: auto;
+    background-size: cover;
+    border-radius: 100%;
+    position: relative;
+  }
 </style>
