@@ -109,7 +109,7 @@
 <Toaster />
 <div class="container-fluid">
   <div class="row d-flex justify-content-center align-items-center">
-    <div class="col-6"><SideImage /></div>
+    <div class="col-6" on:click={() => navigate("/")}><SideImage /></div>
     {#if verify}
       <div class="col-6">
         <div class="row">
