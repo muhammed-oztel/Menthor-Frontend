@@ -82,8 +82,10 @@
     await getEventList(id)
       .then((response) => {
         if (response != "") {
-          console.log(response);
           events = checkCurrentEvent(response);
+          events = events.sort((a, b) => {
+            return new Date(a.start) - new Date(b.start);
+          });
         } else {
           console.log("No events");
         }
