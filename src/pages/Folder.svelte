@@ -8,8 +8,6 @@
   } from "../services/file.js";
   import toast, { Toaster } from "svelte-french-toast";
   import { onMount } from "svelte";
-  import { format } from "date-fns";
-  import Drawer from "../components/Drawer.svelte";
   import Swal from "sweetalert2";
 
   let files;
@@ -38,12 +36,16 @@
         });
       } else {
         document.getElementById("upload").disabled = true;
-        toast.error(
-          "Mentorunuz olmadığı için bu panele dosya yükleyemezsiniz!",
-          {
+        let role = localStorage.getItem("role");
+        if (role == "Mentor") {
+          toast.error("Menteeniz olmadığı için bu panele erişiminiz yok!", {
             position: "top-right",
-          }
-        );
+          });
+        } else {
+          toast.error("Mentorunuz olmadığı için bu panele erişiminiz yok!", {
+            position: "top-right",
+          });
+        }
       }
     });
   }
@@ -120,10 +122,10 @@
   }
 </script>
 
-<Drawer />
+<!-- <Drawer /> -->
 <Toaster />
 <div class="container d-flex align-items-center justify-content-center">
-  <div class="card text-start shadow border-0">
+  <div class="card text-start border-0">
     <div class="card-body">
       <h4 class="card-title mb-3">Dosya Yükleme</h4>
       <form on:submit|preventDefault={submitForm}>
@@ -155,10 +157,18 @@
             <tr>
               <td>{item.fileName}</td>
               <td>
-                {format(new Date(item.localDateTime), "dd.MM.yyyy")}
+                {item.zonedDateTime
+                  .split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")}
               </td>
               <td>
-                {format(new Date(item.localDateTime), "HH:mm:ss")}
+                {item.zonedDateTime
+                  .split("T")[1]
+                  .split(":")
+                  .slice(0, 2)
+                  .join(":")}
               </td>
               <td>
                 <button
@@ -190,6 +200,7 @@
 
 <style>
   .card {
-    width: 70%;
+    /* background-color: transparent !important; */
+    min-width: 100%;
   }
 </style>
