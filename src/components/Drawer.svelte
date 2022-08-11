@@ -46,10 +46,10 @@
           <Graphic class="material-icons" aria-hidden="true">event</Graphic>
           <Text>Takvim</Text>
         </Item>
-        <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
+        <!-- <Item href="/dosyalar" on:click={() => setActive("dosyalar")}>
           <Graphic class="material-icons" aria-hidden="true">folder</Graphic>
           <Text>Dosyalar</Text>
-        </Item>
+        </Item> -->
 
         <Item href="/ayarlar" on:click={() => setActive("ayarlar")}>
           <Graphic class="material-icons" aria-hidden="true">settings</Graphic>

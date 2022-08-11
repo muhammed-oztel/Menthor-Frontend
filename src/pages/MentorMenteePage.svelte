@@ -9,6 +9,7 @@
   } from "../services/mentor_mentee.js";
   import { navigate } from "svelte-routing";
   import toast, { Toaster } from "svelte-french-toast";
+  import Folder from "./Folder.svelte";
 
   let open = false;
   let clicked = "Nothing yet.";
@@ -133,7 +134,6 @@
                     />
                   </svg>
                   <Button
-
                     class="mt-3"
                     href="/videocall"
                     color="primary"
@@ -148,7 +148,6 @@
               <div class="col-4 text-center">
                 <h2>Mentee</h2>
                 <img
-
                   stlye="width: 100px; height: 100px;"
                   class="user-img rounded-circle img-fluid"
                   src={infoResponse.mentee.picture == null
@@ -162,54 +161,54 @@
                 </h5>
               </div>
             </div>
+            <div class="mt-5 mb-5"><Folder /></div>
             {#if localStorage.getItem("role").toLowerCase() == "mentor"}
-            <div class="row">
-              <div class="col mt-5 mb-3 text-muted">
-                <h2>Menteenin Yönetimi</h2>
+              <div class="row">
+                <div class="col mt-5 mb-3 text-muted">
+                  <h2>Menteenin Yönetimi</h2>
+                </div>
+                <div class="row text-center mx-auto align-items-center">
+                  <div class="col-4">
+                    <img
+                      class="user-img rounded-circle img-fluid"
+                      src={infoResponse.mentee.picture == null
+                        ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                        : infoResponse.mentee.picture}
+                      alt="user-profile"
+                    />
+                  </div>
+                  <div class="col-4 ">
+                    <Button
+                      color="primary"
+                      variant="raised"
+                      style="text-transform: none;"
+                      on:click={() => {
+                        localStorage.setItem("target", infoResponse.mentee.id);
+                        navigate(`/profil/${infoResponse.mentee.id}`);
+                      }}
+                      >Profili Görüntüle
+                    </Button>
+                  </div>
+                  <div class="col-4">
+                    <Button
+                      on:click={() => (open = true)}
+                      color="primary"
+                      variant="raised"
+                      style=" text-transform: none;"
+                      data-bs-toggle="modal"
+                      data-bs-target="#RemoveMenteeModalLabel"
+                    >
+                      <Label>Hizmeti Sonlandır</Label>
+                    </Button>
+                  </div>
+                </div>
               </div>
-              <div class="row text-center mx-auto align-items-center">
-                <div class="col-4">
-                  <img
-                    class="user-img rounded-circle img-fluid"
-                    src={infoResponse.mentee.picture == null
-                      ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                      : infoResponse.mentee.picture}
-                    alt="user-profile"
-                  />
-                </div>
-                <div class="col-4 ">
-                  <Button
-                    color="primary"
-                    variant="raised"
-                    style="text-transform: none;"
-                    on:click={() => {
-                      localStorage.setItem("target", infoResponse.mentee.id);
-                      navigate(`/profil/${infoResponse.mentee.id}`);
-                    }}
-                    >Profili Görüntüle
-                  </Button>
-                </div>
-                <div class="col-4">
-                  <Button
-                    on:click={() => (open = true)}
-                    color="primary"
-                    variant="raised"
-                    style=" text-transform: none;"
-                    data-bs-toggle="modal"
-                    data-bs-target="#RemoveMenteeModalLabel"
-                    ><Label>Mentorluk Hizmetini Sonlandır</Label></Button
-                  >
-                </div>
-              </div>
-            </div>
-
             {/if}
           </div>
         </div>
       </div>
     </div>
   </div>
-
 {:else if localStorage.getItem("role").toLowerCase() == "mentee"}
   <div class="container-fluid text-center">
     <p>Mentor hizmetiniz bulunmamaktadır</p>

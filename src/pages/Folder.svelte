@@ -130,10 +130,10 @@
   }
 </script>
 
-<Drawer />
+<!-- <Drawer /> -->
 <Toaster />
 <div class="container d-flex align-items-center justify-content-center">
-  <div class="card text-start shadow border-0">
+  <div class="card text-start border-0">
     <div class="card-body">
       <h4 class="card-title mb-3">Dosya Yükleme</h4>
       <form on:submit|preventDefault={submitForm}>
@@ -208,6 +208,7 @@
 
 <style>
   .card {
-    width: 70%;
+    /* background-color: transparent !important; */
+    min-width: 100%;
   }
 </style>
