@@ -31,7 +31,6 @@
   let interests = [];
   let events = [];
 
-  let getRateResponse;
   let userRatingConfig = {
     readOnly: true,
     countStars: 5,
@@ -102,7 +101,7 @@
     console.log(displayerRole);
     getUserData(id);
     getUserRate(id).then((res) => {
-      userRatingConfig.score = res.userRating;
+      userRatingConfig.score = res[0] ? res[0].userRating : 0.0;
     });
   });
 </script>

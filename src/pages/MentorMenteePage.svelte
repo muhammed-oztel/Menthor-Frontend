@@ -91,14 +91,15 @@
             <div class="row">
               <div class="col-4 text-center">
                 <h2>Mentor</h2>
-                <img
-                  class="user-img rounded-circle img-fluid"
-                  stlye="width: 100px; height: 100px;"
-                  src={infoResponse.mentor.picture == null
-                    ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                    : infoResponse.mentor.picture}
-                  alt="user-profile"
-                />
+                <div class="profile-pic">
+                  <img
+                    class="card-img-top shadow"
+                    src={infoResponse.mentor.picture == null
+                      ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                      : infoResponse.mentor.picture}
+                    alt="user-profile"
+                  />
+                </div>
                 <h5>
                   {infoResponse.mentor.name}
                   {infoResponse.mentor.surname}
@@ -147,14 +148,15 @@
               </div>
               <div class="col-4 text-center">
                 <h2>Mentee</h2>
-                <img
-                  stlye="width: 100px; height: 100px;"
-                  class="user-img rounded-circle img-fluid"
-                  src={infoResponse.mentee.picture == null
-                    ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                    : infoResponse.mentee.picture}
-                  alt="user-profile"
-                />
+                <div class="profile-pic">
+                  <img
+                    class="card-img-top shadow"
+                    src={infoResponse.mentee.picture == null
+                      ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                      : infoResponse.mentee.picture}
+                    alt="user-profile"
+                  />
+                </div>
                 <h5>
                   {infoResponse.mentee.name}
                   {infoResponse.mentee.surname}
@@ -169,13 +171,15 @@
                 </div>
                 <div class="row text-center mx-auto align-items-center">
                   <div class="col-4">
-                    <img
-                      class="user-img rounded-circle img-fluid"
-                      src={infoResponse.mentee.picture == null
-                        ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
-                        : infoResponse.mentee.picture}
-                      alt="user-profile"
-                    />
+                    <div class="profil-pic">
+                      <img
+                        class="card-img-top shadow"
+                        src={infoResponse.mentee.picture == null
+                          ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                          : infoResponse.mentee.picture}
+                        alt="user-profile"
+                      />
+                    </div>
                   </div>
                   <div class="col-4 ">
                     <Button
@@ -197,9 +201,8 @@
                       style=" text-transform: none;"
                       data-bs-toggle="modal"
                       data-bs-target="#RemoveMenteeModalLabel"
+                      ><Label>Mentorluk Hizmetini Sonlandır</Label></Button
                     >
-                      <Label>Hizmeti Sonlandır</Label>
-                    </Button>
                   </div>
                 </div>
               </div>
@@ -220,4 +223,21 @@
 {/if}
 
 <style>
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: 0 auto;
+  }
+  .card-img-top {
+    border: 1px solid black;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    margin: auto;
+    background-size: cover;
+    border-radius: 100%;
+    position: relative;
+  }
 </style>
