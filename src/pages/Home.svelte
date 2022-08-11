@@ -10,8 +10,26 @@
   import { fetchMentors } from "../services/slider_home";
   import { getBestMenteeRate } from "../services/rating";
   import { getUserInfos } from "../services/profile";
+  import StarRatting from "@ernane/svelte-star-rating";
   let mentors = [];
   let favoriteMentees = [];
+  let userRatingConfig = {
+    readOnly: true,
+    countStars: 5,
+    range: {
+      min: 0,
+      max: 5,
+      step: 0.1,
+    },
+    score: 0.0,
+    showScore: false,
+    starConfig: {
+      size: 30,
+      fillColor: "#F9ED4F",
+      strokeColor: "#BB8511",
+    },
+  };
+
   async function sendMentors() {
     await fetchMentors().then((response) => {
       mentors = response;
@@ -21,19 +39,15 @@
   async function fetchBestMentees() {
     await getBestMenteeRate().then((response) => {
       response.forEach((element) => {
-        getUserInfos(element.userId).then((userInfo) => {
-          favoriteMentees = [
-            ...favoriteMentees,
-            {
-              id: userInfo.id,
-              name: userInfo.name,
-              surname: userInfo.surname,
-              picture: userInfo.picture,
-              rate: element.rate,
-            },
-          ];
-          console.log(favoriteMentees);
-        });
+        favoriteMentees = [
+          ...favoriteMentees,
+          {
+            name: element.nameSurname,
+            picture: element.picture,
+            rate: element.userRating,
+            config: { ...userRatingConfig, score: element.userRating },
+          },
+        ];
       });
     });
   }
@@ -77,22 +91,23 @@
       <h1 class="mb-4">En başarılı menteeler</h1>
 
       <div class="d-flex">
-        {#each favoriteMentees as mentor}
+        {#each favoriteMentees as mentee}
           <div class="card me-3 rounded-5">
             <img
-              src={mentor.image}
+              src={mentee.picture == null
+                ? "https://cdn-icons-png.flaticon.com/512/7710/7710521.png"
+                : mentee.picture}
               class="card-img-top rounded-circle mx-auto my-2"
               alt="..."
             />
             <div class="card-body">
               <h5 class="card-title text-center">
-                <h1 class="display-6">
-                  <strong>{mentor.name}</strong>
-                </h1>
-                <h5 class="text-muted">{mentor.title}</h5>
+                <h2 class="display-6">
+                  <strong>{mentee.name}</strong>
+                </h2>
+                <!-- <h5 class="text-muted">{mentee.title}</h5> -->
                 <div class="d-flex justify-content-center">
-                  <i class="bi bi-heart-fill me-2" />
-                  <h5>{mentor.likeCount}</h5>
+                  <StarRatting bind:config={mentee.config} />
                 </div>
               </h5>
             </div>
@@ -158,5 +173,17 @@
   main {
     display: flex;
     flex-direction: column;
+  }
+
+  .card-img-top {
+    border: 1px solid black;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    margin: auto;
+    background-size: cover;
+    border-radius: 100%;
+    position: relative;
   }
 </style>

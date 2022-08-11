@@ -29,7 +29,7 @@
   {#if role == "admin"}
     <Route path="dashboard" component={Dashboard} />
   {/if}
-  {#if token}
+  {#if token && role != "admin"}
     <Route path="takvim" component={Calendar} />
     <Route path="ayarlar" component={Settings} />
     <Route path="panel" component={Panel} />
