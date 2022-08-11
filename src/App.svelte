@@ -21,12 +21,6 @@
 
   let role;
   $: role = localStorage.getItem("role");
-  onMount(() => {
-    if (token) {
-      let target = localStorage.getItem("uid");
-      navigate(`/profil/${target}`);
-    }
-  });
 </script>
 
 <Router>
@@ -47,7 +41,9 @@
   <Route path="kayit" component={RegisterPage} />
   <Route path="email" component={EmailVerification} />
   <Route path="bizeulasin" component={ContactUs} />
-  <Route path="/" component={Home} />
+  {#if !token}
+    <Route path="/" component={Home} />
+  {/if}
   <Router path="*" component={NotFound} />
 </Router>
 

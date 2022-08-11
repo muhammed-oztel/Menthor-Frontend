@@ -12,10 +12,8 @@
       use:link
     >
       <img
-        src="https://st3.depositphotos.com/2927609/18123/v/600/depositphotos_181237302-stock-illustration-thor-hammer-icon-vector-illustration.jpg"
+        src="https://i.imgur.com/Fp9CBIR.png"
         alt="navbar-logo"
-        width="30"
-        height="24"
         class="d-inline-block align-text-top navbar-logo me-3"
       />
       <h1>Menthor</h1>
