@@ -23,8 +23,8 @@
     }
   }
 
-  import IconButton from '@smui/icon-button';
-  import { Label, Icon } from '@smui/common';
+  import IconButton from "@smui/icon-button";
+  import { Label, Icon } from "@smui/common";
   var peer = new Peer();
   let codeid = "";
   let videocurrent;
@@ -38,7 +38,6 @@
   export let id = "";
   id = localStorage.getItem("uid");
 
-
   const IconChangeAudio = () => {
     clicked = !clicked;
   };
@@ -47,7 +46,6 @@
     clickedCam = !clickedCam;
   };
 
-  
   const IconChangeMic = () => {
     clickedMic = !clickedMic;
   };
@@ -141,7 +139,11 @@
 </script>
 
 <Drawer />
-
+<RateUser
+  bind:userRate={userRateScore}
+  bind:open={openUserRate}
+  bind:clicked={sendRateResponse}
+/>
 <div class="card">
   <div class="card-body">
     <h1 class="ms-5 display-1"><i class="bi bi-camera-video-fill" /></h1>
@@ -160,48 +162,47 @@
       <br />
       <!-- YOU FACE CAM HERE -->
       <div>
-      <video
-        id="small-video"
-        bind:this={videocurrent}
-        width="300"
-        height="300"
-        autoplay="true"
-      >
-        <track kind="captions" src="" />
-      </video>
+        <video
+          id="small-video"
+          bind:this={videocurrent}
+          width="300"
+          height="300"
+          autoplay="true"
+        >
+          <track kind="captions" src="" />
+        </video>
 
-    <div style= "margin-left: 80px; margin-top: 15px;">
-      <IconButton on:click={IconChangeAudio}
-      touch
-      type="button"
-      class="material-icons rounded-circle text-white"
-      style="background-color: black;"
-      >
-      {clicked ? "volume_off" : "volume_up"}
-      </IconButton>
-      <IconButton on:click={IconChangeMic}
-      touch
-      type="button"
-      class="material-icons rounded-circle text-white"
-      style="background-color: black;"
-      >
-      {clickedMic ? "mic_off" : "mic"}
-      </IconButton>
-      <IconButton on:click={IconChangeCam}
-      touch
-      type="button"
-      class="material-icons rounded-circle text-white"
-      style="background-color: black;"
-      >
-      {clickedCam ? "videocam" : "videocam_off"}
-      </IconButton>
+        <div style="margin-left: 80px; margin-top: 15px;">
+          <IconButton
+            on:click={IconChangeAudio}
+            touch
+            type="button"
+            class="material-icons rounded-circle text-white"
+            style="background-color: black;"
+          >
+            {clicked ? "volume_off" : "volume_up"}
+          </IconButton>
+          <IconButton
+            on:click={IconChangeMic}
+            touch
+            type="button"
+            class="material-icons rounded-circle text-white"
+            style="background-color: black;"
+          >
+            {clickedMic ? "mic_off" : "mic"}
+          </IconButton>
+          <IconButton
+            on:click={IconChangeCam}
+            touch
+            type="button"
+            class="material-icons rounded-circle text-white"
+            style="background-color: black;"
+          >
+            {clickedCam ? "videocam" : "videocam_off"}
+          </IconButton>
+        </div>
+      </div>
     </div>
-  </div>
-
-
-    </div>
-
-
 
     <div class="d-flex justify-content-evenly align-items-center">
       {#if localStorage.getItem("role").toLowerCase() == "mentor"}
@@ -269,12 +270,14 @@
         >
       {/if}
 
-      <button class="btn btn-dark rounded-pill py-2 px-3" type="submit">
-        <strong
-          ><a class="text-decoration-none text-light" href="/panel">
-            Görüşmeyi Sonlandır
-          </a></strong
-        >
+      <button
+        class="btn btn-dark rounded-pill py-2 px-3"
+        type="submit"
+        on:click={() => {
+          openUserRate = true;
+        }}
+      >
+        <strong> Görüşmeyi Sonlandır </strong>
       </button>
     </div>
   </div>

@@ -37,7 +37,6 @@
   aria-labelledby="simple-title"
   aria-describedby="mandatory-content"
 >
-  <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
   <Title id="simple-title">Mentee Değerlendirme</Title>
   <Content id="mandatory-content">
     <p class="mb-2" >Menteenin performansını değerledirin</p>
