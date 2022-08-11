@@ -8,8 +8,6 @@
   } from "../services/file.js";
   import toast, { Toaster } from "svelte-french-toast";
   import { onMount } from "svelte";
-  import { format } from "date-fns";
-  import Drawer from "../components/Drawer.svelte";
   import Swal from "sweetalert2";
 
   let files;
@@ -40,19 +38,13 @@
         document.getElementById("upload").disabled = true;
         let role = localStorage.getItem("role");
         if (role == "Mentor") {
-          toast.error(
-            "Menteeniz olmadığı için bu panele dosya yükleyemezsiniz!",
-            {
-              position: "top-right",
-            }
-          );
+          toast.error("Menteeniz olmadığı için bu panele erişiminiz yok!", {
+            position: "top-right",
+          });
         } else {
-          toast.error(
-            "Mentorunuz olmadığı için bu panele dosya yükleyemezsiniz!",
-            {
-              position: "top-right",
-            }
-          );
+          toast.error("Mentorunuz olmadığı için bu panele erişiminiz yok!", {
+            position: "top-right",
+          });
         }
       }
     });
