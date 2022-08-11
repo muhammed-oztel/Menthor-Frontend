@@ -41,9 +41,7 @@
   <Route path="kayit" component={RegisterPage} />
   <Route path="email" component={EmailVerification} />
   <Route path="bizeulasin" component={ContactUs} />
-  {#if !token}
-    <Route path="/" component={Home} />
-  {/if}
+  <Route path="/" component={Home} />
   <Router path="*" component={NotFound} />
 </Router>
 
